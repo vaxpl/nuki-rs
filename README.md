@@ -1,4 +1,4 @@
-# nuklear-rust
+# nuklear-rs
 
 [![Latest Version](https://img.shields.io/crates/v/nuklear-rust.svg)](https://crates.io/crates/nuklear-rust)
 
