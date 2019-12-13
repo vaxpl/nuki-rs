@@ -41,6 +41,8 @@ pub type _dummy_array418 = [::std::os::raw::c_char; 1usize];
 pub type _dummy_array419 = [::std::os::raw::c_char; 1usize];
 pub type _dummy_array420 = [::std::os::raw::c_char; 1usize];
 pub type _dummy_array421 = [::std::os::raw::c_char; 1usize];
+pub type _dummy_array422 = [::std::os::raw::c_char; 1usize];
+pub type _dummy_array423 = [::std::os::raw::c_char; 1usize];
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct nk_style_slide {
@@ -927,7 +929,7 @@ pub struct nk_convert_config {
 fn bindgen_test_layout_nk_convert_config() {
     assert_eq!(
         ::std::mem::size_of::<nk_convert_config>(),
-        56usize,
+        64usize,
         concat!("Size of: ", stringify!(nk_convert_config))
     );
     assert_eq!(
@@ -1057,7 +1059,7 @@ fn bindgen_test_layout_nk_convert_config() {
             &(*(::std::ptr::null::<nk_convert_config>())).vertex_alignment
                 as *const _ as usize
         },
-        52usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_convert_config),
@@ -1182,6 +1184,13 @@ extern "C" {
     ) -> *mut nk_command_buffer;
 }
 extern "C" {
+    pub fn nk_window_get_scroll(
+        arg1: *mut nk_context,
+        offset_x: *mut nk_uint,
+        offset_y: *mut nk_uint,
+    );
+}
+extern "C" {
     pub fn nk_window_has_focus(
         arg1: *const nk_context,
     ) -> ::std::os::raw::c_int;
@@ -1249,6 +1258,13 @@ extern "C" {
     pub fn nk_window_set_focus(
         arg1: *mut nk_context,
         name: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    pub fn nk_window_set_scroll(
+        arg1: *mut nk_context,
+        offset_x: nk_uint,
+        offset_y: nk_uint,
     );
 }
 extern "C" {
@@ -1439,6 +1455,22 @@ extern "C" {
 }
 extern "C" {
     pub fn nk_group_scrolled_end(arg1: *mut nk_context);
+}
+extern "C" {
+    pub fn nk_group_get_scroll(
+        arg1: *mut nk_context,
+        id: *const ::std::os::raw::c_char,
+        x_offset: *mut nk_uint,
+        y_offset: *mut nk_uint,
+    );
+}
+extern "C" {
+    pub fn nk_group_set_scroll(
+        arg1: *mut nk_context,
+        id: *const ::std::os::raw::c_char,
+        x_offset: nk_uint,
+        y_offset: nk_uint,
+    );
 }
 extern "C" {
     pub fn nk_tree_push_hashed(
@@ -2420,6 +2452,20 @@ extern "C" {
 }
 extern "C" {
     pub fn nk_popup_end(arg1: *mut nk_context);
+}
+extern "C" {
+    pub fn nk_popup_get_scroll(
+        arg1: *mut nk_context,
+        offset_x: *mut nk_uint,
+        offset_y: *mut nk_uint,
+    );
+}
+extern "C" {
+    pub fn nk_popup_set_scroll(
+        arg1: *mut nk_context,
+        offset_x: nk_uint,
+        offset_y: nk_uint,
+    );
 }
 extern "C" {
     pub fn nk_combo(
@@ -3785,7 +3831,7 @@ fn bindgen_test_layout_nk_font_config() {
             &(*(::std::ptr::null::<nk_font_config>())).ttf_data_owned_by_atlas
                 as *const _ as usize
         },
-        20usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -3798,7 +3844,7 @@ fn bindgen_test_layout_nk_font_config() {
             &(*(::std::ptr::null::<nk_font_config>())).merge_mode as *const _
                 as usize
         },
-        21usize,
+        25usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -3811,7 +3857,7 @@ fn bindgen_test_layout_nk_font_config() {
             &(*(::std::ptr::null::<nk_font_config>())).pixel_snap as *const _
                 as usize
         },
-        22usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -3824,7 +3870,7 @@ fn bindgen_test_layout_nk_font_config() {
             &(*(::std::ptr::null::<nk_font_config>())).oversample_v as *const _
                 as usize
         },
-        23usize,
+        27usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -3837,7 +3883,7 @@ fn bindgen_test_layout_nk_font_config() {
             &(*(::std::ptr::null::<nk_font_config>())).oversample_h as *const _
                 as usize
         },
-        24usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -3850,7 +3896,7 @@ fn bindgen_test_layout_nk_font_config() {
             &(*(::std::ptr::null::<nk_font_config>())).padding as *const _
                 as usize
         },
-        25usize,
+        29usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -3862,7 +3908,7 @@ fn bindgen_test_layout_nk_font_config() {
         unsafe {
             &(*(::std::ptr::null::<nk_font_config>())).size as *const _ as usize
         },
-        28usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -3875,7 +3921,7 @@ fn bindgen_test_layout_nk_font_config() {
             &(*(::std::ptr::null::<nk_font_config>())).coord_type as *const _
                 as usize
         },
-        32usize,
+        36usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -3888,7 +3934,7 @@ fn bindgen_test_layout_nk_font_config() {
             &(*(::std::ptr::null::<nk_font_config>())).spacing as *const _
                 as usize
         },
-        36usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_font_config),
@@ -4588,7 +4634,7 @@ pub struct nk_memory_status {
 fn bindgen_test_layout_nk_memory_status() {
     assert_eq!(
         ::std::mem::size_of::<nk_memory_status>(),
-        32usize,
+        48usize,
         concat!("Size of: ", stringify!(nk_memory_status))
     );
     assert_eq!(
@@ -4627,7 +4673,7 @@ fn bindgen_test_layout_nk_memory_status() {
             &(*(::std::ptr::null::<nk_memory_status>())).size as *const _
                 as usize
         },
-        12usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_memory_status),
@@ -4640,7 +4686,7 @@ fn bindgen_test_layout_nk_memory_status() {
             &(*(::std::ptr::null::<nk_memory_status>())).allocated as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_memory_status),
@@ -4653,7 +4699,7 @@ fn bindgen_test_layout_nk_memory_status() {
             &(*(::std::ptr::null::<nk_memory_status>())).needed as *const _
                 as usize
         },
-        20usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_memory_status),
@@ -4666,7 +4712,7 @@ fn bindgen_test_layout_nk_memory_status() {
             &(*(::std::ptr::null::<nk_memory_status>())).calls as *const _
                 as usize
         },
-        24usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_memory_status),
@@ -4700,12 +4746,12 @@ pub struct nk_buffer_marker {
 fn bindgen_test_layout_nk_buffer_marker() {
     assert_eq!(
         ::std::mem::size_of::<nk_buffer_marker>(),
-        8usize,
+        16usize,
         concat!("Size of: ", stringify!(nk_buffer_marker))
     );
     assert_eq!(
         ::std::mem::align_of::<nk_buffer_marker>(),
-        4usize,
+        8usize,
         concat!("Alignment of ", stringify!(nk_buffer_marker))
     );
     assert_eq!(
@@ -4726,7 +4772,7 @@ fn bindgen_test_layout_nk_buffer_marker() {
             &(*(::std::ptr::null::<nk_buffer_marker>())).offset as *const _
                 as usize
         },
-        4usize,
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer_marker),
@@ -4800,7 +4846,7 @@ pub struct nk_buffer {
 fn bindgen_test_layout_nk_buffer() {
     assert_eq!(
         ::std::mem::size_of::<nk_buffer>(),
-        88usize,
+        120usize,
         concat!("Size of: ", stringify!(nk_buffer))
     );
     assert_eq!(
@@ -4824,7 +4870,7 @@ fn bindgen_test_layout_nk_buffer() {
         unsafe {
             &(*(::std::ptr::null::<nk_buffer>())).pool as *const _ as usize
         },
-        16usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer),
@@ -4836,7 +4882,7 @@ fn bindgen_test_layout_nk_buffer() {
         unsafe {
             &(*(::std::ptr::null::<nk_buffer>())).type_ as *const _ as usize
         },
-        40usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer),
@@ -4848,7 +4894,7 @@ fn bindgen_test_layout_nk_buffer() {
         unsafe {
             &(*(::std::ptr::null::<nk_buffer>())).memory as *const _ as usize
         },
-        48usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer),
@@ -4861,7 +4907,7 @@ fn bindgen_test_layout_nk_buffer() {
             &(*(::std::ptr::null::<nk_buffer>())).grow_factor as *const _
                 as usize
         },
-        64usize,
+        80usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer),
@@ -4873,7 +4919,7 @@ fn bindgen_test_layout_nk_buffer() {
         unsafe {
             &(*(::std::ptr::null::<nk_buffer>())).allocated as *const _ as usize
         },
-        68usize,
+        88usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer),
@@ -4885,7 +4931,7 @@ fn bindgen_test_layout_nk_buffer() {
         unsafe {
             &(*(::std::ptr::null::<nk_buffer>())).needed as *const _ as usize
         },
-        72usize,
+        96usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer),
@@ -4897,7 +4943,7 @@ fn bindgen_test_layout_nk_buffer() {
         unsafe {
             &(*(::std::ptr::null::<nk_buffer>())).calls as *const _ as usize
         },
-        76usize,
+        104usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer),
@@ -4909,7 +4955,7 @@ fn bindgen_test_layout_nk_buffer() {
         unsafe {
             &(*(::std::ptr::null::<nk_buffer>())).size as *const _ as usize
         },
-        80usize,
+        112usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_buffer),
@@ -4990,7 +5036,7 @@ pub struct nk_str {
 fn bindgen_test_layout_nk_str() {
     assert_eq!(
         ::std::mem::size_of::<nk_str>(),
-        96usize,
+        128usize,
         concat!("Size of: ", stringify!(nk_str))
     );
     assert_eq!(
@@ -5012,7 +5058,7 @@ fn bindgen_test_layout_nk_str() {
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<nk_str>())).len as *const _ as usize },
-        88usize,
+        120usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_str),
@@ -5486,7 +5532,7 @@ pub struct nk_text_edit {
 fn bindgen_test_layout_nk_text_edit() {
     assert_eq!(
         ::std::mem::size_of::<nk_text_edit>(),
-        5352usize,
+        5384usize,
         concat!("Size of: ", stringify!(nk_text_edit))
     );
     assert_eq!(
@@ -5522,7 +5568,7 @@ fn bindgen_test_layout_nk_text_edit() {
         unsafe {
             &(*(::std::ptr::null::<nk_text_edit>())).filter as *const _ as usize
         },
-        120usize,
+        152usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5535,7 +5581,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).scrollbar as *const _
                 as usize
         },
-        128usize,
+        160usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5547,7 +5593,7 @@ fn bindgen_test_layout_nk_text_edit() {
         unsafe {
             &(*(::std::ptr::null::<nk_text_edit>())).cursor as *const _ as usize
         },
-        136usize,
+        168usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5560,7 +5606,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).select_start as *const _
                 as usize
         },
-        140usize,
+        172usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5573,7 +5619,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).select_end as *const _
                 as usize
         },
-        144usize,
+        176usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5585,7 +5631,7 @@ fn bindgen_test_layout_nk_text_edit() {
         unsafe {
             &(*(::std::ptr::null::<nk_text_edit>())).mode as *const _ as usize
         },
-        148usize,
+        180usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5598,7 +5644,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).cursor_at_end_of_line
                 as *const _ as usize
         },
-        149usize,
+        181usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5611,7 +5657,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).initialized as *const _
                 as usize
         },
-        150usize,
+        182usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5624,7 +5670,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).has_preferred_x as *const _
                 as usize
         },
-        151usize,
+        183usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5637,7 +5683,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).single_line as *const _
                 as usize
         },
-        152usize,
+        184usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5649,7 +5695,7 @@ fn bindgen_test_layout_nk_text_edit() {
         unsafe {
             &(*(::std::ptr::null::<nk_text_edit>())).active as *const _ as usize
         },
-        153usize,
+        185usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5662,7 +5708,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).padding1 as *const _
                 as usize
         },
-        154usize,
+        186usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5675,7 +5721,7 @@ fn bindgen_test_layout_nk_text_edit() {
             &(*(::std::ptr::null::<nk_text_edit>())).preferred_x as *const _
                 as usize
         },
-        156usize,
+        188usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5687,7 +5733,7 @@ fn bindgen_test_layout_nk_text_edit() {
         unsafe {
             &(*(::std::ptr::null::<nk_text_edit>())).undo as *const _ as usize
         },
-        160usize,
+        192usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_text_edit),
@@ -5827,7 +5873,7 @@ pub struct nk_command {
 fn bindgen_test_layout_nk_command() {
     assert_eq!(
         ::std::mem::size_of::<nk_command>(),
-        16usize,
+        24usize,
         concat!("Size of: ", stringify!(nk_command))
     );
     assert_eq!(
@@ -5851,7 +5897,7 @@ fn bindgen_test_layout_nk_command() {
         unsafe {
             &(*(::std::ptr::null::<nk_command>())).next as *const _ as usize
         },
-        4usize,
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command),
@@ -5863,7 +5909,7 @@ fn bindgen_test_layout_nk_command() {
         unsafe {
             &(*(::std::ptr::null::<nk_command>())).userdata as *const _ as usize
         },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command),
@@ -5890,7 +5936,7 @@ pub struct nk_command_scissor {
 fn bindgen_test_layout_nk_command_scissor() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_scissor>(),
-        24usize,
+        32usize,
         concat!("Size of: ", stringify!(nk_command_scissor))
     );
     assert_eq!(
@@ -5916,7 +5962,7 @@ fn bindgen_test_layout_nk_command_scissor() {
             &(*(::std::ptr::null::<nk_command_scissor>())).x as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_scissor),
@@ -5929,7 +5975,7 @@ fn bindgen_test_layout_nk_command_scissor() {
             &(*(::std::ptr::null::<nk_command_scissor>())).y as *const _
                 as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_scissor),
@@ -5942,7 +5988,7 @@ fn bindgen_test_layout_nk_command_scissor() {
             &(*(::std::ptr::null::<nk_command_scissor>())).w as *const _
                 as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_scissor),
@@ -5955,7 +6001,7 @@ fn bindgen_test_layout_nk_command_scissor() {
             &(*(::std::ptr::null::<nk_command_scissor>())).h as *const _
                 as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_scissor),
@@ -5982,7 +6028,7 @@ pub struct nk_command_line {
 fn bindgen_test_layout_nk_command_line() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_line>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_line))
     );
     assert_eq!(
@@ -6008,7 +6054,7 @@ fn bindgen_test_layout_nk_command_line() {
             &(*(::std::ptr::null::<nk_command_line>())).line_thickness
                 as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_line),
@@ -6021,7 +6067,7 @@ fn bindgen_test_layout_nk_command_line() {
             &(*(::std::ptr::null::<nk_command_line>())).begin as *const _
                 as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_line),
@@ -6033,7 +6079,7 @@ fn bindgen_test_layout_nk_command_line() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_line>())).end as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_line),
@@ -6046,7 +6092,7 @@ fn bindgen_test_layout_nk_command_line() {
             &(*(::std::ptr::null::<nk_command_line>())).color as *const _
                 as usize
         },
-        26usize,
+        34usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_line),
@@ -6074,7 +6120,7 @@ pub struct nk_command_curve {
 fn bindgen_test_layout_nk_command_curve() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_curve>(),
-        40usize,
+        48usize,
         concat!("Size of: ", stringify!(nk_command_curve))
     );
     assert_eq!(
@@ -6100,7 +6146,7 @@ fn bindgen_test_layout_nk_command_curve() {
             &(*(::std::ptr::null::<nk_command_curve>())).line_thickness
                 as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_curve),
@@ -6113,7 +6159,7 @@ fn bindgen_test_layout_nk_command_curve() {
             &(*(::std::ptr::null::<nk_command_curve>())).begin as *const _
                 as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_curve),
@@ -6126,7 +6172,7 @@ fn bindgen_test_layout_nk_command_curve() {
             &(*(::std::ptr::null::<nk_command_curve>())).end as *const _
                 as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_curve),
@@ -6139,7 +6185,7 @@ fn bindgen_test_layout_nk_command_curve() {
             &(*(::std::ptr::null::<nk_command_curve>())).ctrl as *const _
                 as usize
         },
-        26usize,
+        34usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_curve),
@@ -6152,7 +6198,7 @@ fn bindgen_test_layout_nk_command_curve() {
             &(*(::std::ptr::null::<nk_command_curve>())).color as *const _
                 as usize
         },
-        34usize,
+        42usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_curve),
@@ -6182,7 +6228,7 @@ pub struct nk_command_rect {
 fn bindgen_test_layout_nk_command_rect() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_rect>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_rect))
     );
     assert_eq!(
@@ -6208,7 +6254,7 @@ fn bindgen_test_layout_nk_command_rect() {
             &(*(::std::ptr::null::<nk_command_rect>())).rounding as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect),
@@ -6221,7 +6267,7 @@ fn bindgen_test_layout_nk_command_rect() {
             &(*(::std::ptr::null::<nk_command_rect>())).line_thickness
                 as *const _ as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect),
@@ -6233,7 +6279,7 @@ fn bindgen_test_layout_nk_command_rect() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_rect>())).x as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect),
@@ -6245,7 +6291,7 @@ fn bindgen_test_layout_nk_command_rect() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_rect>())).y as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect),
@@ -6257,7 +6303,7 @@ fn bindgen_test_layout_nk_command_rect() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_rect>())).w as *const _ as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect),
@@ -6269,7 +6315,7 @@ fn bindgen_test_layout_nk_command_rect() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_rect>())).h as *const _ as usize
         },
-        26usize,
+        34usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect),
@@ -6282,7 +6328,7 @@ fn bindgen_test_layout_nk_command_rect() {
             &(*(::std::ptr::null::<nk_command_rect>())).color as *const _
                 as usize
         },
-        28usize,
+        36usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect),
@@ -6311,7 +6357,7 @@ pub struct nk_command_rect_filled {
 fn bindgen_test_layout_nk_command_rect_filled() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_rect_filled>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_rect_filled))
     );
     assert_eq!(
@@ -6337,7 +6383,7 @@ fn bindgen_test_layout_nk_command_rect_filled() {
             &(*(::std::ptr::null::<nk_command_rect_filled>())).rounding
                 as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_filled),
@@ -6350,7 +6396,7 @@ fn bindgen_test_layout_nk_command_rect_filled() {
             &(*(::std::ptr::null::<nk_command_rect_filled>())).x as *const _
                 as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_filled),
@@ -6363,7 +6409,7 @@ fn bindgen_test_layout_nk_command_rect_filled() {
             &(*(::std::ptr::null::<nk_command_rect_filled>())).y as *const _
                 as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_filled),
@@ -6376,7 +6422,7 @@ fn bindgen_test_layout_nk_command_rect_filled() {
             &(*(::std::ptr::null::<nk_command_rect_filled>())).w as *const _
                 as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_filled),
@@ -6389,7 +6435,7 @@ fn bindgen_test_layout_nk_command_rect_filled() {
             &(*(::std::ptr::null::<nk_command_rect_filled>())).h as *const _
                 as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_filled),
@@ -6402,7 +6448,7 @@ fn bindgen_test_layout_nk_command_rect_filled() {
             &(*(::std::ptr::null::<nk_command_rect_filled>())).color as *const _
                 as usize
         },
-        26usize,
+        34usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_filled),
@@ -6433,7 +6479,7 @@ pub struct nk_command_rect_multi_color {
 fn bindgen_test_layout_nk_command_rect_multi_color() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_rect_multi_color>(),
-        40usize,
+        48usize,
         concat!("Size of: ", stringify!(nk_command_rect_multi_color))
     );
     assert_eq!(
@@ -6459,7 +6505,7 @@ fn bindgen_test_layout_nk_command_rect_multi_color() {
             &(*(::std::ptr::null::<nk_command_rect_multi_color>())).x
                 as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_multi_color),
@@ -6472,7 +6518,7 @@ fn bindgen_test_layout_nk_command_rect_multi_color() {
             &(*(::std::ptr::null::<nk_command_rect_multi_color>())).y
                 as *const _ as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_multi_color),
@@ -6485,7 +6531,7 @@ fn bindgen_test_layout_nk_command_rect_multi_color() {
             &(*(::std::ptr::null::<nk_command_rect_multi_color>())).w
                 as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_multi_color),
@@ -6498,7 +6544,7 @@ fn bindgen_test_layout_nk_command_rect_multi_color() {
             &(*(::std::ptr::null::<nk_command_rect_multi_color>())).h
                 as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_multi_color),
@@ -6511,7 +6557,7 @@ fn bindgen_test_layout_nk_command_rect_multi_color() {
             &(*(::std::ptr::null::<nk_command_rect_multi_color>())).left
                 as *const _ as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_multi_color),
@@ -6524,7 +6570,7 @@ fn bindgen_test_layout_nk_command_rect_multi_color() {
             &(*(::std::ptr::null::<nk_command_rect_multi_color>())).top
                 as *const _ as usize
         },
-        28usize,
+        36usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_multi_color),
@@ -6537,7 +6583,7 @@ fn bindgen_test_layout_nk_command_rect_multi_color() {
             &(*(::std::ptr::null::<nk_command_rect_multi_color>())).bottom
                 as *const _ as usize
         },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_multi_color),
@@ -6550,7 +6596,7 @@ fn bindgen_test_layout_nk_command_rect_multi_color() {
             &(*(::std::ptr::null::<nk_command_rect_multi_color>())).right
                 as *const _ as usize
         },
-        36usize,
+        44usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_rect_multi_color),
@@ -6578,7 +6624,7 @@ pub struct nk_command_triangle {
 fn bindgen_test_layout_nk_command_triangle() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_triangle>(),
-        40usize,
+        48usize,
         concat!("Size of: ", stringify!(nk_command_triangle))
     );
     assert_eq!(
@@ -6604,7 +6650,7 @@ fn bindgen_test_layout_nk_command_triangle() {
             &(*(::std::ptr::null::<nk_command_triangle>())).line_thickness
                 as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle),
@@ -6617,7 +6663,7 @@ fn bindgen_test_layout_nk_command_triangle() {
             &(*(::std::ptr::null::<nk_command_triangle>())).a as *const _
                 as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle),
@@ -6630,7 +6676,7 @@ fn bindgen_test_layout_nk_command_triangle() {
             &(*(::std::ptr::null::<nk_command_triangle>())).b as *const _
                 as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle),
@@ -6643,7 +6689,7 @@ fn bindgen_test_layout_nk_command_triangle() {
             &(*(::std::ptr::null::<nk_command_triangle>())).c as *const _
                 as usize
         },
-        26usize,
+        34usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle),
@@ -6656,7 +6702,7 @@ fn bindgen_test_layout_nk_command_triangle() {
             &(*(::std::ptr::null::<nk_command_triangle>())).color as *const _
                 as usize
         },
-        30usize,
+        38usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle),
@@ -6683,7 +6729,7 @@ pub struct nk_command_triangle_filled {
 fn bindgen_test_layout_nk_command_triangle_filled() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_triangle_filled>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_triangle_filled))
     );
     assert_eq!(
@@ -6709,7 +6755,7 @@ fn bindgen_test_layout_nk_command_triangle_filled() {
             &(*(::std::ptr::null::<nk_command_triangle_filled>())).a as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle_filled),
@@ -6722,7 +6768,7 @@ fn bindgen_test_layout_nk_command_triangle_filled() {
             &(*(::std::ptr::null::<nk_command_triangle_filled>())).b as *const _
                 as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle_filled),
@@ -6735,7 +6781,7 @@ fn bindgen_test_layout_nk_command_triangle_filled() {
             &(*(::std::ptr::null::<nk_command_triangle_filled>())).c as *const _
                 as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle_filled),
@@ -6748,7 +6794,7 @@ fn bindgen_test_layout_nk_command_triangle_filled() {
             &(*(::std::ptr::null::<nk_command_triangle_filled>())).color
                 as *const _ as usize
         },
-        28usize,
+        36usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_triangle_filled),
@@ -6777,7 +6823,7 @@ pub struct nk_command_circle {
 fn bindgen_test_layout_nk_command_circle() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_circle>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_circle))
     );
     assert_eq!(
@@ -6802,7 +6848,7 @@ fn bindgen_test_layout_nk_command_circle() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_circle>())).x as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle),
@@ -6814,7 +6860,7 @@ fn bindgen_test_layout_nk_command_circle() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_circle>())).y as *const _ as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle),
@@ -6827,7 +6873,7 @@ fn bindgen_test_layout_nk_command_circle() {
             &(*(::std::ptr::null::<nk_command_circle>())).line_thickness
                 as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle),
@@ -6839,7 +6885,7 @@ fn bindgen_test_layout_nk_command_circle() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_circle>())).w as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle),
@@ -6851,7 +6897,7 @@ fn bindgen_test_layout_nk_command_circle() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_circle>())).h as *const _ as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle),
@@ -6864,7 +6910,7 @@ fn bindgen_test_layout_nk_command_circle() {
             &(*(::std::ptr::null::<nk_command_circle>())).color as *const _
                 as usize
         },
-        26usize,
+        34usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle),
@@ -6892,7 +6938,7 @@ pub struct nk_command_circle_filled {
 fn bindgen_test_layout_nk_command_circle_filled() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_circle_filled>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_circle_filled))
     );
     assert_eq!(
@@ -6918,7 +6964,7 @@ fn bindgen_test_layout_nk_command_circle_filled() {
             &(*(::std::ptr::null::<nk_command_circle_filled>())).x as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle_filled),
@@ -6931,7 +6977,7 @@ fn bindgen_test_layout_nk_command_circle_filled() {
             &(*(::std::ptr::null::<nk_command_circle_filled>())).y as *const _
                 as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle_filled),
@@ -6944,7 +6990,7 @@ fn bindgen_test_layout_nk_command_circle_filled() {
             &(*(::std::ptr::null::<nk_command_circle_filled>())).w as *const _
                 as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle_filled),
@@ -6957,7 +7003,7 @@ fn bindgen_test_layout_nk_command_circle_filled() {
             &(*(::std::ptr::null::<nk_command_circle_filled>())).h as *const _
                 as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle_filled),
@@ -6970,7 +7016,7 @@ fn bindgen_test_layout_nk_command_circle_filled() {
             &(*(::std::ptr::null::<nk_command_circle_filled>())).color
                 as *const _ as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_circle_filled),
@@ -6999,7 +7045,7 @@ pub struct nk_command_arc {
 fn bindgen_test_layout_nk_command_arc() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_arc>(),
-        40usize,
+        48usize,
         concat!("Size of: ", stringify!(nk_command_arc))
     );
     assert_eq!(
@@ -7024,7 +7070,7 @@ fn bindgen_test_layout_nk_command_arc() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_arc>())).cx as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc),
@@ -7036,7 +7082,7 @@ fn bindgen_test_layout_nk_command_arc() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_arc>())).cy as *const _ as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc),
@@ -7048,7 +7094,7 @@ fn bindgen_test_layout_nk_command_arc() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_arc>())).r as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc),
@@ -7061,7 +7107,7 @@ fn bindgen_test_layout_nk_command_arc() {
             &(*(::std::ptr::null::<nk_command_arc>())).line_thickness
                 as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc),
@@ -7073,7 +7119,7 @@ fn bindgen_test_layout_nk_command_arc() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_arc>())).a as *const _ as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc),
@@ -7086,7 +7132,7 @@ fn bindgen_test_layout_nk_command_arc() {
             &(*(::std::ptr::null::<nk_command_arc>())).color as *const _
                 as usize
         },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc),
@@ -7114,7 +7160,7 @@ pub struct nk_command_arc_filled {
 fn bindgen_test_layout_nk_command_arc_filled() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_arc_filled>(),
-        40usize,
+        48usize,
         concat!("Size of: ", stringify!(nk_command_arc_filled))
     );
     assert_eq!(
@@ -7140,7 +7186,7 @@ fn bindgen_test_layout_nk_command_arc_filled() {
             &(*(::std::ptr::null::<nk_command_arc_filled>())).cx as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc_filled),
@@ -7153,7 +7199,7 @@ fn bindgen_test_layout_nk_command_arc_filled() {
             &(*(::std::ptr::null::<nk_command_arc_filled>())).cy as *const _
                 as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc_filled),
@@ -7166,7 +7212,7 @@ fn bindgen_test_layout_nk_command_arc_filled() {
             &(*(::std::ptr::null::<nk_command_arc_filled>())).r as *const _
                 as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc_filled),
@@ -7179,7 +7225,7 @@ fn bindgen_test_layout_nk_command_arc_filled() {
             &(*(::std::ptr::null::<nk_command_arc_filled>())).a as *const _
                 as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc_filled),
@@ -7192,7 +7238,7 @@ fn bindgen_test_layout_nk_command_arc_filled() {
             &(*(::std::ptr::null::<nk_command_arc_filled>())).color as *const _
                 as usize
         },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_arc_filled),
@@ -7219,7 +7265,7 @@ pub struct nk_command_polygon {
 fn bindgen_test_layout_nk_command_polygon() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_polygon>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_polygon))
     );
     assert_eq!(
@@ -7245,7 +7291,7 @@ fn bindgen_test_layout_nk_command_polygon() {
             &(*(::std::ptr::null::<nk_command_polygon>())).color as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polygon),
@@ -7258,7 +7304,7 @@ fn bindgen_test_layout_nk_command_polygon() {
             &(*(::std::ptr::null::<nk_command_polygon>())).line_thickness
                 as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polygon),
@@ -7271,7 +7317,7 @@ fn bindgen_test_layout_nk_command_polygon() {
             &(*(::std::ptr::null::<nk_command_polygon>())).point_count
                 as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polygon),
@@ -7284,7 +7330,7 @@ fn bindgen_test_layout_nk_command_polygon() {
             &(*(::std::ptr::null::<nk_command_polygon>())).points as *const _
                 as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polygon),
@@ -7310,7 +7356,7 @@ pub struct nk_command_polygon_filled {
 fn bindgen_test_layout_nk_command_polygon_filled() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_polygon_filled>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_polygon_filled))
     );
     assert_eq!(
@@ -7336,7 +7382,7 @@ fn bindgen_test_layout_nk_command_polygon_filled() {
             &(*(::std::ptr::null::<nk_command_polygon_filled>())).color
                 as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polygon_filled),
@@ -7349,7 +7395,7 @@ fn bindgen_test_layout_nk_command_polygon_filled() {
             &(*(::std::ptr::null::<nk_command_polygon_filled>())).point_count
                 as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polygon_filled),
@@ -7362,7 +7408,7 @@ fn bindgen_test_layout_nk_command_polygon_filled() {
             &(*(::std::ptr::null::<nk_command_polygon_filled>())).points
                 as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polygon_filled),
@@ -7389,7 +7435,7 @@ pub struct nk_command_polyline {
 fn bindgen_test_layout_nk_command_polyline() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_polyline>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_command_polyline))
     );
     assert_eq!(
@@ -7415,7 +7461,7 @@ fn bindgen_test_layout_nk_command_polyline() {
             &(*(::std::ptr::null::<nk_command_polyline>())).color as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polyline),
@@ -7428,7 +7474,7 @@ fn bindgen_test_layout_nk_command_polyline() {
             &(*(::std::ptr::null::<nk_command_polyline>())).line_thickness
                 as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polyline),
@@ -7441,7 +7487,7 @@ fn bindgen_test_layout_nk_command_polyline() {
             &(*(::std::ptr::null::<nk_command_polyline>())).point_count
                 as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polyline),
@@ -7454,7 +7500,7 @@ fn bindgen_test_layout_nk_command_polyline() {
             &(*(::std::ptr::null::<nk_command_polyline>())).points as *const _
                 as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_polyline),
@@ -7483,7 +7529,7 @@ pub struct nk_command_image {
 fn bindgen_test_layout_nk_command_image() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_image>(),
-        56usize,
+        64usize,
         concat!("Size of: ", stringify!(nk_command_image))
     );
     assert_eq!(
@@ -7508,7 +7554,7 @@ fn bindgen_test_layout_nk_command_image() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_image>())).x as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_image),
@@ -7520,7 +7566,7 @@ fn bindgen_test_layout_nk_command_image() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_image>())).y as *const _ as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_image),
@@ -7532,7 +7578,7 @@ fn bindgen_test_layout_nk_command_image() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_image>())).w as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_image),
@@ -7544,7 +7590,7 @@ fn bindgen_test_layout_nk_command_image() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_image>())).h as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_image),
@@ -7557,7 +7603,7 @@ fn bindgen_test_layout_nk_command_image() {
             &(*(::std::ptr::null::<nk_command_image>())).img as *const _
                 as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_image),
@@ -7570,7 +7616,7 @@ fn bindgen_test_layout_nk_command_image() {
             &(*(::std::ptr::null::<nk_command_image>())).col as *const _
                 as usize
         },
-        48usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_image),
@@ -7609,7 +7655,7 @@ pub struct nk_command_custom {
 fn bindgen_test_layout_nk_command_custom() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_custom>(),
-        40usize,
+        48usize,
         concat!("Size of: ", stringify!(nk_command_custom))
     );
     assert_eq!(
@@ -7634,7 +7680,7 @@ fn bindgen_test_layout_nk_command_custom() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_custom>())).x as *const _ as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_custom),
@@ -7646,7 +7692,7 @@ fn bindgen_test_layout_nk_command_custom() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_custom>())).y as *const _ as usize
         },
-        18usize,
+        26usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_custom),
@@ -7658,7 +7704,7 @@ fn bindgen_test_layout_nk_command_custom() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_custom>())).w as *const _ as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_custom),
@@ -7670,7 +7716,7 @@ fn bindgen_test_layout_nk_command_custom() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_custom>())).h as *const _ as usize
         },
-        22usize,
+        30usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_custom),
@@ -7683,7 +7729,7 @@ fn bindgen_test_layout_nk_command_custom() {
             &(*(::std::ptr::null::<nk_command_custom>())).callback_data
                 as *const _ as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_custom),
@@ -7696,7 +7742,7 @@ fn bindgen_test_layout_nk_command_custom() {
             &(*(::std::ptr::null::<nk_command_custom>())).callback as *const _
                 as usize
         },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_custom),
@@ -7729,7 +7775,7 @@ pub struct nk_command_text {
 fn bindgen_test_layout_nk_command_text() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_text>(),
-        56usize,
+        64usize,
         concat!("Size of: ", stringify!(nk_command_text))
     );
     assert_eq!(
@@ -7755,7 +7801,7 @@ fn bindgen_test_layout_nk_command_text() {
             &(*(::std::ptr::null::<nk_command_text>())).font as *const _
                 as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7768,7 +7814,7 @@ fn bindgen_test_layout_nk_command_text() {
             &(*(::std::ptr::null::<nk_command_text>())).background as *const _
                 as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7781,7 +7827,7 @@ fn bindgen_test_layout_nk_command_text() {
             &(*(::std::ptr::null::<nk_command_text>())).foreground as *const _
                 as usize
         },
-        28usize,
+        36usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7793,7 +7839,7 @@ fn bindgen_test_layout_nk_command_text() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_text>())).x as *const _ as usize
         },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7805,7 +7851,7 @@ fn bindgen_test_layout_nk_command_text() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_text>())).y as *const _ as usize
         },
-        34usize,
+        42usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7817,7 +7863,7 @@ fn bindgen_test_layout_nk_command_text() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_text>())).w as *const _ as usize
         },
-        36usize,
+        44usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7829,7 +7875,7 @@ fn bindgen_test_layout_nk_command_text() {
         unsafe {
             &(*(::std::ptr::null::<nk_command_text>())).h as *const _ as usize
         },
-        38usize,
+        46usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7842,7 +7888,7 @@ fn bindgen_test_layout_nk_command_text() {
             &(*(::std::ptr::null::<nk_command_text>())).height as *const _
                 as usize
         },
-        40usize,
+        48usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7855,7 +7901,7 @@ fn bindgen_test_layout_nk_command_text() {
             &(*(::std::ptr::null::<nk_command_text>())).length as *const _
                 as usize
         },
-        44usize,
+        52usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7868,7 +7914,7 @@ fn bindgen_test_layout_nk_command_text() {
             &(*(::std::ptr::null::<nk_command_text>())).string as *const _
                 as usize
         },
-        48usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_text),
@@ -7900,7 +7946,7 @@ pub struct nk_command_buffer {
 fn bindgen_test_layout_nk_command_buffer() {
     assert_eq!(
         ::std::mem::size_of::<nk_command_buffer>(),
-        56usize,
+        64usize,
         concat!("Size of: ", stringify!(nk_command_buffer))
     );
     assert_eq!(
@@ -7978,7 +8024,7 @@ fn bindgen_test_layout_nk_command_buffer() {
             &(*(::std::ptr::null::<nk_command_buffer>())).end as *const _
                 as usize
         },
-        44usize,
+        48usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_buffer),
@@ -7991,7 +8037,7 @@ fn bindgen_test_layout_nk_command_buffer() {
             &(*(::std::ptr::null::<nk_command_buffer>())).last as *const _
                 as usize
         },
-        48usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_command_buffer),
@@ -8665,12 +8711,12 @@ pub struct nk_draw_vertex_layout_element {
 fn bindgen_test_layout_nk_draw_vertex_layout_element() {
     assert_eq!(
         ::std::mem::size_of::<nk_draw_vertex_layout_element>(),
-        12usize,
+        16usize,
         concat!("Size of: ", stringify!(nk_draw_vertex_layout_element))
     );
     assert_eq!(
         ::std::mem::align_of::<nk_draw_vertex_layout_element>(),
-        4usize,
+        8usize,
         concat!("Alignment of ", stringify!(nk_draw_vertex_layout_element))
     );
     assert_eq!(
@@ -8819,7 +8865,7 @@ pub struct nk_draw_list {
 fn bindgen_test_layout_nk_draw_list() {
     assert_eq!(
         ::std::mem::size_of::<nk_draw_list>(),
-        232usize,
+        248usize,
         concat!("Size of: ", stringify!(nk_draw_list))
     );
     assert_eq!(
@@ -8869,7 +8915,7 @@ fn bindgen_test_layout_nk_draw_list() {
         unsafe {
             &(*(::std::ptr::null::<nk_draw_list>())).buffer as *const _ as usize
         },
-        168usize,
+        176usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8882,7 +8928,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).vertices as *const _
                 as usize
         },
-        176usize,
+        184usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8895,7 +8941,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).elements as *const _
                 as usize
         },
-        184usize,
+        192usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8908,7 +8954,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).element_count as *const _
                 as usize
         },
-        192usize,
+        200usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8921,7 +8967,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).vertex_count as *const _
                 as usize
         },
-        196usize,
+        204usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8934,7 +8980,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).cmd_count as *const _
                 as usize
         },
-        200usize,
+        208usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8947,7 +8993,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).cmd_offset as *const _
                 as usize
         },
-        204usize,
+        216usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8960,7 +9006,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).path_count as *const _
                 as usize
         },
-        208usize,
+        224usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8973,7 +9019,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).path_offset as *const _
                 as usize
         },
-        212usize,
+        228usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8986,7 +9032,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).line_AA as *const _
                 as usize
         },
-        216usize,
+        232usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -8999,7 +9045,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).shape_AA as *const _
                 as usize
         },
-        220usize,
+        236usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -9012,7 +9058,7 @@ fn bindgen_test_layout_nk_draw_list() {
             &(*(::std::ptr::null::<nk_draw_list>())).userdata as *const _
                 as usize
         },
-        224usize,
+        240usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_draw_list),
@@ -13905,12 +13951,12 @@ pub struct nk_popup_buffer {
 fn bindgen_test_layout_nk_popup_buffer() {
     assert_eq!(
         ::std::mem::size_of::<nk_popup_buffer>(),
-        20usize,
+        40usize,
         concat!("Size of: ", stringify!(nk_popup_buffer))
     );
     assert_eq!(
         ::std::mem::align_of::<nk_popup_buffer>(),
-        4usize,
+        8usize,
         concat!("Alignment of ", stringify!(nk_popup_buffer))
     );
     assert_eq!(
@@ -13931,7 +13977,7 @@ fn bindgen_test_layout_nk_popup_buffer() {
             &(*(::std::ptr::null::<nk_popup_buffer>())).parent as *const _
                 as usize
         },
-        4usize,
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_buffer),
@@ -13944,7 +13990,7 @@ fn bindgen_test_layout_nk_popup_buffer() {
             &(*(::std::ptr::null::<nk_popup_buffer>())).last as *const _
                 as usize
         },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_buffer),
@@ -13956,7 +14002,7 @@ fn bindgen_test_layout_nk_popup_buffer() {
         unsafe {
             &(*(::std::ptr::null::<nk_popup_buffer>())).end as *const _ as usize
         },
-        12usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_buffer),
@@ -13969,7 +14015,7 @@ fn bindgen_test_layout_nk_popup_buffer() {
             &(*(::std::ptr::null::<nk_popup_buffer>())).active as *const _
                 as usize
         },
-        16usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_buffer),
@@ -14347,7 +14393,7 @@ pub struct nk_popup_state {
 fn bindgen_test_layout_nk_popup_state() {
     assert_eq!(
         ::std::mem::size_of::<nk_popup_state>(),
-        72usize,
+        96usize,
         concat!("Size of: ", stringify!(nk_popup_state))
     );
     assert_eq!(
@@ -14384,7 +14430,7 @@ fn bindgen_test_layout_nk_popup_state() {
         unsafe {
             &(*(::std::ptr::null::<nk_popup_state>())).buf as *const _ as usize
         },
-        12usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_state),
@@ -14396,7 +14442,7 @@ fn bindgen_test_layout_nk_popup_state() {
         unsafe {
             &(*(::std::ptr::null::<nk_popup_state>())).name as *const _ as usize
         },
-        32usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_state),
@@ -14409,7 +14455,7 @@ fn bindgen_test_layout_nk_popup_state() {
             &(*(::std::ptr::null::<nk_popup_state>())).active as *const _
                 as usize
         },
-        36usize,
+        60usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_state),
@@ -14422,7 +14468,7 @@ fn bindgen_test_layout_nk_popup_state() {
             &(*(::std::ptr::null::<nk_popup_state>())).combo_count as *const _
                 as usize
         },
-        40usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_state),
@@ -14435,7 +14481,7 @@ fn bindgen_test_layout_nk_popup_state() {
             &(*(::std::ptr::null::<nk_popup_state>())).con_count as *const _
                 as usize
         },
-        44usize,
+        68usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_state),
@@ -14448,7 +14494,7 @@ fn bindgen_test_layout_nk_popup_state() {
             &(*(::std::ptr::null::<nk_popup_state>())).con_old as *const _
                 as usize
         },
-        48usize,
+        72usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_state),
@@ -14461,7 +14507,7 @@ fn bindgen_test_layout_nk_popup_state() {
             &(*(::std::ptr::null::<nk_popup_state>())).active_con as *const _
                 as usize
         },
-        52usize,
+        76usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_state),
@@ -14474,7 +14520,7 @@ fn bindgen_test_layout_nk_popup_state() {
             &(*(::std::ptr::null::<nk_popup_state>())).header as *const _
                 as usize
         },
-        56usize,
+        80usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_popup_state),
@@ -14856,7 +14902,7 @@ pub struct nk_window {
 fn bindgen_test_layout_nk_window() {
     assert_eq!(
         ::std::mem::size_of::<nk_window>(),
-        440usize,
+        472usize,
         concat!("Size of: ", stringify!(nk_window))
     );
     assert_eq!(
@@ -14953,7 +14999,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).layout as *const _ as usize
         },
-        160usize,
+        168usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -14966,7 +15012,7 @@ fn bindgen_test_layout_nk_window() {
             &(*(::std::ptr::null::<nk_window>())).scrollbar_hiding_timer
                 as *const _ as usize
         },
-        168usize,
+        176usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -14978,7 +15024,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).property as *const _ as usize
         },
-        172usize,
+        180usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -14990,7 +15036,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).popup as *const _ as usize
         },
-        280usize,
+        288usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -15002,7 +15048,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).edit as *const _ as usize
         },
-        352usize,
+        384usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -15014,7 +15060,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).scrolled as *const _ as usize
         },
-        396usize,
+        428usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -15026,7 +15072,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).tables as *const _ as usize
         },
-        400usize,
+        432usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -15039,7 +15085,7 @@ fn bindgen_test_layout_nk_window() {
             &(*(::std::ptr::null::<nk_window>())).table_count as *const _
                 as usize
         },
-        408usize,
+        440usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -15051,7 +15097,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).next as *const _ as usize
         },
-        416usize,
+        448usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -15063,7 +15109,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).prev as *const _ as usize
         },
-        424usize,
+        456usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -15075,7 +15121,7 @@ fn bindgen_test_layout_nk_window() {
         unsafe {
             &(*(::std::ptr::null::<nk_window>())).parent as *const _ as usize
         },
-        432usize,
+        464usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_window),
@@ -15926,8 +15972,8 @@ impl Default for nk_configuration_stacks {
 pub struct nk_table {
     pub seq: ::std::os::raw::c_uint,
     pub size: ::std::os::raw::c_uint,
-    pub keys: [nk_hash; 56usize],
-    pub values: [nk_uint; 56usize],
+    pub keys: [nk_hash; 59usize],
+    pub values: [nk_uint; 59usize],
     pub next: *mut nk_table,
     pub prev: *mut nk_table,
 }
@@ -15935,7 +15981,7 @@ pub struct nk_table {
 fn bindgen_test_layout_nk_table() {
     assert_eq!(
         ::std::mem::size_of::<nk_table>(),
-        472usize,
+        496usize,
         concat!("Size of: ", stringify!(nk_table))
     );
     assert_eq!(
@@ -15983,7 +16029,7 @@ fn bindgen_test_layout_nk_table() {
         unsafe {
             &(*(::std::ptr::null::<nk_table>())).values as *const _ as usize
         },
-        232usize,
+        244usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_table),
@@ -15995,7 +16041,7 @@ fn bindgen_test_layout_nk_table() {
         unsafe {
             &(*(::std::ptr::null::<nk_table>())).next as *const _ as usize
         },
-        456usize,
+        480usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_table),
@@ -16007,7 +16053,7 @@ fn bindgen_test_layout_nk_table() {
         unsafe {
             &(*(::std::ptr::null::<nk_table>())).prev as *const _ as usize
         },
-        464usize,
+        488usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_table),
@@ -16027,13 +16073,13 @@ pub union nk_page_data {
     pub tbl: nk_table,
     pub pan: nk_panel,
     pub win: nk_window,
-    _bindgen_union_align: [u64; 59usize],
+    _bindgen_union_align: [u64; 62usize],
 }
 #[test]
 fn bindgen_test_layout_nk_page_data() {
     assert_eq!(
         ::std::mem::size_of::<nk_page_data>(),
-        472usize,
+        496usize,
         concat!("Size of: ", stringify!(nk_page_data))
     );
     assert_eq!(
@@ -16094,7 +16140,7 @@ pub struct nk_page_element {
 fn bindgen_test_layout_nk_page_element() {
     assert_eq!(
         ::std::mem::size_of::<nk_page_element>(),
-        488usize,
+        512usize,
         concat!("Size of: ", stringify!(nk_page_element))
     );
     assert_eq!(
@@ -16120,7 +16166,7 @@ fn bindgen_test_layout_nk_page_element() {
             &(*(::std::ptr::null::<nk_page_element>())).next as *const _
                 as usize
         },
-        472usize,
+        496usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_page_element),
@@ -16133,7 +16179,7 @@ fn bindgen_test_layout_nk_page_element() {
             &(*(::std::ptr::null::<nk_page_element>())).prev as *const _
                 as usize
         },
-        480usize,
+        504usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_page_element),
@@ -16158,7 +16204,7 @@ pub struct nk_page {
 fn bindgen_test_layout_nk_page() {
     assert_eq!(
         ::std::mem::size_of::<nk_page>(),
-        504usize,
+        528usize,
         concat!("Size of: ", stringify!(nk_page))
     );
     assert_eq!(
@@ -16222,7 +16268,7 @@ pub struct nk_pool {
 fn bindgen_test_layout_nk_pool() {
     assert_eq!(
         ::std::mem::size_of::<nk_pool>(),
-        64usize,
+        72usize,
         concat!("Size of: ", stringify!(nk_pool))
     );
     assert_eq!(
@@ -16306,7 +16352,7 @@ fn bindgen_test_layout_nk_pool() {
         unsafe {
             &(*(::std::ptr::null::<nk_pool>())).size as *const _ as usize
         },
-        52usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_pool),
@@ -16316,7 +16362,7 @@ fn bindgen_test_layout_nk_pool() {
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<nk_pool>())).cap as *const _ as usize },
-        56usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_pool),
@@ -16360,7 +16406,7 @@ pub struct nk_context {
 fn bindgen_test_layout_nk_context() {
     assert_eq!(
         ::std::mem::size_of::<nk_context>(),
-        16544usize,
+        16640usize,
         concat!("Size of: ", stringify!(nk_context))
     );
     assert_eq!(
@@ -16408,7 +16454,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).clip as *const _ as usize
         },
-        7992usize,
+        8024usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16421,7 +16467,7 @@ fn bindgen_test_layout_nk_context() {
             &(*(::std::ptr::null::<nk_context>())).last_widget_state as *const _
                 as usize
         },
-        8016usize,
+        8048usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16434,7 +16480,7 @@ fn bindgen_test_layout_nk_context() {
             &(*(::std::ptr::null::<nk_context>())).button_behavior as *const _
                 as usize
         },
-        8020usize,
+        8052usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16446,7 +16492,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).stacks as *const _ as usize
         },
-        8024usize,
+        8056usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16459,7 +16505,7 @@ fn bindgen_test_layout_nk_context() {
             &(*(::std::ptr::null::<nk_context>())).delta_time_seconds
                 as *const _ as usize
         },
-        10768usize,
+        10800usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16472,7 +16518,7 @@ fn bindgen_test_layout_nk_context() {
             &(*(::std::ptr::null::<nk_context>())).draw_list as *const _
                 as usize
         },
-        10776usize,
+        10808usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16484,7 +16530,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).userdata as *const _ as usize
         },
-        11008usize,
+        11056usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16497,7 +16543,7 @@ fn bindgen_test_layout_nk_context() {
             &(*(::std::ptr::null::<nk_context>())).text_edit as *const _
                 as usize
         },
-        11016usize,
+        11064usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16509,7 +16555,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).overlay as *const _ as usize
         },
-        16368usize,
+        16448usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16521,7 +16567,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).build as *const _ as usize
         },
-        16424usize,
+        16512usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16533,7 +16579,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).use_pool as *const _ as usize
         },
-        16428usize,
+        16516usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16545,7 +16591,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).pool as *const _ as usize
         },
-        16432usize,
+        16520usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16557,7 +16603,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).begin as *const _ as usize
         },
-        16496usize,
+        16592usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16569,7 +16615,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).end as *const _ as usize
         },
-        16504usize,
+        16600usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16581,7 +16627,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).active as *const _ as usize
         },
-        16512usize,
+        16608usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16593,7 +16639,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).current as *const _ as usize
         },
-        16520usize,
+        16616usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16605,7 +16651,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).freelist as *const _ as usize
         },
-        16528usize,
+        16624usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16617,7 +16663,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).count as *const _ as usize
         },
-        16536usize,
+        16632usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),
@@ -16629,7 +16675,7 @@ fn bindgen_test_layout_nk_context() {
         unsafe {
             &(*(::std::ptr::null::<nk_context>())).seq as *const _ as usize
         },
-        16540usize,
+        16636usize,
         concat!(
             "Offset of field: ",
             stringify!(nk_context),

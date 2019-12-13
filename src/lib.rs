@@ -4494,6 +4494,14 @@ impl Context {
         }
     }
 
+    pub fn popup_get_scroll(&mut self, offset_x: &mut nk_uint, offset_y: &mut nk_uint) {
+        unsafe { nk_popup_get_scroll(&mut self.internal as *mut nk_context, offset_x, offset_y); }
+    }
+
+    pub fn popup_set_scroll(&mut self, offset_x: nk_uint, offset_y: nk_uint) {
+        unsafe { nk_popup_set_scroll(&mut self.internal as *mut nk_context, offset_x, offset_y); }
+    }
+
     pub fn combo(&mut self, items: &mut StringArray, selected: i32, item_height: i32, size: Vec2) -> i32 {
         unsafe { nk_combo(&mut self.internal as *mut nk_context, items.as_mut(), items.len() as i32, selected, item_height, size) }
     }
