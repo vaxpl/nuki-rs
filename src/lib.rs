@@ -3743,6 +3743,14 @@ impl Buffer {
         (s.size as usize, s.allocated as usize, s.needed as usize, s.calls as usize)
     }
 
+    pub fn memory(&mut self) -> *mut c_void {
+        unsafe { nk_buffer_memory(&mut self.internal as *mut nk_buffer) }
+    }
+
+    pub fn memory_const(&self) -> *const c_void {
+        unsafe { nk_buffer_memory_const(&self.internal as *const nk_buffer) }
+    }
+
     // pub fn nk_buffer_push(arg1: *mut nk_buffer,
     // type_: nk_buffer_allocation_type,
     // memory: *const ::std::os::raw::c_void,
@@ -3753,10 +3761,6 @@ impl Buffer {
     // type_: nk_buffer_allocation_type);
     // pub fn nk_buffer_clear(arg1: *mut nk_buffer);
     // pub fn nk_buffer_free(arg1: *mut nk_buffer);
-    // pub fn nk_buffer_memory(arg1: *mut nk_buffer)
-    // -> *mut ::std::os::raw::c_void;
-    // pub fn nk_buffer_memory_const(arg1: *const nk_buffer)
-    // -> *const ::std::os::raw::c_void;
     // pub fn nk_buffer_total(arg1: *mut nk_buffer) -> &_size;
     //
     // pub fn nk_buffer_init(arg1: *mut nk_buffer, arg2: *const nk_allocator,
