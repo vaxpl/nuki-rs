@@ -3297,7 +3297,7 @@ impl ConvertConfig {
 
 // ============================================================================================
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct DrawVertexLayoutElements {
     arr: Vec<nk_draw_vertex_layout_element>,
 }
