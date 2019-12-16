@@ -17,7 +17,10 @@ mod alloc_vec;
 
 use std::borrow::Cow;
 use std::default::Default;
+use std::fs::File;
+use std::io::Read;
 use std::os::raw::*;
+use std::path::Path;
 
 use nuklear_sys::*;
 
@@ -3562,6 +3565,13 @@ impl FontAtlas {
         cfg.internal.ttf_data_owned_by_atlas = 1;
 
         self.add_font_with_config(&cfg)
+    }
+
+    pub fn add_font_with_file<P: AsRef<Path>>(&mut self, path: P, font_size: f32) -> Option<FontID> {
+        let mut f = File::open(path).unwrap();
+        let mut buffer = Vec::new();
+        f.read_to_end(&mut buffer).unwrap();
+        self.add_font_with_bytes(&buffer, font_size)
     }
 
     pub fn bake(&mut self, format: FontAtlasFormat) -> (&[u8], u32, u32) {
