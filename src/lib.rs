@@ -3352,7 +3352,7 @@ impl TextEdit {
 
     pub fn text(&mut self, arg2: &str) {
         unsafe {
-            nk_textedit_text(&mut self.internal, arg2.as_ptr() as *const i8, arg2.as_bytes().len() as ::std::os::raw::c_int);
+            nk_textedit_text(&mut self.internal, arg2.as_ptr() as *const ::std::os::raw::c_char, arg2.as_bytes().len() as ::std::os::raw::c_int);
         }
     }
 
@@ -3379,7 +3379,7 @@ impl TextEdit {
     }
 
     pub fn paste(&mut self, arg2: &str) -> bool {
-        unsafe { nk_textedit_paste(&mut self.internal, arg2.as_ptr() as *const i8, arg2.as_bytes().len() as ::std::os::raw::c_int) != 0 }
+        unsafe { nk_textedit_paste(&mut self.internal, arg2.as_ptr() as *const ::std::os::raw::c_char, arg2.as_bytes().len() as ::std::os::raw::c_int) != 0 }
     }
 
     pub fn undo(&mut self) {
@@ -3881,7 +3881,7 @@ impl Context {
     }
 
     pub fn window_find<S: AsRef<str>>(&self, name: S) -> Option<&Window> {
-        let w = unsafe { nk_window_find(&self.internal as *const _ as *mut nk_context, name.as_ref().as_ptr() as *const i8) };
+        let w = unsafe { nk_window_find(&self.internal as *const _ as *mut nk_context, name.as_ref().as_ptr() as *const ::std::os::raw::c_char) };
 
         unsafe {
             if w.is_null() {
@@ -4017,19 +4017,19 @@ impl Context {
 
     pub fn window_set_bounds<S: AsRef<str>>(&mut self, name: S, bounds: Rect) {
         unsafe {
-            nk_window_set_bounds(&mut self.internal as *mut nk_context, name.as_ref().as_ptr() as *const i8, bounds);
+            nk_window_set_bounds(&mut self.internal as *mut nk_context, name.as_ref().as_ptr() as *const ::std::os::raw::c_char, bounds);
         }
     }
 
     pub fn window_set_position<S: AsRef<str>>(&mut self, name: S, pos: Vec2) {
         unsafe {
-            nk_window_set_position(&mut self.internal as *mut nk_context, name.as_ref().as_ptr() as *const i8, pos);
+            nk_window_set_position(&mut self.internal as *mut nk_context, name.as_ref().as_ptr() as *const ::std::os::raw::c_char, pos);
         }
     }
 
     pub fn window_set_size<S: AsRef<str>>(&mut self, name: S, size: Vec2) {
         unsafe {
-            nk_window_set_size(&mut self.internal as *mut nk_context, name.as_ref().as_ptr() as *const i8, size);
+            nk_window_set_size(&mut self.internal as *mut nk_context, name.as_ref().as_ptr() as *const ::std::os::raw::c_char, size);
         }
     }
 
@@ -4173,25 +4173,25 @@ impl Context {
 
     pub fn text(&mut self, text: &str, flags: Flags) {
         unsafe {
-            nk_text(&mut self.internal as *mut nk_context, text.as_ptr() as *const i8, text.as_bytes().len() as i32, flags);
+            nk_text(&mut self.internal as *mut nk_context, text.as_ptr() as *const ::std::os::raw::c_char, text.as_bytes().len() as i32, flags);
         }
     }
 
     pub fn text_colored(&mut self, text: &str, flags: Flags, color: Color) {
         unsafe {
-            nk_text_colored(&mut self.internal as *mut nk_context, text.as_ptr() as *const i8, text.as_bytes().len() as i32, flags, color);
+            nk_text_colored(&mut self.internal as *mut nk_context, text.as_ptr() as *const ::std::os::raw::c_char, text.as_bytes().len() as i32, flags, color);
         }
     }
 
     pub fn text_wrap(&mut self, text: &str) {
         unsafe {
-            nk_text_wrap(&mut self.internal as *mut nk_context, text.as_ptr() as *const i8, text.as_bytes().len() as i32);
+            nk_text_wrap(&mut self.internal as *mut nk_context, text.as_ptr() as *const ::std::os::raw::c_char, text.as_bytes().len() as i32);
         }
     }
 
     pub fn text_wrap_colored(&mut self, text: &str, color: Color) {
         unsafe {
-            nk_text_wrap_colored(&mut self.internal as *mut nk_context, text.as_ptr() as *const i8, text.as_bytes().len() as i32, color);
+            nk_text_wrap_colored(&mut self.internal as *mut nk_context, text.as_ptr() as *const ::std::os::raw::c_char, text.as_bytes().len() as i32, color);
         }
     }
 
@@ -4226,7 +4226,7 @@ impl Context {
     }
 
     pub fn button_text(&mut self, text: &str) -> bool {
-        unsafe { nk_button_text(&mut self.internal as *mut nk_context, text.as_ptr() as *const i8, text.as_bytes().len() as i32) != 0 }
+        unsafe { nk_button_text(&mut self.internal as *mut nk_context, text.as_ptr() as *const ::std::os::raw::c_char, text.as_bytes().len() as i32) != 0 }
     }
 
     pub fn button_label(&mut self, title: String) -> bool {
@@ -4250,7 +4250,7 @@ impl Context {
     }
 
     pub fn button_symbol_text(&mut self, ty: SymbolType, title: &str, text_alignment: Flags) -> bool {
-        unsafe { nk_button_symbol_text(&mut self.internal as *mut nk_context, ty.into(), title.as_ptr() as *const i8, title.as_bytes().len() as i32, text_alignment) != 0 }
+        unsafe { nk_button_symbol_text(&mut self.internal as *mut nk_context, ty.into(), title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, text_alignment) != 0 }
     }
 
     pub fn button_image_label(&mut self, img: Image, title: String, text_alignment: Flags) -> bool {
@@ -4258,7 +4258,7 @@ impl Context {
     }
 
     pub fn button_image_text(&mut self, img: Image, title: &str, text_alignment: Flags) -> bool {
-        unsafe { nk_button_image_text(&mut self.internal as *mut nk_context, img.internal, title.as_ptr() as *const i8, title.as_bytes().len() as i32, text_alignment) != 0 }
+        unsafe { nk_button_image_text(&mut self.internal as *mut nk_context, img.internal, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, text_alignment) != 0 }
     }
 
     pub fn button_set_behavior(&mut self, b: ButtonBehavior) {
@@ -4280,7 +4280,7 @@ impl Context {
     }
 
     pub fn check_text(&mut self, title: &str, active: bool) -> i32 {
-        unsafe { nk_check_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.as_bytes().len() as i32, if active { 1 } else { 0 }) }
+        unsafe { nk_check_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, if active { 1 } else { 0 }) }
     }
 
     pub fn check_flags_label(&mut self, title: String, flags: u32, value: u32) -> u32 {
@@ -4288,7 +4288,7 @@ impl Context {
     }
 
     pub fn check_flags_text(&mut self, title: &str, flags: u32, value: u32) -> u32 {
-        unsafe { nk_check_flags_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.as_bytes().len() as i32, flags, value) }
+        unsafe { nk_check_flags_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, flags, value) }
     }
 
     pub fn checkbox_label(&mut self, title: String, active: &mut bool) -> bool {
@@ -4301,7 +4301,7 @@ impl Context {
 
     pub fn checkbox_text(&mut self, title: &str, active: &mut bool) -> bool {
         let mut i = if *active { 1 } else { 0 };
-        let r = unsafe { nk_checkbox_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.as_bytes().len() as i32, &mut i as *mut i32) != 0 };
+        let r = unsafe { nk_checkbox_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, &mut i as *mut i32) != 0 };
 
         *active = i != 0;
         r
@@ -4312,7 +4312,7 @@ impl Context {
     }
 
     pub fn checkbox_flags_text(&mut self, title: &str, flags: &mut u32, value: u32) -> bool {
-        unsafe { nk_checkbox_flags_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.as_bytes().len() as i32, flags, value) != 0 }
+        unsafe { nk_checkbox_flags_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, flags, value) != 0 }
     }
 
     pub fn radio_label(&mut self, title: String, active: &mut bool) -> bool {
@@ -4325,7 +4325,7 @@ impl Context {
 
     pub fn radio_text(&mut self, title: &str, active: &mut bool) -> bool {
         let mut i = if *active { 1 } else { 0 };
-        let r = unsafe { nk_radio_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.as_bytes().len() as i32, &mut i as *mut i32) != 0 };
+        let r = unsafe { nk_radio_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, &mut i as *mut i32) != 0 };
 
         *active = i != 0;
         r
@@ -4336,7 +4336,7 @@ impl Context {
     }
 
     pub fn option_text(&mut self, title: &str, active: bool) -> bool {
-        unsafe { nk_option_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.as_bytes().len() as i32, if active { 1 } else { 0 }) > 0 }
+        unsafe { nk_option_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, if active { 1 } else { 0 }) > 0 }
     }
 
     pub fn selectable_label(&mut self, title: String, align: Flags, value: &mut i32) -> bool {
@@ -4344,7 +4344,7 @@ impl Context {
     }
 
     pub fn selectable_text(&mut self, title: &str, align: Flags, value: &mut i32) -> bool {
-        unsafe { nk_selectable_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.as_bytes().len() as i32, align, value) != 0 }
+        unsafe { nk_selectable_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, align, value) != 0 }
     }
 
     pub fn selectable_image_label(&mut self, img: Image, title: String, align: Flags, value: &mut i32) -> bool {
@@ -4352,7 +4352,7 @@ impl Context {
     }
 
     pub fn selectable_image_text(&mut self, img: Image, title: &str, align: Flags, value: &mut i32) -> bool {
-        unsafe { nk_selectable_image_text(&mut self.internal as *mut nk_context, img.internal, title.as_ptr() as *const i8, title.as_bytes().len() as i32, align, value) != 0 }
+        unsafe { nk_selectable_image_text(&mut self.internal as *mut nk_context, img.internal, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, align, value) != 0 }
     }
 
     pub fn select_label(&mut self, title: String, align: Flags, value: i32) -> i32 {
@@ -4360,7 +4360,7 @@ impl Context {
     }
 
     pub fn select_text(&mut self, title: &str, align: Flags, value: i32) -> i32 {
-        unsafe { nk_select_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.as_bytes().len() as i32, align, value) }
+        unsafe { nk_select_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, align, value) }
     }
 
     pub fn select_image_label(&mut self, img: Image, title: String, align: Flags, value: i32) -> i32 {
@@ -4368,7 +4368,7 @@ impl Context {
     }
 
     pub fn select_image_text(&mut self, img: Image, title: &str, align: Flags, value: i32) -> i32 {
-        unsafe { nk_select_image_text(&mut self.internal as *mut nk_context, img.internal, title.as_ptr() as *const i8, title.as_bytes().len() as i32, align, value) }
+        unsafe { nk_select_image_text(&mut self.internal as *mut nk_context, img.internal, title.as_ptr() as *const ::std::os::raw::c_char, title.as_bytes().len() as i32, align, value) }
     }
 
     pub fn slide_float(&mut self, min: f32, val: f32, max: f32, step: f32) -> f32 {
@@ -4434,12 +4434,12 @@ impl Context {
     pub fn edit_string_custom_filter(&mut self, flags: Flags, buffer: &mut [u8], len: &mut i32, filter: fn(&TextEdit, char) -> bool) -> Flags {
         unsafe {
             CUSTOM_EDIT_FILTER = Some(filter);
-            nk_edit_string(&mut self.internal as *mut nk_context, flags, &mut buffer[0] as *mut _ as *mut i8, len, buffer.len() as i32, Some(nk_filter_custom))
+            nk_edit_string(&mut self.internal as *mut nk_context, flags, &mut buffer[0] as *mut _ as *mut ::std::os::raw::c_char, len, buffer.len() as i32, Some(nk_filter_custom))
         }
     }
 
     pub fn edit_string(&mut self, flags: Flags, buffer: &mut [u8], len: &mut i32, filter: PluginFilter) -> Flags {
-        unsafe { nk_edit_string(&mut self.internal as *mut nk_context, flags, &mut buffer[0] as *mut _ as *mut i8, len, buffer.len() as i32, filter) }
+        unsafe { nk_edit_string(&mut self.internal as *mut nk_context, flags, &mut buffer[0] as *mut _ as *mut ::std::os::raw::c_char, len, buffer.len() as i32, filter) }
     }
 
     pub fn edit_buffer(&mut self, flags: Flags, editor: &mut TextEdit, filter: PluginFilter) -> Flags {
@@ -4530,7 +4530,7 @@ impl Context {
     }
 
     pub fn combo_begin_text(&mut self, selected: &str, size: Vec2) -> bool {
-        unsafe { nk_combo_begin_text(&mut self.internal as *mut nk_context, selected.as_ptr() as *const i8, selected.as_bytes().len() as i32, size) > 0 }
+        unsafe { nk_combo_begin_text(&mut self.internal as *mut nk_context, selected.as_ptr() as *const ::std::os::raw::c_char, selected.as_bytes().len() as i32, size) > 0 }
     }
 
     pub fn combo_begin_color(&mut self, color: Color, size: Vec2) -> bool {
@@ -4546,7 +4546,7 @@ impl Context {
     }
 
     pub fn combo_begin_symbol_text(&mut self, label: &str, sym: SymbolType, size: Vec2) -> bool {
-        unsafe { nk_combo_begin_symbol_text(&mut self.internal as *mut nk_context, label.as_ptr() as *const i8, label.as_bytes().len() as i32, sym.into(), size) > 0 }
+        unsafe { nk_combo_begin_symbol_text(&mut self.internal as *mut nk_context, label.as_ptr() as *const ::std::os::raw::c_char, label.as_bytes().len() as i32, sym.into(), size) > 0 }
     }
 
     pub fn combo_begin_image(&mut self, img: Image, size: Vec2) -> bool {
@@ -4558,7 +4558,7 @@ impl Context {
     }
 
     pub fn combo_begin_image_text(&mut self, label: &str, img: Image, size: Vec2) -> bool {
-        unsafe { nk_combo_begin_image_text(&mut self.internal as *mut nk_context, label.as_ptr() as *const i8, label.as_bytes().len() as i32, img.internal, size) > 0 }
+        unsafe { nk_combo_begin_image_text(&mut self.internal as *mut nk_context, label.as_ptr() as *const ::std::os::raw::c_char, label.as_bytes().len() as i32, img.internal, size) > 0 }
     }
 
     pub fn combo_item_label(&mut self, label: String, alignment: Flags) -> bool {
@@ -4566,7 +4566,7 @@ impl Context {
     }
 
     pub fn combo_item_text(&mut self, label: &str, alignment: Flags) -> bool {
-        unsafe { nk_combo_item_text(&mut self.internal as *mut nk_context, label.as_ptr() as *const i8, label.as_bytes().len() as i32, alignment) > 0 }
+        unsafe { nk_combo_item_text(&mut self.internal as *mut nk_context, label.as_ptr() as *const ::std::os::raw::c_char, label.as_bytes().len() as i32, alignment) > 0 }
     }
 
     pub fn combo_item_image_label(&mut self, img: Image, label: String, alignment: Flags) -> bool {
@@ -4574,7 +4574,7 @@ impl Context {
     }
 
     pub fn combo_item_image_text(&mut self, img: Image, label: &str, alignment: Flags) -> bool {
-        unsafe { nk_combo_item_image_text(&mut self.internal as *mut nk_context, img.internal, label.as_ptr() as *const i8, label.as_bytes().len() as i32, alignment) > 0 }
+        unsafe { nk_combo_item_image_text(&mut self.internal as *mut nk_context, img.internal, label.as_ptr() as *const ::std::os::raw::c_char, label.as_bytes().len() as i32, alignment) > 0 }
     }
 
     pub fn combo_item_symbol_label(&mut self, sym: SymbolType, label: String, alignment: Flags) -> bool {
@@ -4582,7 +4582,7 @@ impl Context {
     }
 
     pub fn combo_item_symbol_text(&mut self, sym: SymbolType, label: &str, alignment: Flags) -> bool {
-        unsafe { nk_combo_item_symbol_text(&mut self.internal as *mut nk_context, sym.into(), label.as_ptr() as *const i8, label.as_bytes().len() as i32, alignment) > 0 }
+        unsafe { nk_combo_item_symbol_text(&mut self.internal as *mut nk_context, sym.into(), label.as_ptr() as *const ::std::os::raw::c_char, label.as_bytes().len() as i32, alignment) > 0 }
     }
 
     pub fn combo_close(&mut self) {
@@ -4606,7 +4606,7 @@ impl Context {
     }
 
     pub fn contextual_item_text(&mut self, label: &str, align: Flags) -> bool {
-        unsafe { nk_contextual_item_text(&mut self.internal as *mut nk_context, label.as_ptr() as *const i8, label.as_bytes().len() as i32, align) > 0 }
+        unsafe { nk_contextual_item_text(&mut self.internal as *mut nk_context, label.as_ptr() as *const ::std::os::raw::c_char, label.as_bytes().len() as i32, align) > 0 }
     }
 
     pub fn contextual_item_image_label(&mut self, img: Image, label: String, align: Flags) -> bool {
@@ -4614,7 +4614,7 @@ impl Context {
     }
 
     pub fn contextual_item_image_text(&mut self, img: Image, label: &str, align: Flags) -> bool {
-        unsafe { nk_contextual_item_image_text(&mut self.internal as *mut nk_context, img.internal, label.as_ptr() as *const i8, label.as_bytes().len() as i32, align) > 0 }
+        unsafe { nk_contextual_item_image_text(&mut self.internal as *mut nk_context, img.internal, label.as_ptr() as *const ::std::os::raw::c_char, label.as_bytes().len() as i32, align) > 0 }
     }
 
     pub fn contextual_item_symbol_label(&mut self, sym: SymbolType, label: String, align: Flags) -> bool {
@@ -4622,7 +4622,7 @@ impl Context {
     }
 
     pub fn contextual_item_symbol_text(&mut self, sym: SymbolType, label: &str, align: Flags) -> bool {
-        unsafe { nk_contextual_item_symbol_text(&mut self.internal as *mut nk_context, sym.into(), label.as_ptr() as *const i8, label.as_bytes().len() as i32, align) > 0 }
+        unsafe { nk_contextual_item_symbol_text(&mut self.internal as *mut nk_context, sym.into(), label.as_ptr() as *const ::std::os::raw::c_char, label.as_bytes().len() as i32, align) > 0 }
     }
 
     pub fn contextual_close(&mut self) {
@@ -4670,7 +4670,7 @@ impl Context {
     }
 
     pub fn menu_begin_text(&mut self, title: &str, align: Flags, size: Vec2) -> bool {
-        unsafe { nk_menu_begin_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.len() as i32, align, size) > 0 }
+        unsafe { nk_menu_begin_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.len() as i32, align, size) > 0 }
     }
 
     pub fn menu_begin_image(&mut self, title: String, img: Image, size: Vec2) -> bool {
@@ -4682,7 +4682,7 @@ impl Context {
     }
 
     pub fn menu_begin_image_text(&mut self, title: &str, align: Flags, img: Image, size: Vec2) -> bool {
-        unsafe { nk_menu_begin_image_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.len() as i32, align, img.internal, size) > 0 }
+        unsafe { nk_menu_begin_image_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.len() as i32, align, img.internal, size) > 0 }
     }
 
     pub fn menu_begin_symbol(&mut self, title: String, sym: SymbolType, size: Vec2) -> bool {
@@ -4694,7 +4694,7 @@ impl Context {
     }
 
     pub fn menu_begin_symbol_text(&mut self, title: &str, align: Flags, sym: SymbolType, size: Vec2) -> bool {
-        unsafe { nk_menu_begin_symbol_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.len() as i32, align, sym.into(), size) > 0 }
+        unsafe { nk_menu_begin_symbol_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.len() as i32, align, sym.into(), size) > 0 }
     }
 
     pub fn menu_item_label(&mut self, title: String, align: Flags) -> bool {
@@ -4702,7 +4702,7 @@ impl Context {
     }
 
     pub fn menu_item_text(&mut self, title: &str, align: Flags) -> bool {
-        unsafe { nk_menu_item_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const i8, title.len() as i32, align) > 0 }
+        unsafe { nk_menu_item_text(&mut self.internal as *mut nk_context, title.as_ptr() as *const ::std::os::raw::c_char, title.len() as i32, align) > 0 }
     }
 
     pub fn menu_item_image_label(&mut self, img: Image, title: String, align: Flags) -> bool {
@@ -4710,7 +4710,7 @@ impl Context {
     }
 
     pub fn menu_item_image_text(&mut self, img: Image, title: &str, align: Flags) -> bool {
-        unsafe { nk_menu_item_image_text(&mut self.internal as *mut nk_context, img.internal, title.as_ptr() as *const i8, title.len() as i32, align) > 0 }
+        unsafe { nk_menu_item_image_text(&mut self.internal as *mut nk_context, img.internal, title.as_ptr() as *const ::std::os::raw::c_char, title.len() as i32, align) > 0 }
     }
 
     pub fn menu_item_symbol_label(&mut self, sym: SymbolType, title: String, align: Flags) -> bool {
@@ -4718,7 +4718,7 @@ impl Context {
     }
 
     pub fn menu_item_symbol_text(&mut self, sym: SymbolType, title: &str, align: Flags) -> bool {
-        unsafe { nk_menu_item_symbol_text(&mut self.internal as *mut nk_context, sym.into(), title.as_ptr() as *const i8, title.len() as i32, align) > 0 }
+        unsafe { nk_menu_item_symbol_text(&mut self.internal as *mut nk_context, sym.into(), title.as_ptr() as *const ::std::os::raw::c_char, title.len() as i32, align) > 0 }
     }
 
     pub fn menu_close(&mut self) {
@@ -4777,13 +4777,13 @@ impl Context {
 
     pub fn input_char(&mut self, c: u8) {
         unsafe {
-            nk_input_char(&mut self.internal as *mut nk_context, c as i8);
+            nk_input_char(&mut self.internal as *mut nk_context, c as ::std::os::raw::c_char);
         }
     }
 
     pub fn input_glyph(&mut self, g: Glyph) {
         unsafe {
-            nk_input_glyph(&mut self.internal as *mut nk_context, &g[0] as *const _ as *mut i8);
+            nk_input_glyph(&mut self.internal as *mut nk_context, &g[0] as *const _ as *mut ::std::os::raw::c_char);
         }
     }
 
@@ -5064,7 +5064,7 @@ impl Window {
     }
     pub fn name(&self) -> &str {
         unsafe {
-            let name = ::std::mem::transmute::<&[i8], &[u8]>(&self.internal.name_string);
+            let name = ::std::mem::transmute::<&[::std::os::raw::c_char], &[u8]>(&self.internal.name_string);
             let mut len = name.len();
             let mut ch = 0;
             while ch == 0 && len > 0 {
@@ -5883,7 +5883,7 @@ impl CommandBuffer {
 
     pub fn draw_text(&mut self, arg2: Rect, text: &str, arg3: &UserFont, arg4: Color, arg5: Color) {
         unsafe {
-            nk_draw_text(&mut self.internal, arg2, text.as_ptr() as *const i8, text.as_bytes().len() as ::std::os::raw::c_int, &arg3.internal, arg4, arg5);
+            nk_draw_text(&mut self.internal, arg2, text.as_ptr() as *const ::std::os::raw::c_char, text.as_bytes().len() as ::std::os::raw::c_int, &arg3.internal, arg4, arg5);
         }
     }
 }
