@@ -3562,7 +3562,7 @@ impl FontAtlas {
         cfg.internal.ttf_size = font_bytes.len() as Size;
         cfg.internal.ttf_blob = font_bytes as *const _ as *mut c_void;
         cfg.internal.size = font_size;
-        cfg.internal.ttf_data_owned_by_atlas = 1;
+        cfg.internal.ttf_data_owned_by_atlas = 0;
 
         self.add_font_with_config(&cfg)
     }
