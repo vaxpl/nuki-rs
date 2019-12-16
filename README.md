@@ -1,17 +1,17 @@
-# nuklear-rs
+nuki-rs
+=======
 
-[![Latest Version](https://img.shields.io/crates/v/nuklear-rust.svg)](https://crates.io/crates/nuklear-rust)
+Forked from https://github.com/snuk182/nuklear-rust.
 
-The bindings to the [Nuklear](https://github.com/vurtun/nuklear) 2D immediate GUI library. 
+[![Latest Version](https://img.shields.io/crates/v/nuki.svg)](https://crates.io/crates/nuki)
+
+The bindings to the [Nuklear](https://github.com/Immediate-Mode-UI/Nuklear) 2D immediate GUI library. 
 
 Currently beta.
 
 Drawing backends:
-* [gfx-pre-ll](https://github.com/snuk182/nuklear-backend-gfx) for [GFX 3D drawing engine](https://github.com/gfx-rs/gfx) (examples: [OpenGL](https://github.com/snuk182/nuklear-test), [DX11](https://github.com/snuk182/nuklear-test/tree/dx11))
-* [glium](https://github.com/snuk182/nuklear-backend-glium) for [glium 3D drawing engine](https://github.com/tomaka/glium) (example: [here](https://github.com/snuk182/nuklear-test/tree/glium))
-* [GDI](https://github.com/snuk182/nuklear-backend-gdi) for [WinAPI GDI](https://msdn.microsoft.com/en-us/library/windows/desktop/dd145203(v=vs.85).aspx) (example: [here](https://github.com/snuk182/nuklear-test/tree/gdi))
-* [wgpu-rs](https://github.com/snuk182/nuklear-backend-wgpurs) for [GPUWEB implementation over gfx-hal](https://github.com/gfx-rs/wgpu) (example: [here](https://github.com/snuk182/nuklear-test/tree/wgpurs))
+* [gles](https://github.com/varphone/nuki-backend-gles) for GLESv2/3 3D drawing engine.
 
-All examples are based on the [extended example](https://github.com/vurtun/nuklear/blob/master/example/extended.c) of the original library.
+All examples are based on the [extended example](https://github.com/Immediate-Mode-UI/Nuklear/blob/master/example/extended.c) of the original library.
 
 API suggestions, PRs and improvement ideas are welcome! 
