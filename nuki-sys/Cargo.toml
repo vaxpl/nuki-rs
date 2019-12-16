@@ -7,8 +7,8 @@ authors = [
     "Varphone Wong <varphone@qq.com>"
 ]
 description = "Raw bindings to Nuklear 2D GUI library"
-homepage = "https://github.com/varphone/nuklear-rs"
-repository = "https://github.com/varphone/nuklear-rs"
+repository = "https://github.com/varphone/nukir-rs.git"
+homepage = "https://github.com/varphone/nuki-rs"
 license = "MIT OR Apache-2.0"
 build = "build.rs"
 links = "nuklear"

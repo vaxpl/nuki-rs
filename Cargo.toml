@@ -9,8 +9,8 @@ keywords = ["ui", "widgets", "gui", "interface", "graphics"]
 description = "Rust wrapper for Nuklear 2D GUI library (https://github.com/Immediate-Mode-UI/Nuklear)"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/varphone/nuklear-rs.git"
-homepage = "https://github.com/varphone/nuklear-rs"
+repository = "https://github.com/varphone/nuki-rs.git"
+homepage = "https://github.com/varphone/nuki-rs"
 edition = "2018"
 
 [dependencies]
