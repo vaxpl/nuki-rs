@@ -22,38 +22,38 @@ use std::io::Read;
 use std::os::raw::*;
 use std::path::Path;
 
-use nuklear_sys::*;
+use nuki_sys::*;
 
-pub use nuklear_sys;
-pub use nuklear_sys::nk_allocation_type as AllocationType;
-pub use nuklear_sys::nk_draw_list_stroke as DrawListStroke;
-pub use nuklear_sys::nk_flags as Flags; //TODO
-pub use nuklear_sys::nk_font_coord_type as FontCoordType;
-pub use nuklear_sys::nk_panel_row_layout_type as PanelRowLayoutType;
-pub use nuklear_sys::nk_panel_type as PanelType;
-pub use nuklear_sys::nk_style_colors as StyleColor;
-pub use nuklear_sys::nk_style_cursor as StyleCursor;
-pub use nuklear_sys::nk_style_header_align as StyleHeaderAlign;
-pub use nuklear_sys::nk_widget_layout_states as WidgetLayoutState;
+pub use nuki_sys;
+pub use nuki_sys::nk_allocation_type as AllocationType;
+pub use nuki_sys::nk_draw_list_stroke as DrawListStroke;
+pub use nuki_sys::nk_flags as Flags; //TODO
+pub use nuki_sys::nk_font_coord_type as FontCoordType;
+pub use nuki_sys::nk_panel_row_layout_type as PanelRowLayoutType;
+pub use nuki_sys::nk_panel_type as PanelType;
+pub use nuki_sys::nk_style_colors as StyleColor;
+pub use nuki_sys::nk_style_cursor as StyleCursor;
+pub use nuki_sys::nk_style_header_align as StyleHeaderAlign;
+pub use nuki_sys::nk_widget_layout_states as WidgetLayoutState;
 
-pub use nuklear_sys::nk_chart_slot as ChartSlot;
-pub use nuklear_sys::nk_color as Color;
-pub use nuklear_sys::nk_colorf as ColorF;
-pub use nuklear_sys::nk_menu_state as MenuState;
-pub use nuklear_sys::nk_popup_buffer as PopupBuffer;
-pub use nuklear_sys::nk_rect as Rect;
-pub use nuklear_sys::nk_recti as Recti;
-pub use nuklear_sys::nk_scroll as Scroll;
-pub use nuklear_sys::nk_size as Size;
-pub use nuklear_sys::nk_style_text as StyleText;
-pub use nuklear_sys::nk_vec2 as Vec2;
-pub use nuklear_sys::nk_vec2i as Vec2i;
+pub use nuki_sys::nk_chart_slot as ChartSlot;
+pub use nuki_sys::nk_color as Color;
+pub use nuki_sys::nk_colorf as ColorF;
+pub use nuki_sys::nk_menu_state as MenuState;
+pub use nuki_sys::nk_popup_buffer as PopupBuffer;
+pub use nuki_sys::nk_rect as Rect;
+pub use nuki_sys::nk_recti as Recti;
+pub use nuki_sys::nk_scroll as Scroll;
+pub use nuki_sys::nk_size as Size;
+pub use nuki_sys::nk_style_text as StyleText;
+pub use nuki_sys::nk_vec2 as Vec2;
+pub use nuki_sys::nk_vec2i as Vec2i;
 
-pub use nuklear_sys::nk_glyph as Glyph;
+pub use nuki_sys::nk_glyph as Glyph;
 
-pub use nuklear_sys::nk_plugin_copy as PluginCopy;
-pub use nuklear_sys::nk_plugin_filter as PluginFilter;
-pub use nuklear_sys::nk_plugin_paste as PluginPaste;
+pub use nuki_sys::nk_plugin_copy as PluginCopy;
+pub use nuki_sys::nk_plugin_filter as PluginFilter;
+pub use nuki_sys::nk_plugin_paste as PluginPaste;
 
 pub const NK_FILTER_DEFAULT: PluginFilter = Some(nk_filter_default);
 pub const NK_FILTER_ASCII: PluginFilter = Some(nk_filter_ascii);

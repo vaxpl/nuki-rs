@@ -3,7 +3,7 @@
 extern crate alloc;
 
 use super::ALIGNMENT;
-use nuklear_sys::{nk_handle, nk_size};
+use nuki_sys::{nk_handle, nk_size};
 
 use std::alloc::{Alloc, Global, Layout};
 use std::mem;

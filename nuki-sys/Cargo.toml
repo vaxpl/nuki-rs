@@ -1,5 +1,5 @@
 [package]
-name = "nuklear-sys"
+name = "nuki-sys"
 #version = "4.01.5" #version of nuklear.h
 version = "4.1.5"
 authors = [
@@ -12,10 +12,6 @@ repository = "https://github.com/varphone/nuklear-rs"
 license = "MIT OR Apache-2.0"
 build = "build.rs"
 links = "nuklear"
-
-[lib]
-name = "nuklear_sys"
-path = "src/lib.rs"
 
 [dependencies]
 libc = "~0.2"

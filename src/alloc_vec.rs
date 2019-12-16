@@ -1,4 +1,4 @@
-use nuklear_sys::{nk_handle, nk_size};
+use nuki_sys::{nk_handle, nk_size};
 
 use std::mem;
 use std::os::raw::c_void;
