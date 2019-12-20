@@ -3781,15 +3781,22 @@ impl Buffer {
         unsafe { nk_buffer_memory_const(&self.internal as *const nk_buffer) }
     }
 
+    pub fn mark(&mut self, type_: BufferAllocationType) {
+        unsafe { nk_buffer_mark(&mut self.internal as *mut nk_buffer, type_.into()) }
+    }
+
+    pub fn reset(&mut self, type_: BufferAllocationType) {
+        unsafe { nk_buffer_reset(&mut self.internal as *mut nk_buffer, type_.into()) }
+    }
+
+    pub fn clear(&mut self) {
+        unsafe { nk_buffer_clear(&mut self.internal as *mut nk_buffer) }
+    }
+
     // pub fn nk_buffer_push(arg1: *mut nk_buffer,
     // type_: nk_buffer_allocation_type,
     // memory: *const ::std::os::raw::c_void,
     // size: nk_size, align: nk_size);
-    // pub fn nk_buffer_mark(arg1: *mut nk_buffer,
-    // type_: nk_buffer_allocation_type);
-    // pub fn nk_buffer_reset(arg1: *mut nk_buffer,
-    // type_: nk_buffer_allocation_type);
-    // pub fn nk_buffer_clear(arg1: *mut nk_buffer);
     // pub fn nk_buffer_free(arg1: *mut nk_buffer);
     // pub fn nk_buffer_total(arg1: *mut nk_buffer) -> &_size;
     //
