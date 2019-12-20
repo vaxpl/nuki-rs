@@ -5,7 +5,7 @@ extern crate alloc;
 use super::ALIGNMENT;
 use nuki_sys::{nk_handle, nk_size};
 
-use std::alloc::{Alloc, Global, Layout};
+use std::alloc::{Layout};
 use std::mem;
 use std::os::raw::c_void;
 use std::ptr::NonNull;
@@ -16,12 +16,12 @@ pub unsafe extern "C" fn alloc(_: nk_handle, _: *mut c_void, size: nk_size) -> *
     let size_size = mem::size_of::<nk_size>();
     let size = size + size_size as nk_size;
 
-    let memory = Global.alloc(Layout::from_size_align(size as usize, ALIGNMENT).unwrap()).unwrap();
+    let memory = std::alloc::alloc(Layout::from_size_align(size as usize, ALIGNMENT).unwrap());
     trace!("allocating {} / {} bytes", size_size, size);
 
-    *(memory.as_ptr() as *mut nk_size) = size;
+    *(memory as *mut nk_size) = size;
     trace!("allocated {} bytes at {:p}", size, memory);
-    memory.as_ptr().offset(size_size as isize) as *mut c_void
+    memory.offset(size_size as isize) as *mut c_void
 }
 
 pub unsafe extern "C" fn free(_: nk_handle, old: *mut c_void) {
@@ -37,5 +37,5 @@ pub unsafe extern "C" fn free(_: nk_handle, old: *mut c_void) {
 
     trace!("deallocating {} bytes from {:p}", old_size, old);
 
-    Global.dealloc(NonNull::new(old).unwrap(), Layout::from_size_align(old_size as usize, ALIGNMENT).unwrap());
+    std::alloc::dealloc(old, Layout::from_size_align(old_size as usize, ALIGNMENT).unwrap());
 }

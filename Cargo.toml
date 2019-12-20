@@ -18,7 +18,6 @@ log = "~0.3"
 
 [features]
 default = []
-rust_allocator = []
 
 [dependencies.nuki-sys]
 path = "nuki-sys"

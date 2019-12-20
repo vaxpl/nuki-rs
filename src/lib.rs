@@ -6,12 +6,10 @@
 #![cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))] // required by allocator
 #![cfg_attr(feature = "cargo-clippy", allow(non_upper_case_globals))]
 #![allow(non_upper_case_globals)]
-#![cfg_attr(feature = "rust_allocator", feature(allocator_api))]
 
 #[macro_use]
 extern crate log;
 
-#[cfg(feature = "rust_allocator")]
 mod alloc_heap;
 mod alloc_vec;
 
@@ -3239,7 +3237,6 @@ impl Cursor {
 wrapper_type!(Allocator, nk_allocator);
 
 impl Allocator {
-    #[cfg(feature = "rust_allocator")]
     pub fn new_heap() -> Allocator {
         let mut a = Allocator::default();
 
