@@ -3713,6 +3713,23 @@ wrapper_type!(DrawNullTexture, nk_draw_null_texture);
 
 const DEFAULT_BUFFER_SIZE: usize = 8096;
 
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+pub enum BufferAllocationType {
+    Front,
+    Back,
+    Max,
+}
+
+impl Into<u32> for BufferAllocationType {
+    fn into(self) -> u32 {
+        match self {
+            BufferAllocationType::Front => 0,
+            BufferAllocationType::Back => 1,
+            BufferAllocationType::Max => 2,
+        }
+    }
+}
+
 wrapper_type!(Buffer, nk_buffer);
 
 impl Drop for Buffer {
