@@ -3184,6 +3184,12 @@ impl Default for ColorMap {
     }
 }
 
+impl From<[Color; 28usize]> for ColorMap {
+    fn from(value: [Color; 28usize]) -> ColorMap {
+        ColorMap { internal: value }
+    }
+}
+
 impl ColorMap {
     pub fn set(&mut self, target: StyleColor, color: Color) {
         self.internal[target as usize] = color;
