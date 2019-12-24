@@ -1,6 +1,6 @@
 [package]
 name = "nuki"
-version = "0.6.3"
+version = "0.1.0"
 authors = [
     "Serhii Plyhun <snuk188@gmail.com>",
     "Varphone Wong <varphone@qq.com>",
@@ -14,11 +14,11 @@ homepage = "https://github.com/varphone/nuki-rs"
 edition = "2018"
 
 [dependencies]
-log = "~0.3"
+log = "0.4"
 
 [features]
 default = []
 
 [dependencies.nuki-sys]
 path = "nuki-sys"
-version = "~4.1"
+version = "4.1"

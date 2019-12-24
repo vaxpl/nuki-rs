@@ -1,10 +1,11 @@
 extern crate cc;
 
+use std::env;
 use std::path::Path;
 use std::process::Command;
 
 fn is_git_worktree() -> bool {
-    let cwd = Path::new(".");
+    let cwd = &env::current_dir().unwrap();
     if Path::new(&cwd.join(".git")).exists() {
         return true;
     }

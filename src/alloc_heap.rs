@@ -5,7 +5,7 @@ extern crate alloc;
 use super::ALIGNMENT;
 use nuki_sys::{nk_handle, nk_size};
 
-use std::alloc::{Layout};
+use std::alloc::Layout;
 use std::mem;
 use std::os::raw::c_void;
 use std::ptr::NonNull;
@@ -37,5 +37,8 @@ pub unsafe extern "C" fn free(_: nk_handle, old: *mut c_void) {
 
     trace!("deallocating {} bytes from {:p}", old_size, old);
 
-    std::alloc::dealloc(old, Layout::from_size_align(old_size as usize, ALIGNMENT).unwrap());
+    std::alloc::dealloc(
+        old,
+        Layout::from_size_align(old_size as usize, ALIGNMENT).unwrap(),
+    );
 }
