@@ -3992,14 +3992,14 @@ impl Buffer {
         a
     }
 
-    pub fn total(&mut self) -> usize {
-        unsafe { nk_buffer_total(&mut self.internal as *mut nk_buffer) as usize }
+    pub fn total(&self) -> usize {
+        unsafe { nk_buffer_total(&self.internal as *const nk_buffer as *mut nk_buffer) as usize }
     }
 
-    pub fn info(&mut self) -> (usize, usize, usize, usize) /*size, allocated, needed, calls*/ {
+    pub fn info(&self) -> (usize, usize, usize, usize) /*size, allocated, needed, calls*/ {
         let mut s = nk_memory_status::default();
         unsafe {
-            nk_buffer_info(&mut s, &mut self.internal as *mut nk_buffer);
+            nk_buffer_info(&mut s, &self.internal as *const nk_buffer as *mut nk_buffer);
         }
         (
             s.size as usize,
@@ -4027,6 +4027,11 @@ impl Buffer {
 
     pub fn clear(&mut self) {
         unsafe { nk_buffer_clear(&mut self.internal as *mut nk_buffer) }
+    }
+
+    pub fn as_bytes(&self) -> &[u8] {
+        let (_, len, _, _) = self.info();
+        unsafe { std::slice::from_raw_parts::<u8>(self.memory_const() as *const u8, len) }
     }
 
     // pub fn nk_buffer_push(arg1: *mut nk_buffer,
