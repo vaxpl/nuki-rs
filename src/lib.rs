@@ -3711,7 +3711,7 @@ impl Drop for FontAtlas {
 }
 
 impl FontAtlas {
-    pub fn new(alloc: &mut Allocator) -> FontAtlas {
+    pub fn new(alloc: &Allocator) -> FontAtlas {
         let mut a = FontAtlas::default();
         a.init(alloc);
         a
@@ -3815,22 +3815,22 @@ impl FontAtlas {
         }
     }
 
-    fn init(&mut self, arg2: &mut Allocator) {
+    fn init(&mut self, alloc: &Allocator) {
         unsafe {
             nk_font_atlas_init(
                 &mut self.internal as *mut nk_font_atlas,
-                &mut arg2.internal as *mut nk_allocator,
+                &alloc.internal as *const nk_allocator as *mut nk_allocator,
             );
         }
     }
 
     #[allow(dead_code)]
-    fn init_custom(&mut self, persistent: &mut Allocator, transient: &mut Allocator) {
+    fn init_custom(&mut self, persistent: &Allocator, transient: &Allocator) {
         unsafe {
             nk_font_atlas_init_custom(
                 &mut self.internal as *mut nk_font_atlas,
-                &mut persistent.internal as *mut nk_allocator,
-                &mut transient.internal as *mut nk_allocator,
+                &persistent.internal as *const nk_allocator as *mut nk_allocator,
+                &transient.internal as *const nk_allocator as *mut nk_allocator,
             );
         }
     }
@@ -3964,16 +3964,16 @@ impl Drop for Buffer {
 }
 
 impl Buffer {
-    pub fn new(alloc: &mut Allocator) -> Buffer {
+    pub fn new(alloc: &Allocator) -> Buffer {
         Buffer::with_size(alloc, DEFAULT_BUFFER_SIZE)
     }
 
-    pub fn with_size(alloc: &mut Allocator, buffer_size: usize) -> Buffer {
+    pub fn with_size(alloc: &Allocator, buffer_size: usize) -> Buffer {
         let mut a = Buffer::default();
         unsafe {
             nk_buffer_init(
                 &mut a.internal as *mut nk_buffer,
-                &mut alloc.internal as *const nk_allocator,
+                &alloc.internal as *const nk_allocator,
                 buffer_size as Size,
             );
         }
@@ -4072,13 +4072,13 @@ impl Drop for Context {
 }
 
 impl Context {
-    pub fn new(alloc: &mut Allocator, font: &UserFont) -> Context {
+    pub fn new(alloc: &Allocator, font: &UserFont) -> Context {
         let mut a = Context::default();
 
         unsafe {
             nk_init(
                 &mut a.internal as *mut nk_context,
-                &mut alloc.internal,
+                &alloc.internal as *const nk_allocator as *mut nk_allocator,
                 &font.internal,
             );
         }
