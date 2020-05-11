@@ -15,6 +15,7 @@ mod alloc_vec;
 
 use std::borrow::Cow;
 use std::default::Default;
+use std::fmt::Debug;
 use std::fs::File;
 use std::io::Read;
 use std::os::raw::*;
@@ -3374,6 +3375,12 @@ impl Cursor {
 
 wrapper_type!(Allocator, nk_allocator);
 
+impl Debug for Allocator {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", &self.internal)
+    }
+}
+
 impl Allocator {
     pub fn new_heap() -> Allocator {
         let mut a = Allocator::default();
@@ -3399,6 +3406,12 @@ impl Allocator {
 // ============================================================================================
 
 wrapper_type!(ConvertConfig, nk_convert_config);
+
+impl Debug for ConvertConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", &self.internal)
+    }
+}
 
 impl ConvertConfig {
     pub fn set_global_alpha(&mut self, val: f32) {
@@ -3932,6 +3945,12 @@ impl<'a> Iterator for FontIntoIter<'a> {
 
 wrapper_type!(DrawNullTexture, nk_draw_null_texture);
 
+impl Debug for DrawNullTexture {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", &self.internal)
+    }
+}
+
 // =============================================================================================
 
 const DEFAULT_BUFFER_SIZE: usize = 8096;
@@ -3960,6 +3979,12 @@ impl Drop for Buffer {
         unsafe {
             nk_buffer_free(&mut self.internal);
         }
+    }
+}
+
+impl Debug for Buffer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", &self.internal)
     }
 }
 
