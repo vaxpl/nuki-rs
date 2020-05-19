@@ -737,6 +737,19 @@ pub struct Handle {
     kind: HandleKind,
 }
 
+impl Debug for Handle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        unsafe {
+            match self.kind {
+                HandleKind::Empty => write!(f, "Handle {{}}"),
+                HandleKind::Ptr => write!(f, "Handle {{ Ptr: {:?} }}", self.internal.ptr),
+                HandleKind::Id => write!(f, "Handle {{ Id: {:?} }}", self.internal.id),
+                HandleKind::Unknown => write!(f, "Handle {{ Unknown }}"),
+            }
+        }
+    }
+}
+
 impl Default for Handle {
     fn default() -> Self {
         Handle {
