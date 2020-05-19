@@ -7478,10 +7478,10 @@ impl Image {
 wrapper_type!(FontGlyph, nk_font_glyph);
 
 impl FontGlyph {
-    pub fn get_codepoint(&self) -> char {
+    pub fn codepoint(&self) -> char {
         ::std::char::from_u32(self.internal.codepoint).unwrap()
     }
-    pub fn get_xadvance(&self) -> f32 {
+    pub fn xadvance(&self) -> f32 {
         self.internal.xadvance
     }
     pub fn x0(&self) -> f32 {
