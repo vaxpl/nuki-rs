@@ -745,7 +745,11 @@ impl Debug for Handle {
                 HandleKind::Empty => write!(f, "Handle {{}}"),
                 HandleKind::Ptr => write!(f, "Handle {{ Ptr: {:?} }}", self.internal.ptr),
                 HandleKind::Id => write!(f, "Handle {{ Id: {:?} }}", self.internal.id),
-                HandleKind::Unknown => write!(f, "Handle {{ Unknown }}"),
+                HandleKind::Unknown => write!(
+                    f,
+                    "Handle {{ Ptr: {:?}, Id: {:?} }}",
+                    self.internal.ptr, self.internal.id
+                ),
             }
         }
     }
