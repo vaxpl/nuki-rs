@@ -1,3 +1,4 @@
 [submodule "nuki-sys/nuklear-c/nuklear"]
 	path = nuki-sys/nuklear-c/nuklear
 	url = https://github.com/varphone/nuklear
+	branch = nuki
