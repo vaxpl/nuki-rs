@@ -510,6 +510,7 @@ from_into_enum!(DrawVertexLayoutAttribute, nk_draw_vertex_layout_attribute);
 pub enum FontAtlasFormat {
     Alpha8 = nk_font_atlas_format_NK_FONT_ATLAS_ALPHA8 as isize,
     Rgba32 = nk_font_atlas_format_NK_FONT_ATLAS_RGBA32 as isize,
+    Argb32 = nk_font_atlas_format_NK_FONT_ATLAS_ARGB32 as isize,
 }
 from_into_enum!(FontAtlasFormat, nk_font_atlas_format);
 
@@ -3805,6 +3806,7 @@ impl FontAtlas {
         let size = (match format {
             FontAtlasFormat::Alpha8 => 1,
             FontAtlasFormat::Rgba32 => 4,
+            FontAtlasFormat::Argb32 => 4,
         } * width
             * height) as usize;
 

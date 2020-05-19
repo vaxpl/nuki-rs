@@ -4437,6 +4437,7 @@ impl Default for nk_font {
 }
 pub const nk_font_atlas_format_NK_FONT_ATLAS_ALPHA8: nk_font_atlas_format = 0;
 pub const nk_font_atlas_format_NK_FONT_ATLAS_RGBA32: nk_font_atlas_format = 1;
+pub const nk_font_atlas_format_NK_FONT_ATLAS_ARGB32: nk_font_atlas_format = 2;
 pub type nk_font_atlas_format = u32;
 #[repr(C)]
 #[derive(Copy, Clone)]
