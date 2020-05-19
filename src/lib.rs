@@ -7533,6 +7533,13 @@ impl Font {
     pub fn handle(&self) -> &UserFont {
         unsafe { ::std::mem::transmute(&self.internal.handle as *const _ as *mut nk_user_font) }
     }
+
+    pub fn texture(&self) -> Handle {
+        Handle {
+            internal: self.internal.texture,
+            kind: HandleKind::Unknown,
+        }
+    }
 }
 
 // =============================================================================================
