@@ -60,6 +60,72 @@ pub struct nk_color {
     pub b: nk_byte,
     pub a: nk_byte,
 }
+impl From<u32> for nk_color {
+    fn from(v: u32) -> Self {
+        let v = v.to_be_bytes();
+        nk_color {
+            r: v[0],
+            g: v[1],
+            b: v[2],
+            a: v[3],
+        }
+    }
+}
+impl From<[u8; 4usize]> for nk_color {
+    fn from(v: [u8; 4usize]) -> Self {
+        nk_color {
+            r: v[0],
+            g: v[1],
+            b: v[2],
+            a: v[3],
+        }
+    }
+}
+impl From<(u8, u8, u8, u8)> for nk_color {
+    fn from(v: (u8, u8, u8, u8)) -> Self {
+        nk_color {
+            r: v.0,
+            g: v.1,
+            b: v.2,
+            a: v.3,
+        }
+    }
+}
+impl From<(f32, f32, f32, f32)> for nk_color {
+    fn from(v: (f32, f32, f32, f32)) -> Self {
+        nk_color {
+            r: (v.0 * 255.0).round() as u8,
+            g: (v.1 * 255.0).round() as u8,
+            b: (v.2 * 255.0).round() as u8,
+            a: (v.3 * 255.0).round() as u8,
+        }
+    }
+}
+impl From<nk_color> for u32 {
+    fn from(v: nk_color) -> Self {
+        u32::from_be_bytes([v.r, v.g, v.b, v.a])
+    }
+}
+impl From<nk_color> for [u8; 4usize] {
+    fn from(v: nk_color) -> Self {
+        [v.r, v.g, v.b, v.a]
+    }
+}
+impl From<nk_color> for (u8, u8, u8, u8) {
+    fn from(v: nk_color) -> Self {
+        (v.r, v.g, v.b, v.a)
+    }
+}
+impl From<nk_color> for (f32, f32, f32, f32) {
+    fn from(v: nk_color) -> Self {
+        (
+            v.r as f32 / 255.0,
+            v.g as f32 / 255.0,
+            v.b as f32 / 255.0,
+            v.a as f32 / 255.0,
+        )
+    }
+}
 #[test]
 fn bindgen_test_layout_nk_color() {
     assert_eq!(
