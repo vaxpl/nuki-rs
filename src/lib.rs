@@ -7546,6 +7546,12 @@ impl Font {
 
 wrapper_type!(UserFont, nk_user_font);
 
+impl AsRef<Font> for UserFont {
+    fn as_ref(&self) -> &Font {
+        unsafe { ::std::mem::transmute(self.internal.userdata.ptr as *const _ as *mut nk_font) }
+    }
+}
+
 impl UserFont {
     pub unsafe fn userdata_ptr(&self) -> Handle {
         Handle::from_ptr(self.internal.userdata.ptr)
