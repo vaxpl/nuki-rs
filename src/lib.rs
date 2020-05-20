@@ -1,9 +1,9 @@
-#![cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ptr))] // TODO later
-#![cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))] // TODO later
-#![cfg_attr(feature = "cargo-clippy", allow(needless_pass_by_value))] // API requirement
-#![cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))] // API requirement
-#![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))] // API requirement
-#![cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))] // required by allocator
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::transmute_ptr_to_ptr))] // TODO later
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::transmute_ptr_to_ref))] // TODO later
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_pass_by_value))] // API requirement
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))] // API requirement
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))] // API requirement
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))] // required by allocator
 #![cfg_attr(feature = "cargo-clippy", allow(non_upper_case_globals))]
 #![allow(non_upper_case_globals)]
 
@@ -551,6 +551,7 @@ pub struct String<'a> {
 }
 
 impl<'a> String<'a> {
+    /// # Safety
     pub unsafe fn from_bytes_unchecked(bytes: &'a [u8]) -> String<'a> {
         String {
             bytes: Cow::Borrowed(bytes),
@@ -786,6 +787,7 @@ impl Handle {
         }
     }
 
+    /// # Safety
     pub unsafe fn from_ptr(value: *mut c_void) -> Handle {
         Handle {
             kind: HandleKind::Ptr,
@@ -816,9 +818,12 @@ impl ConfigurationStacks {
 wrapper_type!(Clipboard, nk_clipboard);
 
 impl Clipboard {
+    /// # Safety
     pub unsafe fn userdata_ptr(&self) -> Handle {
         Handle::from_ptr(self.internal.userdata.ptr)
     }
+
+    /// # Safety
     pub unsafe fn userdata_id(&self) -> Handle {
         Handle::from_id(self.internal.userdata.id)
     }
@@ -6101,7 +6106,7 @@ impl Context {
     }
 
     pub fn style_push_font(&mut self, font: &mut UserFont) -> bool {
-        unsafe { nk_style_push_font(&mut self.internal as *mut nk_context, &mut font.internal) > 0 }
+        unsafe { nk_style_push_font(&mut self.internal as *mut nk_context, &font.internal) > 0 }
     }
 
     pub fn style_push_float(&mut self, addr: &mut f32, val: f32) -> bool {
@@ -7466,6 +7471,7 @@ impl Image {
         }
     }
 
+    /// # Safety
     pub unsafe fn with_ptr(ptr: *mut c_void) -> Image {
         Image {
             internal: nk_image_ptr(ptr),
@@ -7600,10 +7606,12 @@ impl AsRef<Font> for UserFont {
 }
 
 impl UserFont {
+    /// # Safety
     pub unsafe fn userdata_ptr(&self) -> Handle {
         Handle::from_ptr(self.internal.userdata.ptr)
     }
 
+    /// # Safety
     pub unsafe fn userdata_id(&self) -> Handle {
         Handle::from_id(self.internal.userdata.id)
     }

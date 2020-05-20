@@ -1,5 +1,6 @@
 use nuki_sys::{nk_handle, nk_size};
 
+use std::convert::TryInto;
 use std::mem;
 use std::os::raw::c_void;
 
@@ -16,7 +17,7 @@ pub unsafe extern "C" fn alloc(_: nk_handle, _: *mut c_void, size: nk_size) -> *
     mem::forget(v);
 
     *(ptr as *mut nk_size) = size;
-    ptr.offset(size_size as isize) as *mut c_void
+    ptr.offset(size_size.try_into().unwrap()) as *mut c_void
 }
 
 pub unsafe extern "C" fn free(_: nk_handle, old: *mut c_void) {

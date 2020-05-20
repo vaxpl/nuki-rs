@@ -16,13 +16,11 @@ fn is_git_worktree() -> bool {
 }
 
 fn main() {
-    if is_git_worktree() {
-        if !Path::new("nuklear-c/nuklear/.git").exists() {
-            Command::new("git")
-                .args(&["submodule", "update", "--init", "--recursive"])
-                .status()
-                .unwrap();
-        }
+    if is_git_worktree() && !Path::new("nuklear-c/nuklear/.git").exists() {
+        Command::new("git")
+            .args(&["submodule", "update", "--init", "--recursive"])
+            .status()
+            .unwrap();
     }
     cc::Build::new()
         .file("nuklear-c/bind.c")
