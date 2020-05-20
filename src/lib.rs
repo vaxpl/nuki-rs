@@ -6773,6 +6773,14 @@ impl CommandScissor {
     pub fn h(&self) -> u16 {
         self.internal.h
     }
+    pub fn rect(&self) -> (i32, i32, u32, u32) {
+        (
+            self.internal.x as i32,
+            self.internal.y as i32,
+            self.internal.w as u32,
+            self.internal.h as u32,
+        )
+    }
 }
 
 emit_nk_command!(CommandLine, nk_command_line);
@@ -7513,6 +7521,45 @@ impl FontGlyph {
     }
     pub fn v1(&self) -> f32 {
         self.internal.v1
+    }
+    pub fn xy(&self) -> (f32, f32, f32, f32) {
+        (
+            self.internal.x0,
+            self.internal.y0,
+            self.internal.x1,
+            self.internal.y1,
+        )
+    }
+    pub fn xy0(&self) -> (f32, f32) {
+        (self.internal.x0, self.internal.y0)
+    }
+    pub fn xy1(&self) -> (f32, f32) {
+        (self.internal.x1, self.internal.y1)
+    }
+    pub fn rect(&self) -> (f32, f32, f32, f32) {
+        (
+            self.internal.x0,
+            self.internal.y0,
+            self.internal.w,
+            self.internal.h,
+        )
+    }
+    pub fn size(&self) -> (f32, f32) {
+        (self.internal.w, self.internal.h)
+    }
+    pub fn uv(&self) -> (f32, f32, f32, f32) {
+        (
+            self.internal.u0,
+            self.internal.v0,
+            self.internal.u1,
+            self.internal.v1,
+        )
+    }
+    pub fn uv0(&self) -> (f32, f32) {
+        (self.internal.u0, self.internal.v0)
+    }
+    pub fn uv1(&self) -> (f32, f32) {
+        (self.internal.u1, self.internal.v1)
     }
 }
 
