@@ -142,6 +142,164 @@ macro_rules! from_into_enum {
 
 // ==========================================================================================================
 
+#[derive(Debug)]
+pub struct FlagsBuilder;
+
+impl FlagsBuilder {
+    #[inline]
+    pub fn align() -> AlignFlagsBuilder {
+        AlignFlagsBuilder { flags: 0 }
+    }
+
+    #[inline]
+    pub fn panel() -> PanelFlagsBuilder {
+        PanelFlagsBuilder { flags: 0 }
+    }
+}
+
+
+#[derive(Debug)]
+pub struct AlignFlagsBuilder {
+    flags: isize,
+}
+
+impl From<AlignFlagsBuilder> for Flags {
+    fn from(val: AlignFlagsBuilder) -> Flags {
+        val.flags as Flags
+    }
+}
+
+impl AlignFlagsBuilder {
+    #[inline]
+    pub fn clear(mut self) -> Self {
+        self.flags = 0;
+        self
+    }
+
+    #[inline]
+    pub fn left(mut self) -> Self {
+        self.flags |= TextAlign::Left as isize;
+        self
+    }
+
+    #[inline]
+    pub fn centered(mut self) -> Self {
+        self.flags |= TextAlign::Centered as isize;
+        self
+    }
+
+    #[inline]
+    pub fn right(mut self) -> Self {
+        self.flags |= TextAlign::Right as isize;
+        self
+    }
+
+    #[inline]
+    pub fn top(mut self) -> Self {
+        self.flags |= TextAlign::Top as isize;
+        self
+    }
+
+    #[inline]
+    pub fn middle(mut self) -> Self {
+        self.flags |= TextAlign::Middle as isize;
+        self
+    }
+
+    #[inline]
+    pub fn bottom(mut self) -> Self {
+        self.flags |= TextAlign::Bottom as isize;
+        self
+    }
+}
+
+#[derive(Debug)]
+pub struct PanelFlagsBuilder {
+    flags: isize,
+}
+
+impl From<PanelFlagsBuilder> for Flags {
+    fn from(val: PanelFlagsBuilder) -> Flags {
+        val.flags as Flags
+    }
+}
+
+impl PanelFlagsBuilder {
+    #[inline]
+    pub fn clear(mut self) -> Self {
+        self.flags = 0;
+        self
+    }
+
+    #[inline]
+    pub fn border(mut self) -> Self {
+        self.flags |= PanelFlags::Border as isize;
+        self
+    }
+
+    #[inline]
+    pub fn movable(mut self) -> Self {
+        self.flags |= PanelFlags::Movable as isize;
+        self
+    }
+
+    #[inline]
+    pub fn scalable(mut self) -> Self {
+        self.flags |= PanelFlags::Scalable as isize;
+        self
+    }
+
+    #[inline]
+    pub fn closable(mut self) -> Self {
+        self.flags |= PanelFlags::Closable as isize;
+        self
+    }
+
+    #[inline]
+    pub fn minimizable(mut self) -> Self {
+        self.flags |= PanelFlags::Minimizable as isize;
+        self
+    }
+
+    #[inline]
+    pub fn no_scroll_bar(mut self) -> Self {
+        self.flags |= PanelFlags::NoScrollbar as isize;
+        self
+    }
+
+    #[inline]
+    pub fn title(mut self) -> Self {
+        self.flags |= PanelFlags::Title as isize;
+        self
+    }
+
+    #[inline]
+    pub fn scroll_auto_hide(mut self) -> Self {
+        self.flags |= PanelFlags::ScrollAutoHide as isize;
+        self
+    }
+
+    #[inline]
+    pub fn background(mut self) -> Self {
+        self.flags |= PanelFlags::Background as isize;
+        self
+    }
+
+    #[inline]
+    pub fn scroll_left(mut self) -> Self {
+        self.flags |= PanelFlags::ScaleLeft as isize;
+        self
+    }
+
+    #[inline]
+    pub fn no_input(mut self) -> Self {
+        self.flags |= PanelFlags::NoInput as isize;
+        self
+    }
+}
+
+// ==========================================================================================================
+
 #[repr(C)]
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum CommandType {
