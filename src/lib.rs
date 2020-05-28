@@ -3709,6 +3709,66 @@ impl StyleItem {
         }
     }
 
+    #[inline]
+    pub fn color_rgb(r: i32, g: i32, b: i32) -> Self {
+        Self::color(color_rgb(r, g, b))
+    }
+
+    #[inline]
+    pub fn color_rgb_f(r: f32, g: f32, b: f32) -> Self {
+        Self::color(color_rgb_f(r, g, b))
+    }
+
+    #[inline]
+    pub fn color_rgb_bv(bv: &u8) -> Self {
+        Self::color(color_rgb_bv(bv))
+    }
+
+    #[inline]
+    pub fn color_rgba(r: i32, g: i32, b: i32, a: i32) -> Self {
+        Self::color(color_rgba(r, g, b, a))
+    }
+
+    #[inline]
+    pub fn color_rgba_f(r: f32, g: f32, b: f32, a: f32) -> Self {
+        Self::color(color_rgba_f(r, g, b, a))
+    }
+
+    #[inline]
+    pub fn color_rgba_bv(bv: &u8) -> Self {
+        Self::color(color_rgba_bv(bv))
+    }
+
+    #[inline]
+    pub fn color_hsv(h: i32, s: i32, v: i32) -> Self {
+        Self::color(color_hsv(h, s, v))
+    }
+
+    #[inline]
+    pub fn color_hsv_f(h: f32, s: f32, v: f32) -> Self {
+        Self::color(color_hsv_f(h, s, v))
+    }
+
+    #[inline]
+    pub fn color_hsv_bv(bv: &u8) -> Self {
+        Self::color(color_hsv_bv(bv))
+    }
+
+    #[inline]
+    pub fn color_hsva(h: i32, s: i32, v: i32, a: i32) -> Self {
+        Self::color(color_hsva(h, s, v, a))
+    }
+
+    #[inline]
+    pub fn color_hsva_f(h: f32, s: f32, v: f32, a: f32) -> Self {
+        Self::color(color_hsva_f(h, s, v, a))
+    }
+
+    #[inline]
+    pub fn color_hsva_bv(bv: &u8) -> Self {
+        Self::color(color_hsva_bv(bv))
+    }
+
     pub fn hide() -> StyleItem {
         unsafe {
             StyleItem {
