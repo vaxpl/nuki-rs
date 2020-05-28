@@ -14,6 +14,7 @@ mod alloc_heap;
 mod alloc_vec;
 
 use std::borrow::Cow;
+use std::convert::TryFrom;
 use std::default::Default;
 use std::fmt::Debug;
 use std::fs::File;
@@ -3664,6 +3665,32 @@ from_into_enum!(StyleItemType, nk_style_item_type);
 // =============================================================================================
 
 wrapper_type!(StyleItem, nk_style_item);
+
+impl TryFrom<StyleItem> for Image {
+    type Error = &'static str;
+    fn try_from(value: StyleItem) -> Result<Self, Self::Error> {
+        unsafe {
+            if value.internal.type_ == StyleItemType::Image as u32 {
+                Ok(value.internal.data.image.into())
+            } else {
+                Err("Typeof(StyleItem) != StyleItemType::Image")
+            }
+        }
+    }
+}
+
+impl TryFrom<StyleItem> for Color {
+    type Error = &'static str;
+    fn try_from(value: StyleItem) -> Result<Self, Self::Error> {
+        unsafe {
+            if value.internal.type_ == StyleItemType::Color as u32 {
+                Ok(value.internal.data.color.into())
+            } else {
+                Err("Typeof(StyleItem) != StyleItemType::Color")
+            }
+        }
+    }
+}
 
 impl StyleItem {
     pub fn image(img: Image) -> StyleItem {
