@@ -158,7 +158,6 @@ impl FlagsBuilder {
     }
 }
 
-
 #[derive(Debug)]
 pub struct AlignFlagsBuilder {
     flags: isize,
