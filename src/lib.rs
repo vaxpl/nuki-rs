@@ -7622,6 +7622,12 @@ pub fn style_get_color_by_name(c: StyleColor) -> Cow<'static, str> {
 
 wrapper_type!(Image, nk_image);
 
+impl From<nk_image> for Image {
+    fn from(value: nk_image) -> Self {
+        Self { internal: value }
+    }
+}
+
 impl Image {
     pub fn with_id(id: i32) -> Image {
         Image {
