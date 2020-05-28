@@ -3653,6 +3653,16 @@ impl DrawVertexLayoutElements {
 
 // =============================================================================================
 
+#[repr(C)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum StyleItemType {
+    Image = nk_style_item_type_NK_STYLE_ITEM_IMAGE as isize,
+    Color = nk_style_item_type_NK_STYLE_ITEM_COLOR as isize,
+}
+from_into_enum!(StyleItemType, nk_style_item_type);
+
+// =============================================================================================
+
 wrapper_type!(StyleItem, nk_style_item);
 
 impl StyleItem {
