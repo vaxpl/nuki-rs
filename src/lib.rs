@@ -13,6 +13,8 @@ extern crate log;
 mod alloc_heap;
 mod alloc_vec;
 
+pub mod object_pool;
+
 use std::borrow::Cow;
 use std::convert::TryFrom;
 use std::default::Default;
