@@ -239,6 +239,50 @@ impl PropertyBase {
     }
 }
 
+macro_rules! wrap_property_base {
+    () => {
+        #[inline]
+        fn name(&self) -> &'static str {
+            self.base.name()
+        }
+
+        #[inline]
+        fn options(&self) -> &[&'static str] {
+            self.base.options()
+        }
+
+        #[inline]
+        fn value_type(&self) -> ValueType {
+            self.base.value_type()
+        }
+
+        #[inline]
+        fn widget_type(&self) -> WidgetType {
+            self.base.widget_type()
+        }
+
+        #[inline]
+        fn is_visible(&self) -> bool {
+            self.base.is_visible()
+        }
+
+        #[inline]
+        fn set_visible(&self, visible: bool) {
+            self.base.set_visible(visible)
+        }
+
+        #[inline]
+        fn show(&self) {
+            self.base.show()
+        }
+
+        #[inline]
+        fn hide(&self) {
+            self.base.hide()
+        }
+    }
+}
+
 type ActionCallback = dyn FnMut(&dyn Property, bool) -> bool + 'static;
 
 /// Action Property.
@@ -273,25 +317,7 @@ impl Default for PropertyAction {
 }
 
 impl Property for PropertyAction {
-    #[inline]
-    fn name(&self) -> &'static str {
-        &self.base.name
-    }
-
-    #[inline]
-    fn options(&self) -> &[&'static str] {
-        &self.base.options
-    }
-
-    #[inline]
-    fn value_type(&self) -> ValueType {
-        self.base.value_type
-    }
-
-    #[inline]
-    fn widget_type(&self) -> WidgetType {
-        self.base.widget_type
-    }
+    wrap_property_base!();
 
     #[inline]
     fn as_property_action(&self) -> Option<&PropertyAction> {
@@ -372,25 +398,7 @@ impl Default for PropertyBool {
 }
 
 impl Property for PropertyBool {
-    #[inline]
-    fn name(&self) -> &'static str {
-        &self.base.name
-    }
-
-    #[inline]
-    fn options(&self) -> &[&'static str] {
-        &self.base.options
-    }
-
-    #[inline]
-    fn value_type(&self) -> ValueType {
-        self.base.value_type
-    }
-
-    #[inline]
-    fn widget_type(&self) -> WidgetType {
-        self.base.widget_type
-    }
+    wrap_property_base!();
 
     #[inline]
     fn as_property_bool(&self) -> Option<&PropertyBool> {
@@ -511,25 +519,7 @@ unsafe impl Send for PropertyF32 {}
 unsafe impl Sync for PropertyF32 {}
 
 impl Property for PropertyF32 {
-    #[inline]
-    fn name(&self) -> &'static str {
-        &self.base.name
-    }
-
-    #[inline]
-    fn options(&self) -> &[&'static str] {
-        &self.base.options
-    }
-
-    #[inline]
-    fn value_type(&self) -> ValueType {
-        self.base.value_type
-    }
-
-    #[inline]
-    fn widget_type(&self) -> WidgetType {
-        self.base.widget_type
-    }
+    wrap_property_base!();
 
     #[inline]
     fn as_property_f32<'l>(&self) -> Option<&(dyn PropertyNumber<f32> + 'l)> {
@@ -627,25 +617,7 @@ unsafe impl Send for PropertyF64 {}
 unsafe impl Sync for PropertyF64 {}
 
 impl Property for PropertyF64 {
-    #[inline]
-    fn name(&self) -> &'static str {
-        &self.base.name
-    }
-
-    #[inline]
-    fn options(&self) -> &[&'static str] {
-        &self.base.options
-    }
-
-    #[inline]
-    fn value_type(&self) -> ValueType {
-        self.base.value_type
-    }
-
-    #[inline]
-    fn widget_type(&self) -> WidgetType {
-        self.base.widget_type
-    }
+    wrap_property_base!();
 
     #[inline]
     fn as_property_f64<'l>(&self) -> Option<&(dyn PropertyNumber<f64> + 'l)> {
@@ -743,25 +715,7 @@ unsafe impl Send for PropertyI32 {}
 unsafe impl Sync for PropertyI32 {}
 
 impl Property for PropertyI32 {
-    #[inline]
-    fn name(&self) -> &'static str {
-        &self.base.name
-    }
-
-    #[inline]
-    fn options(&self) -> &[&'static str] {
-        &self.base.options
-    }
-
-    #[inline]
-    fn value_type(&self) -> ValueType {
-        self.base.value_type
-    }
-
-    #[inline]
-    fn widget_type(&self) -> WidgetType {
-        self.base.widget_type
-    }
+    wrap_property_base!();
 
     #[inline]
     fn as_property_i32<'l>(&self) -> Option<&(dyn PropertyNumber<i32> + 'l)> {
@@ -890,25 +844,7 @@ unsafe impl Send for PropertyI64 {}
 unsafe impl Sync for PropertyI64 {}
 
 impl Property for PropertyI64 {
-    #[inline]
-    fn name(&self) -> &'static str {
-        &self.base.name
-    }
-
-    #[inline]
-    fn options(&self) -> &[&'static str] {
-        &self.base.options
-    }
-
-    #[inline]
-    fn value_type(&self) -> ValueType {
-        self.base.value_type
-    }
-
-    #[inline]
-    fn widget_type(&self) -> WidgetType {
-        self.base.widget_type
-    }
+    wrap_property_base!();
 
     #[inline]
     fn as_property_i64<'l>(&self) -> Option<&(dyn PropertyNumber<i64> + 'l)> {
@@ -1058,25 +994,7 @@ impl Default for PropertyString {
 }
 
 impl Property for PropertyString {
-    #[inline]
-    fn name(&self) -> &'static str {
-        &self.base.name
-    }
-
-    #[inline]
-    fn options(&self) -> &[&'static str] {
-        &self.base.options
-    }
-
-    #[inline]
-    fn value_type(&self) -> ValueType {
-        self.base.value_type
-    }
-
-    #[inline]
-    fn widget_type(&self) -> WidgetType {
-        self.base.widget_type
-    }
+    wrap_property_base!();
 
     #[inline]
     fn as_property_string(&self) -> Option<&PropertyString> {
