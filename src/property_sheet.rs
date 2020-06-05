@@ -73,6 +73,131 @@ pub trait Property {
     fn as_property_string(&self) -> Option<&PropertyString> {
         None
     }
+
+    /// Returns the `checked` state if the property is type of `ValueType::Action`.
+    fn is_action_checked(&self) -> Option<bool> {
+        if let Some(p) = self.as_property_action() {
+            Some(p.is_checked())
+        } else {
+            None
+        }
+    }
+
+    /// Trigger the action if the property is type of `ValueType::Action`.
+    fn trigger_action(&self, checked: bool) -> Option<bool> {
+        if let Some(p) = self.as_property_action() {
+            Some(p.trigger(checked))
+        } else {
+            None
+        }
+    }
+
+    /// Returns the `bool` value if the property is type of `ValueType::Bool`.
+    fn get_value_bool(&self) -> Option<bool> {
+        if let Some(p) = self.as_property_bool() {
+            Some(p.value())
+        } else {
+            None
+        }
+    }
+
+    /// Change the `bool` value if the property is type of `ValueType::Bool`.
+    fn set_value_bool(&self, value: bool) -> Option<bool> {
+        if let Some(p) = self.as_property_bool() {
+            Some(p.set_value(value))
+        } else {
+            None
+        }
+    }
+
+    /// Returns the `f32` value if the property is type of `ValueType::F32`.
+    fn get_value_f32(&self) -> Option<f32> {
+        if let Some(p) = self.as_property_f32() {
+            Some(p.value())
+        } else {
+            None
+        }
+    }
+
+    /// Change the `f32` value if the property is type of `ValueType::F32`.
+    fn set_value_f32(&self, value: f32) -> Option<f32> {
+        if let Some(p) = self.as_property_f32() {
+            Some(p.set_value(value))
+        } else {
+            None
+        }
+    }
+
+    /// Returns the `f64` value if the property is type of `ValueType::F64`.
+    fn get_value_f64(&self) -> Option<f64> {
+        if let Some(p) = self.as_property_f64() {
+            Some(p.value())
+        } else {
+            None
+        }
+    }
+
+    /// Change the `f64` value if the property is type of `ValueType::F64`.
+    fn set_value_f64(&self, value: f64) -> Option<f64> {
+        if let Some(p) = self.as_property_f64() {
+            Some(p.set_value(value))
+        } else {
+            None
+        }
+    }
+
+    /// Returns the `i32` value if the property is type of `ValueType::I32`.
+    fn get_value_i32(&self) -> Option<i32> {
+        if let Some(p) = self.as_property_i32() {
+            Some(p.value())
+        } else {
+            None
+        }
+    }
+
+    /// Change the `i32` value if the property is type of `ValueType::I32`.
+    fn set_value_i32(&self, value: i32) -> Option<i32> {
+        if let Some(p) = self.as_property_i32() {
+            Some(p.set_value(value))
+        } else {
+            None
+        }
+    }
+
+    /// Returns the `i64` value if the property is type of `ValueType::I64`.
+    fn get_value_i64(&self) -> Option<i64> {
+        if let Some(p) = self.as_property_i64() {
+            Some(p.value())
+        } else {
+            None
+        }
+    }
+
+    /// Change the `i64` value if the property is type of `ValueType::I64`.
+    fn set_value_i64(&self, value: i64) -> Option<i64> {
+        if let Some(p) = self.as_property_i64() {
+            Some(p.set_value(value))
+        } else {
+            None
+        }
+    }
+
+    /// Returns the `&str` value if the property is type of `ValueType::String`.
+    fn get_value_string(&self) -> Option<Ref<'_, str>> {
+        if let Some(p) = self.as_property_string() {
+            Some(p.value())
+        } else {
+            None
+        }
+    }
+
+    fn set_value_string<'l>(&self, value: &'l str) -> Option<Ref<'_, str>> {
+        if let Some(p) = self.as_property_string() {
+            Some(p.set_value(value))
+        } else {
+            None
+        }
+    }
 }
 
 impl Debug for dyn Property + Send + Sync {
@@ -276,7 +401,7 @@ macro_rules! wrap_property_base {
         fn hide(&self) {
             self.base.hide()
         }
-    }
+    };
 }
 
 type ActionCallback = dyn FnMut(&dyn Property, bool) -> bool + 'static;
@@ -1267,7 +1392,6 @@ mod tests {
             move |prop: &dyn Property, checked: bool| -> bool {
                 assert!(cloned.read().unwrap().len() > 0);
                 assert!(prop.name().len() > 0);
-                assert!(checked, true);
                 checked
             },
         ));
@@ -1351,5 +1475,36 @@ mod tests {
         assert_eq!(ps.write().unwrap().find_mut("Switch").is_some(), true);
         assert_eq!(ps.write().unwrap().find_mut("TextBox").is_some(), true);
         assert_eq!(ps.write().unwrap().find_mut("UnExists").is_none(), true);
+
+        assert_eq!(
+            ps.read().unwrap().find("Foo").unwrap().is_action_checked(),
+            Some(true)
+        );
+        assert_eq!(
+            ps.read()
+                .unwrap()
+                .find("Foo")
+                .unwrap()
+                .trigger_action(false),
+            Some(false)
+        );
+        assert_eq!(
+            ps.read().unwrap().find("Float1").unwrap().get_value_f32(),
+            Some(0.123456)
+        );
+        assert_eq!(
+            ps.read().unwrap().find("ComboBox").unwrap().get_value_i32(),
+            Some(0)
+        );
+        assert_eq!(
+            ps.read()
+                .unwrap()
+                .find("TextBox")
+                .unwrap()
+                .get_value_string()
+                .unwrap()
+                .deref(),
+            "Failure!"
+        );
     }
 }
