@@ -4766,6 +4766,19 @@ impl Context {
         }
     }
 
+    pub fn layout_row_colored(&mut self, fmt: LayoutFormat, height: f32, cols_ratio: &[f32], color: Color) {
+        unsafe {
+            nk_layout_row_colored(
+                &mut self.internal as *mut nk_context,
+                fmt.into(),
+                height,
+                cols_ratio.len() as i32,
+                cols_ratio.as_ptr(),
+                color,
+            );
+        }
+    }
+
     pub fn layout_space_begin(&mut self, fmt: LayoutFormat, height: f32, widget_count: i32) {
         unsafe {
             nk_layout_space_begin(
