@@ -1290,6 +1290,7 @@ mod tests {
             assert!(p.name().len() > 0);
             assert!(p.value_type() != ValueType::Unknown);
             assert!(p.widget_type() != WidgetType::Unknown);
+            assert!(p.is_visible() == true);
         }
         for p in ps
             .read()
@@ -1340,5 +1341,19 @@ mod tests {
         });
 
         assert_eq!(th.join().is_ok(), true);
+
+        if let Ok(ref ps) = ps.read() {
+            assert_eq!(ps.find("Foo").is_some(), true);
+            assert_eq!(ps.find("Bar").is_some(), true);
+            assert_eq!(ps.find("Switch").is_some(), true);
+            assert_eq!(ps.find("TextBox").is_some(), true);
+            assert_eq!(ps.find("UnExists").is_none(), true);
+        }
+
+        assert_eq!(ps.write().unwrap().find_mut("Foo").is_some(), true);
+        assert_eq!(ps.write().unwrap().find_mut("Bar").is_some(), true);
+        assert_eq!(ps.write().unwrap().find_mut("Switch").is_some(), true);
+        assert_eq!(ps.write().unwrap().find_mut("TextBox").is_some(), true);
+        assert_eq!(ps.write().unwrap().find_mut("UnExists").is_none(), true);
     }
 }
