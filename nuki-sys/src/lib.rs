@@ -1467,6 +1467,16 @@ extern "C" {
     );
 }
 extern "C" {
+    pub fn nk_layout_row_colored(
+        arg1: *mut nk_context,
+        arg2: nk_layout_format,
+        height: f32,
+        cols: ::std::os::raw::c_int,
+        ratio: *const f32,
+        color: nk_color,
+    );
+}
+extern "C" {
     pub fn nk_layout_row_template_begin(arg1: *mut nk_context, row_height: f32);
 }
 extern "C" {
