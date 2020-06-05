@@ -25,6 +25,14 @@ pub trait Property {
         WidgetType::Unknown
     }
 
+    /// Returns `true` if the property marked with `selected`.
+    fn is_selected(&self) -> bool {
+        false
+    }
+
+    /// Change the `selected` marker of the property.
+    fn set_selected(&self, _selected: bool) {}
+
     /// Returns `true` if the property visibile.
     fn is_visible(&self) -> bool {
         true
@@ -258,6 +266,7 @@ pub struct PropertyBase {
     options: Vec<&'static str>,
     value_type: ValueType,
     widget_type: WidgetType,
+    selected: Cell<bool>,
     visible: Cell<bool>,
 }
 
@@ -276,6 +285,14 @@ impl Property for PropertyBase {
 
     fn widget_type(&self) -> WidgetType {
         self.widget_type
+    }
+
+    fn is_selected(&self) -> bool {
+        self.selected.get()
+    }
+
+    fn set_selected(&self, selected: bool) {
+        self.selected.set(selected)
     }
 
     fn is_visible(&self) -> bool {
@@ -307,6 +324,7 @@ impl PropertyBase {
             options: options.to_vec(),
             value_type,
             widget_type,
+            selected: Cell::new(false),
             visible: Cell::new(true),
         }
     }
@@ -380,6 +398,16 @@ macro_rules! wrap_property_base {
         #[inline]
         fn widget_type(&self) -> WidgetType {
             self.base.widget_type()
+        }
+
+        #[inline]
+        fn is_selected(&self) -> bool {
+            self.base.is_selected()
+        }
+
+        #[inline]
+        fn set_selected(&self, selected: bool) {
+            self.base.set_selected(selected)
         }
 
         #[inline]
