@@ -73,10 +73,6 @@ pub trait Property {
     fn as_property_string(&self) -> Option<&PropertyString> {
         None
     }
-
-    fn test(&mut self) {
-        println!("test");
-    }
 }
 
 impl Debug for dyn Property + Send + Sync {
