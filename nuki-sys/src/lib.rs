@@ -126,6 +126,16 @@ impl From<nk_color> for (f32, f32, f32, f32) {
         )
     }
 }
+impl nk_color {
+    pub fn inverted(&self) -> Self {
+        Self {
+            r: 255 - self.r,
+            g: 255 - self.g,
+            b: 255 - self.b,
+            a: self.a
+        }
+    }
+}
 #[test]
 fn bindgen_test_layout_nk_color() {
     assert_eq!(
