@@ -25,6 +25,20 @@ pub trait Property {
         WidgetType::Unknown
     }
 
+    /// Returns `true` if the property visibile.
+    fn is_visible(&self) -> bool {
+        true
+    }
+
+    /// Change the visibility of the property.
+    fn set_visible(&self, _visible: bool) {}
+
+    /// Change the visibility of the property to `true`.
+    fn show(&self) {}
+
+    /// Change the visibility of the property to `false`.
+    fn hide(&self) {}
+
     /// Casting to PropertyAction.
     fn as_property_action(&self) -> Option<&PropertyAction> {
         None
@@ -123,6 +137,7 @@ pub struct PropertyBase {
     options: Vec<&'static str>,
     value_type: ValueType,
     widget_type: WidgetType,
+    visible: Cell<bool>,
 }
 
 impl Property for PropertyBase {
@@ -141,6 +156,22 @@ impl Property for PropertyBase {
     fn widget_type(&self) -> WidgetType {
         self.widget_type
     }
+
+    fn is_visible(&self) -> bool {
+        self.visible.get()
+    }
+
+    fn set_visible(&self, visible: bool) {
+        self.visible.set(visible)
+    }
+
+    fn show(&self) {
+        self.visible.set(true);
+    }
+
+    fn hide(&self) {
+        self.visible.set(false);
+    }
 }
 
 impl PropertyBase {
@@ -155,6 +186,7 @@ impl PropertyBase {
             options: options.to_vec(),
             value_type,
             widget_type,
+            visible: Cell::new(true),
         }
     }
 
