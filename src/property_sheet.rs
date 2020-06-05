@@ -7,6 +7,14 @@ use std::sync::Arc;
 
 /// Property.
 pub trait Property {
+    /// Returns the `id` of the property.
+    fn id(&self) -> usize {
+        0
+    }
+
+    /// Change the `id` of the property.
+    fn set_id(&self, _id: usize) {}
+
     /// Returns the name of the Property.
     fn name(&self) -> &'static str;
 
@@ -262,6 +270,7 @@ impl Debug for dyn Property + Send + Sync {
 /// Property Base Attributes.
 #[derive(Clone, Debug, Default)]
 pub struct PropertyBase {
+    id: Cell<usize>,
     name: &'static str,
     options: Vec<&'static str>,
     value_type: ValueType,
@@ -271,6 +280,14 @@ pub struct PropertyBase {
 }
 
 impl Property for PropertyBase {
+    fn id(&self) -> usize {
+        self.id.get()
+    }
+
+    fn set_id(&self, id: usize) {
+        self.id.set(id)
+    }
+
     fn name(&self) -> &'static str {
         &self.name
     }
@@ -320,6 +337,7 @@ impl PropertyBase {
         widget_type: WidgetType,
     ) -> Self {
         Self {
+            id: Cell::new(0),
             name,
             options: options.to_vec(),
             value_type,
@@ -380,6 +398,16 @@ impl PropertyBase {
 
 macro_rules! wrap_property_base {
     () => {
+        #[inline]
+        fn id(&self) -> usize {
+            self.base.id()
+        }
+
+        #[inline]
+        fn set_id(&self, id: usize) {
+            self.base.set_id(id)
+        }
+
         #[inline]
         fn name(&self) -> &'static str {
             self.base.name()
@@ -1233,6 +1261,9 @@ impl PropertySheet {
 
     /// Create a new property sheet with items.
     pub fn with_items(items: Vec<PropertyItem>) -> Self {
+        for (i, p) in items.iter().enumerate() {
+            p.set_id(i);
+        }
         Self { items }
     }
 
@@ -1241,6 +1272,7 @@ impl PropertySheet {
     where
         T: Property + Sync + Send + 'static,
     {
+        item.set_id(self.items.len());
         self.items.push(Arc::new(item));
     }
 
@@ -1249,11 +1281,18 @@ impl PropertySheet {
     where
         T: Property + Sync + Send + 'static,
     {
+        item.set_id(index);
+        for p in &self.items[index..] {
+            p.set_id(p.id() + 1);
+        }
         self.items.insert(index, Arc::new(item));
     }
 
     /// Removes and returns the property at position index within the sheet, shifting all properties after it to the left.
     pub fn remove(&mut self, index: usize) -> PropertyItem {
+        for p in &self.items[index..] {
+            p.set_id(p.id() - 1);
+        }
         self.items.remove(index)
     }
 
@@ -1307,12 +1346,29 @@ impl PropertySheet {
         None
     }
 
+    /// Mark all item listed in `ids` as `selected`.
+    pub fn select_items(&mut self, ids: &[usize]) {
+        for p in self.items.iter_mut() {
+            p.set_selected(ids.contains(&p.id()));
+        }
+    }
+
+    /// Returns all `selected` items.
+    pub fn selected_items(&self) -> Vec<usize> {
+        let mut sels: Vec<usize> = vec![];
+        for p in self.items.iter().filter(|x| x.is_selected()) {
+            sels.push(p.id())
+        }
+        sels
+    }
+
     /// Add a Action Button to the sheet.
     pub fn action_button<F>(&mut self, name: &'static str, text: &'static str, f: Arc<RefCell<F>>)
     where
         F: FnMut(&dyn Property, bool) -> bool + 'static,
     {
         let p = PropertyAction::with_button(name, text, f);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p));
     }
 
@@ -1322,48 +1378,56 @@ impl PropertySheet {
         F: FnMut(&dyn Property, bool) -> bool + 'static,
     {
         let p = PropertyAction::with_check_box(name, checked, f);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p));
     }
 
     /// Add a Float32 Slider to the sheet.
     pub fn slider_f32(&mut self, name: &'static str, range: (f32, f32), step: f32, def_val: f32) {
         let p = PropertyF32::with_slider(name, range, step, def_val);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p));
     }
 
     /// Add a Float64 Slider to the sheet.
     pub fn slider_f64(&mut self, name: &'static str, range: (f64, f64), step: f64, def_val: f64) {
         let p = PropertyF64::with_slider(name, range, step, def_val);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p));
     }
 
     /// Add an Integer32 ComboBox to the sheet.
     pub fn combo_box_i32(&mut self, name: &'static str, options: &[&'static str], def_val: i32) {
         let p = PropertyI32::with_combo_box(name, options, def_val);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p));
     }
 
     /// Add an Integer32 Select to the sheet.
     pub fn select_i32(&mut self, name: &'static str, options: &[&'static str], def_val: i32) {
         let p = PropertyI32::with_select(name, options, def_val);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p));
     }
 
     /// Add an Integer32 Slider to the sheet.
     pub fn slider_i32(&mut self, name: &'static str, range: (i32, i32), step: i32, def_val: i32) {
         let p = PropertyI32::with_slider(name, range, step, def_val);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p));
     }
 
     /// Add a Boolean Switch to the sheet.
     pub fn switch(&mut self, name: &'static str, def_val: bool) {
         let p = PropertyBool::with_switch(name, def_val);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p))
     }
 
     /// Add a String Text Box to the sheet.
     pub fn text_box(&mut self, name: &'static str, max_length: usize, def_val: &'static str) {
         let p = PropertyString::with_text_box(name, max_length, def_val);
+        p.set_id(self.items.len());
         self.items.push(Arc::new(p))
     }
 }
