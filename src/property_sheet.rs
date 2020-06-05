@@ -1178,10 +1178,12 @@ impl PropertySheet {
         self.items.get_mut(index)
     }
 
+    /// Returns an iterator over the slice.
     pub fn iter(&self) -> std::slice::Iter<'_, PropertyItem> {
         self.items.iter()
     }
 
+    /// Returns an iterator that allows modifying each value.
     pub fn iter_mut(&mut self) -> std::slice::IterMut<'_, PropertyItem> {
         self.items.iter_mut()
     }
