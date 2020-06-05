@@ -1188,6 +1188,26 @@ impl PropertySheet {
         self.items.iter_mut()
     }
 
+    /// Returns an item reference that match to the `name`.
+    pub fn find(&self, name: &'static str) -> Option<&PropertyItem> {
+        for p in self.items.iter() {
+            if p.name() == name {
+                return Some(p);
+            }
+        }
+        None
+    }
+
+    /// Returns an mutable item reference that match to the `name`.
+    pub fn find_mut(&mut self, name: &'static str) -> Option<&mut PropertyItem> {
+        for p in self.items.iter_mut() {
+            if p.name() == name {
+                return Some(p);
+            }
+        }
+        None
+    }
+
     /// Add a Action Button to the sheet.
     pub fn action_button<F>(&mut self, name: &'static str, text: &'static str, f: Arc<RefCell<F>>)
     where
