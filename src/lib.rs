@@ -4766,7 +4766,13 @@ impl Context {
         }
     }
 
-    pub fn layout_row_colored(&mut self, fmt: LayoutFormat, height: f32, cols_ratio: &[f32], color: Color) {
+    pub fn layout_row_colored(
+        &mut self,
+        fmt: LayoutFormat,
+        height: f32,
+        cols_ratio: &[f32],
+        color: Color,
+    ) {
         unsafe {
             nk_layout_row_colored(
                 &mut self.internal as *mut nk_context,
