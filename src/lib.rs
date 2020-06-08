@@ -5055,6 +5055,121 @@ impl Context {
         }
     }
 
+    pub fn button_text_styled(&mut self, style: &StyleButton, text: &str) -> bool {
+        unsafe {
+            nk_button_text_styled(
+                &mut self.internal as *mut nk_context,
+                &style.internal as *const nk_style_button,
+                text.as_ptr() as *const ::std::os::raw::c_char,
+                text.as_bytes().len() as i32,
+            ) != 0
+        }
+    }
+
+    pub fn button_label_styled(&mut self, style: &StyleButton, title: &str) -> bool {
+        unsafe {
+            nk_button_label_styled(
+                &mut self.internal as *mut nk_context,
+                &style.internal as *const nk_style_button,
+                title.as_ptr(),
+            ) != 0
+        }
+    }
+
+    pub fn button_symbol_styled(&mut self, style: &StyleButton, ty: SymbolType) -> bool {
+        unsafe {
+            nk_button_symbol_styled(
+                &mut self.internal as *mut nk_context,
+                &style.internal as *const nk_style_button,
+                ty.into(),
+            ) != 0
+        }
+    }
+
+    pub fn button_image_styled(&mut self, style: &StyleButton, img: Image) -> bool {
+        unsafe {
+            nk_button_image_styled(
+                &mut self.internal as *mut nk_context,
+                &style.internal as *const nk_style_button,
+                img.internal,
+            ) != 0
+        }
+    }
+
+    pub fn button_symbol_text_styled(
+        &mut self,
+        style: &StyleButton,
+        ty: SymbolType,
+        title: &str,
+        text_alignment: Flags,
+    ) -> bool {
+        unsafe {
+            nk_button_symbol_text_styled(
+                &mut self.internal as *mut nk_context,
+                &style.internal as *const nk_style_button,
+                ty.into(),
+                title.as_ptr() as *const ::std::os::raw::c_char,
+                title.as_bytes().len() as i32,
+                text_alignment,
+            ) != 0
+        }
+    }
+
+    pub fn button_symbol_label_styled(
+        &mut self,
+        style: &StyleButton,
+        ty: SymbolType,
+        title: String,
+        text_alignment: Flags,
+    ) -> bool {
+        unsafe {
+            nk_button_symbol_label_styled(
+                &mut self.internal as *mut nk_context,
+                &style.internal as *const nk_style_button,
+                ty.into(),
+                title.as_ptr(),
+                text_alignment,
+            ) != 0
+        }
+    }
+
+    pub fn button_image_label_styled(
+        &mut self,
+        style: &StyleButton,
+        img: Image,
+        title: String,
+        text_alignment: Flags,
+    ) -> bool {
+        unsafe {
+            nk_button_image_label_styled(
+                &mut self.internal as *mut nk_context,
+                &style.internal as *const nk_style_button,
+                img.internal,
+                title.as_ptr(),
+                text_alignment,
+            ) != 0
+        }
+    }
+
+    pub fn button_image_text_styled(
+        &mut self,
+        style: &StyleButton,
+        img: Image,
+        title: &str,
+        text_alignment: Flags,
+    ) -> bool {
+        unsafe {
+            nk_button_image_text_styled(
+                &mut self.internal as *mut nk_context,
+                &style.internal as *const nk_style_button,
+                img.internal,
+                title.as_ptr() as *const ::std::os::raw::c_char,
+                title.as_bytes().len() as i32,
+                text_alignment,
+            ) != 0
+        }
+    }
+
     pub fn button_set_behavior(&mut self, b: ButtonBehavior) {
         unsafe {
             nk_button_set_behavior(&mut self.internal as *mut nk_context, b.into());
