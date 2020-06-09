@@ -7878,6 +7878,38 @@ pub fn style_get_color_by_name(c: StyleColor) -> Cow<'static, str> {
 
 // =============================================================================================
 
+pub fn rect(x: f32, y: f32, w: f32, h: f32) -> Rect {
+    Rect { x, y, w, h }
+}
+
+pub fn recti(x: i32, y: i32, w: i32, h: i32) -> Rect {
+    Rect { x: x as f32, y: y as f32, w: w as f32, h: h as f32 }
+}
+
+pub fn recta(pos: Vec2, size: Vec2) -> Rect {
+    Rect { x: pos.x, y: pos.y, w: size.x, h: size.y }
+}
+
+pub fn rectv(v: &[f32]) -> Rect {
+    assert!(v.len() >= 4);
+    unsafe { nk_rectv(v.as_ptr()) }
+}
+
+pub fn rectiv(v: &[i32]) -> Rect {
+    assert!(v.len() >= 4);
+    unsafe { nk_rectiv(v.as_ptr()) }
+}
+
+pub fn rect_pos(rect: Rect) -> Vec2 {
+    Vec2 { x: rect.x, y: rect.y }
+}
+
+pub fn rect_size(rect: Rect) -> Vec2 {
+    Vec2 { x: rect.w, y: rect.h }
+}
+
+// =============================================================================================
+
 wrapper_type!(Image, nk_image);
 
 impl From<nk_image> for Image {
