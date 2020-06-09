@@ -4796,6 +4796,24 @@ impl Context {
         }
     }
 
+    pub fn layout_space_colored_begin(
+        &mut self,
+        fmt: LayoutFormat,
+        height: f32,
+        widget_count: i32,
+        color: Color,
+    ) {
+        unsafe {
+            nk_layout_space_colored_begin(
+                &mut self.internal as *mut nk_context,
+                fmt.into(),
+                height,
+                widget_count,
+                color,
+            );
+        }
+    }
+
     pub fn layout_space_push(&mut self, space: Rect) {
         unsafe {
             nk_layout_space_push(&mut self.internal as *mut nk_context, space);
