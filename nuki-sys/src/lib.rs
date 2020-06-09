@@ -1516,6 +1516,15 @@ extern "C" {
     );
 }
 extern "C" {
+    pub fn nk_layout_space_colored_begin(
+        arg1: *mut nk_context,
+        arg2: nk_layout_format,
+        height: f32,
+        widget_count: ::std::os::raw::c_int,
+        color: nk_color,
+    );
+}
+extern "C" {
     pub fn nk_layout_space_push(arg1: *mut nk_context, bounds: nk_rect);
 }
 extern "C" {
