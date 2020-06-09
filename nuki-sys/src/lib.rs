@@ -336,6 +336,55 @@ pub struct nk_rect {
     pub w: f32,
     pub h: f32,
 }
+impl From<(nk_vec2, nk_vec2)> for nk_rect {
+    fn from((pos, size): (nk_vec2, nk_vec2)) -> nk_rect {
+        nk_rect {
+            x: pos.x,
+            y: pos.y,
+            w: size.x,
+            h: size.y,
+        }
+    }
+}
+impl From<(f32, f32, f32, f32)> for nk_rect {
+    fn from((x, y, w, h): (f32, f32, f32, f32)) -> nk_rect {
+        nk_rect { x, y, w, h }
+    }
+}
+impl From<[f32; 4usize]> for nk_rect {
+    fn from(v: [f32; 4usize]) -> nk_rect {
+        nk_rect {
+            x: v[0],
+            y: v[1],
+            w: v[2],
+            h: v[3],
+        }
+    }
+}
+impl From<nk_rect> for (nk_vec2, nk_vec2) {
+    fn from(rect: nk_rect) -> (nk_vec2, nk_vec2) {
+        (
+            nk_vec2 {
+                x: rect.x,
+                y: rect.y,
+            },
+            nk_vec2 {
+                x: rect.w,
+                y: rect.h,
+            },
+        )
+    }
+}
+impl From<nk_rect> for (f32, f32, f32, f32) {
+    fn from(rect: nk_rect) -> (f32, f32, f32, f32) {
+        (rect.x, rect.y, rect.w, rect.h)
+    }
+}
+impl From<nk_rect> for [f32; 4usize] {
+    fn from(rect: nk_rect) -> [f32; 4usize] {
+        [rect.x, rect.y, rect.w, rect.h]
+    }
+}
 #[test]
 fn bindgen_test_layout_nk_rect() {
     assert_eq!(
