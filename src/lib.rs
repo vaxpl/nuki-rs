@@ -28,36 +28,36 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 
 use nuki_sys::*;
 
-pub use nuki_sys;
-pub use nuki_sys::nk_allocation_type as AllocationType;
-pub use nuki_sys::nk_draw_list_stroke as DrawListStroke;
-pub use nuki_sys::nk_flags as Flags; //TODO
-pub use nuki_sys::nk_font_coord_type as FontCoordType;
-pub use nuki_sys::nk_panel_row_layout_type as PanelRowLayoutType;
-pub use nuki_sys::nk_panel_type as PanelType;
-pub use nuki_sys::nk_style_colors as StyleColor;
-pub use nuki_sys::nk_style_cursor as StyleCursor;
-pub use nuki_sys::nk_style_header_align as StyleHeaderAlign;
-pub use nuki_sys::nk_widget_layout_states as WidgetLayoutState;
+pub use nuki_sys as ffi;
+pub type AllocationType = nuki_sys::nk_allocation_type;
+pub type DrawListStroke = nuki_sys::nk_draw_list_stroke;
+pub type Flags = nuki_sys::nk_flags; //TODO
+pub type FontCoordType = nuki_sys::nk_font_coord_type;
+pub type PanelRowLayoutType = nuki_sys::nk_panel_row_layout_type;
+pub type PanelType = nuki_sys::nk_panel_type;
+pub type StyleColor = nuki_sys::nk_style_colors;
+pub type StyleCursor = nuki_sys::nk_style_cursor;
+pub type StyleHeaderAlign = nuki_sys::nk_style_header_align;
+pub type WidgetLayoutState = nuki_sys::nk_widget_layout_states;
 
-pub use nuki_sys::nk_chart_slot as ChartSlot;
-pub use nuki_sys::nk_color as Color;
-pub use nuki_sys::nk_colorf as ColorF;
-pub use nuki_sys::nk_menu_state as MenuState;
-pub use nuki_sys::nk_popup_buffer as PopupBuffer;
-pub use nuki_sys::nk_rect as Rect;
-pub use nuki_sys::nk_recti as Recti;
-pub use nuki_sys::nk_scroll as Scroll;
-pub use nuki_sys::nk_size as Size;
-pub use nuki_sys::nk_style_text as StyleText;
-pub use nuki_sys::nk_vec2 as Vec2;
-pub use nuki_sys::nk_vec2i as Vec2i;
+pub type ChartSlot = nuki_sys::nk_chart_slot;
+pub type Color = nuki_sys::nk_color;
+pub type ColorF = nuki_sys::nk_colorf;
+pub type MenuState = nuki_sys::nk_menu_state;
+pub type PopupBuffer = nuki_sys::nk_popup_buffer;
+pub type Rect = nuki_sys::nk_rect;
+pub type Recti = nuki_sys::nk_recti;
+pub type Scroll = nuki_sys::nk_scroll;
+pub type Size = nuki_sys::nk_size;
+pub type StyleText = nuki_sys::nk_style_text;
+pub type Vec2 = nuki_sys::nk_vec2;
+pub type Vec2i = nuki_sys::nk_vec2i;
 
-pub use nuki_sys::nk_glyph as Glyph;
+pub type Glyph = nuki_sys::nk_glyph;
 
-pub use nuki_sys::nk_plugin_copy as PluginCopy;
-pub use nuki_sys::nk_plugin_filter as PluginFilter;
-pub use nuki_sys::nk_plugin_paste as PluginPaste;
+pub type PluginCopy = nuki_sys::nk_plugin_copy;
+pub type PluginFilter = nuki_sys::nk_plugin_filter;
+pub type PluginPaste = nuki_sys::nk_plugin_paste;
 
 pub const NK_FILTER_DEFAULT: PluginFilter = Some(nk_filter_default);
 pub const NK_FILTER_ASCII: PluginFilter = Some(nk_filter_ascii);
