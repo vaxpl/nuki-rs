@@ -7910,6 +7910,26 @@ pub fn rect_size(rect: Rect) -> Vec2 {
 
 // =============================================================================================
 
+pub fn vec2(x: f32, y: f32) -> Vec2 {
+    Vec2 { x, y }
+}
+
+pub fn vec2i(x: i32, y: i32) -> Vec2 {
+    Vec2 { x: x as f32, y: y as f32 }
+}
+
+pub fn vec2v(v: &[f32]) -> Vec2 {
+    assert!(v.len() >= 2);
+    Vec2 { x: v[0], y: v[1] }
+}
+
+pub fn vec2iv(v: &[i32]) -> Vec2 {
+    assert!(v.len() >= 2);
+    Vec2 { x: v[0] as f32, y: v[1] as f32 }
+}
+
+// =============================================================================================
+
 wrapper_type!(Image, nk_image);
 
 impl From<nk_image> for Image {
