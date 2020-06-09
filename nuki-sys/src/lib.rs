@@ -261,6 +261,86 @@ pub struct nk_vec2 {
     pub x: f32,
     pub y: f32,
 }
+impl From<nk_vec2i> for nk_vec2 {
+    fn from(v: nk_vec2i) -> nk_vec2 {
+        nk_vec2 {
+            x: v.x as f32,
+            y: v.y as f32,
+        }
+    }
+}
+impl From<(f32, f32)> for nk_vec2 {
+    fn from((x, y): (f32, f32)) -> nk_vec2 {
+        nk_vec2 { x, y }
+    }
+}
+impl From<(i16, i16)> for nk_vec2 {
+    fn from((x, y): (i16, i16)) -> nk_vec2 {
+        nk_vec2 {
+            x: x as f32,
+            y: y as f32,
+        }
+    }
+}
+impl From<(i32, i32)> for nk_vec2 {
+    fn from((x, y): (i32, i32)) -> nk_vec2 {
+        nk_vec2 {
+            x: x as f32,
+            y: y as f32,
+        }
+    }
+}
+impl From<[f32; 2usize]> for nk_vec2 {
+    fn from(v: [f32; 2usize]) -> nk_vec2 {
+        nk_vec2 { x: v[0], y: v[1] }
+    }
+}
+impl From<[i16; 2usize]> for nk_vec2 {
+    fn from(v: [i16; 2usize]) -> nk_vec2 {
+        nk_vec2 {
+            x: v[0] as f32,
+            y: v[1] as f32,
+        }
+    }
+}
+impl From<[i32; 2usize]> for nk_vec2 {
+    fn from(v: [i32; 2usize]) -> nk_vec2 {
+        nk_vec2 {
+            x: v[0] as f32,
+            y: v[1] as f32,
+        }
+    }
+}
+impl From<nk_vec2> for (f32, f32) {
+    fn from(v: nk_vec2) -> (f32, f32) {
+        (v.x, v.y)
+    }
+}
+impl From<nk_vec2> for (i16, i16) {
+    fn from(v: nk_vec2) -> (i16, i16) {
+        (v.x as i16, v.y as i16)
+    }
+}
+impl From<nk_vec2> for (i32, i32) {
+    fn from(v: nk_vec2) -> (i32, i32) {
+        (v.x as i32, v.y as i32)
+    }
+}
+impl From<nk_vec2> for [f32; 2usize] {
+    fn from(v: nk_vec2) -> [f32; 2usize] {
+        [v.x, v.y]
+    }
+}
+impl From<nk_vec2> for [i16; 2usize] {
+    fn from(v: nk_vec2) -> [i16; 2usize] {
+        [v.x as i16, v.y as i16]
+    }
+}
+impl From<nk_vec2> for [i32; 2usize] {
+    fn from(v: nk_vec2) -> [i32; 2usize] {
+        [v.x as i32, v.y as i32]
+    }
+}
 #[test]
 fn bindgen_test_layout_nk_vec2() {
     assert_eq!(
@@ -299,6 +379,86 @@ fn bindgen_test_layout_nk_vec2() {
 pub struct nk_vec2i {
     pub x: ::std::os::raw::c_short,
     pub y: ::std::os::raw::c_short,
+}
+impl From<nk_vec2> for nk_vec2i {
+    fn from(v: nk_vec2) -> nk_vec2i {
+        nk_vec2i {
+            x: v.x as i16,
+            y: v.y as i16,
+        }
+    }
+}
+impl From<(f32, f32)> for nk_vec2i {
+    fn from((x, y): (f32, f32)) -> nk_vec2i {
+        nk_vec2i {
+            x: x as i16,
+            y: y as i16,
+        }
+    }
+}
+impl From<(i16, i16)> for nk_vec2i {
+    fn from((x, y): (i16, i16)) -> nk_vec2i {
+        nk_vec2i { x, y }
+    }
+}
+impl From<(i32, i32)> for nk_vec2i {
+    fn from((x, y): (i32, i32)) -> nk_vec2i {
+        nk_vec2i {
+            x: x as i16,
+            y: y as i16,
+        }
+    }
+}
+impl From<[f32; 2usize]> for nk_vec2i {
+    fn from(v: [f32; 2usize]) -> nk_vec2i {
+        nk_vec2i {
+            x: v[0] as i16,
+            y: v[1] as i16,
+        }
+    }
+}
+impl From<[i16; 2usize]> for nk_vec2i {
+    fn from(v: [i16; 2usize]) -> nk_vec2i {
+        nk_vec2i { x: v[0], y: v[1] }
+    }
+}
+impl From<[i32; 2usize]> for nk_vec2i {
+    fn from(v: [i32; 2usize]) -> nk_vec2i {
+        nk_vec2i {
+            x: v[0] as i16,
+            y: v[1] as i16,
+        }
+    }
+}
+impl From<nk_vec2i> for (f32, f32) {
+    fn from(v: nk_vec2i) -> (f32, f32) {
+        (v.x as f32, v.y as f32)
+    }
+}
+impl From<nk_vec2i> for (i16, i16) {
+    fn from(v: nk_vec2i) -> (i16, i16) {
+        (v.x as i16, v.y as i16)
+    }
+}
+impl From<nk_vec2i> for (i32, i32) {
+    fn from(v: nk_vec2i) -> (i32, i32) {
+        (v.x as i32, v.y as i32)
+    }
+}
+impl From<nk_vec2i> for [f32; 2usize] {
+    fn from(v: nk_vec2i) -> [f32; 2usize] {
+        [v.x as f32, v.y as f32]
+    }
+}
+impl From<nk_vec2i> for [i16; 2usize] {
+    fn from(v: nk_vec2i) -> [i16; 2usize] {
+        [v.x as i16, v.y as i16]
+    }
+}
+impl From<nk_vec2i> for [i32; 2usize] {
+    fn from(v: nk_vec2i) -> [i32; 2usize] {
+        [v.x as i32, v.y as i32]
+    }
 }
 #[test]
 fn bindgen_test_layout_nk_vec2i() {
