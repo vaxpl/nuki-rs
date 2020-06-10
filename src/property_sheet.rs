@@ -1413,45 +1413,81 @@ impl PropertySheet {
 
     /// Mark `prev` item as `selected`.
     pub fn select_prev(&mut self) {
-        for i in self.selected_items() {
+        let sels = self.selected_items();
+        if !sels.is_empty() {
+            let i = sels[0];
             if i > 0 && i < self.len() {
-                self.select_items(&[i - 1]);
+                if let Some(p) = self.get(i - 1) {
+                    if !p.is_selectable() && i > 2 {
+                        self.select_items(&[i - 2]);
+                    } else {
+                        self.select_items(&[i - 1]);
+                    }
+                }
             }
-            break;
+        } else {
+            self.select_items(&[self.len() - 1]);
         }
     }
 
     /// Mark `next` item as `selected`, wrap to `last` item when current at `first` item.
     pub fn select_prev_wrapped(&mut self) {
-        for i in self.selected_items() {
+        let sels = self.selected_items();
+        if !sels.is_empty() {
+            let i = sels[0];
             if i > 0 && i < (self.len() - 1) {
-                self.select_items(&[i + 1]);
+                if let Some(p) = self.get(i - 1) {
+                    if !p.is_selectable() && i > 2 {
+                        self.select_items(&[i - 2]);
+                    } else {
+                        self.select_items(&[i - 1]);
+                    }
+                }
             } else {
                 self.select_items(&[self.len() - 1]);
             }
-            break;
+        } else {
+            self.select_items(&[self.len() - 1]);
         }
     }
 
     /// Mark next item as `selected`.
     pub fn select_next(&mut self) {
-        for i in self.selected_items() {
+        let sels = self.selected_items();
+        if !sels.is_empty() {
+            let i = sels[0];
             if i < (self.len() - 1) {
-                self.select_items(&[i + 1]);
+                if let Some(p) = self.get(i + 1) {
+                    if !p.is_selectable() && i < (self.len() - 2) {
+                        self.select_items(&[i + 2]);
+                    } else {
+                        self.select_items(&[i + 1]);
+                    }
+                }
             }
-            break;
+        } else {
+            self.select_items(&[0]);
         }
     }
 
     /// Mark next item as `selected`, wrap to `first` item when current at `last` item.
     pub fn select_next_wrapped(&mut self) {
-        for i in self.selected_items() {
+        let sels = self.selected_items();
+        if !sels.is_empty() {
+            let i = sels[0];
             if i < (self.len() - 1) {
-                self.select_items(&[i + 1]);
+                if let Some(p) = self.get(i + 1) {
+                    if !p.is_selectable() && i < (self.len() - 2) {
+                        self.select_items(&[i + 2]);
+                    } else {
+                        self.select_items(&[i + 1]);
+                    }
+                }
             } else {
                 self.select_items(&[0]);
             }
-            break;
+        } else {
+            self.select_items(&[0]);
         }
     }
 
