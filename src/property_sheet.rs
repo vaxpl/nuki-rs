@@ -33,6 +33,11 @@ pub trait Property {
         WidgetType::Unknown
     }
 
+    /// Returns `true` if the property can marked with `selected`.
+    fn is_selectable(&self) -> bool {
+        self.widget_type() != WidgetType::Separator
+    }
+
     /// Returns `true` if the property marked with `selected`.
     fn is_selected(&self) -> bool {
         false
@@ -302,6 +307,10 @@ impl Property for PropertyBase {
 
     fn widget_type(&self) -> WidgetType {
         self.widget_type
+    }
+
+    fn is_selectable(&self) -> bool {
+        self.widget_type != WidgetType::Separator
     }
 
     fn is_selected(&self) -> bool {
