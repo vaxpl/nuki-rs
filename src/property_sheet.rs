@@ -401,6 +401,10 @@ impl PropertyBase {
         Self::new(name, &[], ValueType::I64, WidgetType::Slider)
     }
 
+    pub fn with_separator() -> Self {
+        Self::new("", &[], ValueType::Dummy, WidgetType::Separator)
+    }
+
     pub fn with_switch(name: &'static str) -> Self {
         Self::new(name, &[], ValueType::Bool, WidgetType::Switch)
     }
@@ -1508,6 +1512,12 @@ impl PropertySheet {
         self.items.push(Arc::new(p));
     }
 
+    pub fn separator(&mut self) {
+        let p = PropertyDummy::with_separator();
+        p.set_id(self.items.len());
+        self.items.push(Arc::new(p));
+    }
+
     /// Add an Integer32 Slider to the sheet.
     pub fn slider_i32(&mut self, name: &'static str, range: (i32, i32), step: i32, def_val: i32) {
         let p = PropertyI32::with_slider(name, range, step, def_val);
@@ -1536,6 +1546,7 @@ pub enum ValueType {
     Unknown,
     Action,
     Bool,
+    Dummy,
     F32,
     F64,
     I32,
@@ -1557,6 +1568,7 @@ pub enum WidgetType {
     CheckBox,
     ComboBox,
     Select,
+    Separator,
     Slider,
     Switch,
     TextBox,
