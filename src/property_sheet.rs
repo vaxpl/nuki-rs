@@ -603,29 +603,29 @@ impl PropertyBool {
     }
 
     #[inline]
-    fn def_val(&self) -> bool {
+    pub fn def_val(&self) -> bool {
         self.def_val
     }
 
     #[inline]
-    fn value(&self) -> bool {
+    pub fn value(&self) -> bool {
         unsafe { self.value.get().read() }
     }
 
     #[allow(clippy::mut_from_ref)]
     #[inline]
-    fn value_mut(&self) -> &mut bool {
+    pub fn value_mut(&self) -> &mut bool {
         unsafe { &mut (*self.value.get()) }
     }
 
     /// # Safety
     #[inline]
-    unsafe fn value_mut_ptr(&self) -> *mut bool {
+    pub unsafe fn value_mut_ptr(&self) -> *mut bool {
         self.value.get()
     }
 
     #[inline]
-    fn set_value(&self, value: bool) -> bool {
+    pub fn set_value(&self, value: bool) -> bool {
         unsafe {
             self.value.get().write(value);
         }
