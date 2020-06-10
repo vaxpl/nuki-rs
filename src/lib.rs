@@ -4590,6 +4590,13 @@ impl Context {
         }
     }
 
+    pub fn window_get_scroll(&self) -> (u32, u32) {
+        let mut x: u32 = 0;
+        let mut y: u32 = 0;
+        unsafe { nk_window_get_scroll(&self.internal, &mut x, &mut y) }
+        (x, y)
+    }
+
     pub fn window_has_focus(&self) -> bool {
         unsafe { nk_window_has_focus(&self.internal as *const nk_context) > 0 }
     }
@@ -4663,6 +4670,12 @@ impl Context {
     pub fn window_set_focus(&mut self, name: String) {
         unsafe {
             nk_window_set_focus(&mut self.internal as *mut nk_context, name.as_ptr());
+        }
+    }
+
+    pub fn window_set_scroll(&mut self, x: u32, y: u32) {
+        unsafe {
+            nk_window_set_scroll(&mut self.internal as *mut nk_context, x, y);
         }
     }
 
