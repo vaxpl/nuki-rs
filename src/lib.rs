@@ -7883,11 +7883,21 @@ pub fn rect(x: f32, y: f32, w: f32, h: f32) -> Rect {
 }
 
 pub fn recti(x: i32, y: i32, w: i32, h: i32) -> Rect {
-    Rect { x: x as f32, y: y as f32, w: w as f32, h: h as f32 }
+    Rect {
+        x: x as f32,
+        y: y as f32,
+        w: w as f32,
+        h: h as f32,
+    }
 }
 
 pub fn recta(pos: Vec2, size: Vec2) -> Rect {
-    Rect { x: pos.x, y: pos.y, w: size.x, h: size.y }
+    Rect {
+        x: pos.x,
+        y: pos.y,
+        w: size.x,
+        h: size.y,
+    }
 }
 
 pub fn rectv(v: &[f32]) -> Rect {
@@ -7901,11 +7911,17 @@ pub fn rectiv(v: &[i32]) -> Rect {
 }
 
 pub fn rect_pos(rect: Rect) -> Vec2 {
-    Vec2 { x: rect.x, y: rect.y }
+    Vec2 {
+        x: rect.x,
+        y: rect.y,
+    }
 }
 
 pub fn rect_size(rect: Rect) -> Vec2 {
-    Vec2 { x: rect.w, y: rect.h }
+    Vec2 {
+        x: rect.w,
+        y: rect.h,
+    }
 }
 
 // =============================================================================================
@@ -7915,7 +7931,10 @@ pub fn vec2(x: f32, y: f32) -> Vec2 {
 }
 
 pub fn vec2i(x: i32, y: i32) -> Vec2 {
-    Vec2 { x: x as f32, y: y as f32 }
+    Vec2 {
+        x: x as f32,
+        y: y as f32,
+    }
 }
 
 pub fn vec2v(v: &[f32]) -> Vec2 {
@@ -7925,7 +7944,10 @@ pub fn vec2v(v: &[f32]) -> Vec2 {
 
 pub fn vec2iv(v: &[i32]) -> Vec2 {
     assert!(v.len() >= 2);
-    Vec2 { x: v[0] as f32, y: v[1] as f32 }
+    Vec2 {
+        x: v[0] as f32,
+        y: v[1] as f32,
+    }
 }
 
 // =============================================================================================
