@@ -1447,7 +1447,7 @@ extern "C" {
 }
 extern "C" {
     pub fn nk_window_get_scroll(
-        arg1: *mut nk_context,
+        arg1: *const nk_context,
         offset_x: *mut nk_uint,
         offset_y: *mut nk_uint,
     );
