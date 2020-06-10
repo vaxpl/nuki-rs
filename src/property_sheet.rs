@@ -70,6 +70,11 @@ pub trait Property {
         None
     }
 
+    /// Casting to PropertyDummy.
+    fn as_property_dummy(&self) -> Option<&PropertyDummy> {
+        None
+    }
+
     /// Casting to dyn PropertyNumber<f32>.
     fn as_property_f32<'l>(&self) -> Option<&(dyn PropertyNumber<f32> + 'l)> {
         None
@@ -1141,6 +1146,46 @@ impl PropertyI64 {
             step,
             def_val,
             value: UnsafeCell::new(def_val),
+        }
+    }
+}
+
+/// Dummy Property.
+pub struct PropertyDummy {
+    base: PropertyBase,
+}
+
+unsafe impl Send for PropertyDummy {}
+unsafe impl Sync for PropertyDummy {}
+
+impl Debug for PropertyDummy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("PropertyDummy").finish()
+    }
+}
+
+impl Default for PropertyDummy {
+    fn default() -> Self {
+        Self {
+            base: PropertyBase::with_separator(),
+        }
+    }
+}
+
+impl Property for PropertyDummy {
+    wrap_property_base!();
+
+    #[inline]
+    fn as_property_dummy(&self) -> Option<&PropertyDummy> {
+        Some(self)
+    }
+}
+
+impl PropertyDummy {
+    #[inline]
+    pub fn with_separator() -> Self {
+        Self {
+            base: PropertyBase::with_separator(),
         }
     }
 }
