@@ -5,6 +5,11 @@ use std::cell::{Cell, Ref, RefCell, RefMut, UnsafeCell};
 use std::fmt::Debug;
 use std::sync::Arc;
 
+use crate::{
+    color_rgba, rect, vec2, Context, FlagsBuilder, LayoutFormat, Rect, StyleButton, StyleItem,
+    SymbolType, Vec2,
+};
+
 /// Property.
 pub trait Property {
     /// Returns the `id` of the property.
@@ -1573,6 +1578,301 @@ impl PropertySheet {
         let p = PropertyString::with_text_box(name, max_length, def_val);
         p.set_id(self.items.len());
         self.items.push(Arc::new(p))
+    }
+}
+
+/// Layout for property present.
+#[derive(Debug)]
+struct PropertyLayout {
+    high_light: bool,
+    bounds: Rect,
+    border_size: Vec2,
+    inner_size: Vec2,
+    x_offset: f32,
+    x_segment: f32,
+    cur_col: usize,
+}
+
+impl PropertyLayout {
+    /// Create a new property present layout.
+    pub fn new(ctx: &'_ mut Context, height: f32, high_light: bool) -> Self {
+        if high_light {
+            let row_color = ctx.style().window().background().inverted();
+            ctx.layout_space_colored_begin(LayoutFormat::Dynamic, height, 4, row_color);
+        } else {
+            ctx.layout_space_begin(LayoutFormat::Dynamic, height, 4);
+        }
+        let bounds = ctx.layout_space_bounds();
+        let border_size = vec2(8.0 / bounds.w, 4.0 / bounds.h);
+        let inner_size = vec2(1.0 - border_size.x * 2.0, 1.0 - border_size.y * 2.0);
+        Self {
+            high_light,
+            bounds,
+            border_size,
+            inner_size,
+            x_offset: 0.0,
+            x_segment: 0.0,
+            cur_col: 0,
+        }
+    }
+
+    /// Move to next slot and setup widget with `f`.
+    pub fn next<'a, F>(&mut self, ctx: &'a mut Context, f: F)
+    where
+        F: Fn(&'a mut Context),
+    {
+        match self.cur_col {
+            0 => {
+                self.x_offset += self.border_size.x;
+                self.x_segment = self.inner_size.x * 0.4;
+                ctx.layout_space_push(rect(
+                    self.x_offset,
+                    self.border_size.y,
+                    self.x_segment,
+                    self.inner_size.y,
+                ));
+            }
+            1 => {
+                self.x_offset += self.x_segment;
+                self.x_segment = self.inner_size.x * 0.05;
+                ctx.layout_space_push(rect(
+                    self.x_offset,
+                    self.border_size.y,
+                    self.x_segment,
+                    self.inner_size.y,
+                ));
+            }
+            2 => {
+                self.x_offset += self.x_segment + 0.01;
+                self.x_segment = self.inner_size.x * 0.48;
+                ctx.layout_space_push(rect(
+                    self.x_offset,
+                    self.border_size.y,
+                    self.x_segment,
+                    self.inner_size.y,
+                ));
+            }
+            3 => {
+                self.x_offset += self.x_segment + 0.01;
+                self.x_segment = self.inner_size.x * 0.05;
+                ctx.layout_space_push(rect(
+                    self.x_offset,
+                    self.border_size.y,
+                    self.x_segment,
+                    self.inner_size.y,
+                ));
+            }
+            _ => {}
+        }
+        f(ctx);
+        self.cur_col += 1;
+    }
+
+    /// Layout complete.
+    pub fn finish<'a>(&mut self, ctx: &'a mut Context) {
+        ctx.layout_space_end();
+    }
+}
+
+/// Property presenter.
+pub struct PropertyPresenter {
+    height: f32,
+    arrow_styles: [StyleButton; 2],
+}
+
+impl Debug for PropertyPresenter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("PropertyPresenter")
+            .field("height", &self.height)
+            .finish()
+    }
+}
+
+impl PropertyPresenter {
+    /// Create a new property presenter.
+    pub fn new(ctx: &'_ Context, height: f32) -> Self {
+        let mut style0 = ctx.style().button().clone();
+        style0.set_normal(StyleItem::color_rgba(0, 0, 0, 0));
+        style0.set_border_color(color_rgba(0, 0, 0, 0));
+        // style.set_text_normal(*ctx.style().window().background());
+        let mut style1 = style0.clone();
+        style1.set_text_normal(*ctx.style().window().background());
+        Self {
+            height,
+            arrow_styles: [style0, style1],
+        }
+    }
+
+    /// Four segment layout.
+    fn layout4<F>(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>, f: F)
+    where
+        F: Fn(&mut Context, &Arc<dyn Property + Send + Sync>),
+    {
+        let mut layout = PropertyLayout::new(ctx, self.height, p.is_selected());
+        // Title Label
+        layout.next(ctx, |ctx| {
+            if p.is_selected() {
+                ctx.label_colored(
+                    p.name().into(),
+                    FlagsBuilder::align().left().middle().into(),
+                    ctx.style().text().color.inverted(),
+                );
+            } else {
+                ctx.label(
+                    p.name().into(),
+                    FlagsBuilder::align().left().middle().into(),
+                );
+            }
+        });
+        // Left Arrow
+        layout.next(ctx, |ctx| {
+            if p.is_selected() {
+                ctx.button_symbol_styled(&self.arrow_styles[1], SymbolType::TriangleLeft);
+            } else {
+                // ctx.button_symbol_styled(&self.arrow_styles[0], SymbolType::TriangleLeft);
+            }
+        });
+        // Content Widget
+        layout.next(ctx, |ctx| f(ctx, p));
+        // Right Arrow
+        layout.next(ctx, |ctx| {
+            if p.is_selected() {
+                ctx.button_symbol_styled(&self.arrow_styles[1], SymbolType::TriangleRight);
+            } else {
+                // ctx.button_symbol_styled(&self.arrow_styles[0], SymbolType::TriangleRight);
+            }
+        });
+        // Done
+        layout.finish(ctx);
+    }
+
+    /// Present a property with button.
+    pub fn present_button(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        self.layout4(ctx, p, |ctx, p| {
+            let ap = p.as_property_action().unwrap();
+            ctx.button_text(ap.options()[0]);
+        });
+    }
+
+    /// Present a property with separator.
+    pub fn present_separator(self, ctx: &'_ mut Context, _p: &'_ Arc<dyn Property + Send + Sync>) {
+        ctx.layout_space_begin(LayoutFormat::Dynamic, self.height / 2.0, 1);
+        let rect = rect(0.0, 0.4, 1.0, 0.1);
+        ctx.layout_space_push(rect);
+        {
+            let bounds = ctx.widget_bounds();
+            let x = bounds.x;
+            let y = bounds.y + bounds.h / 2.0;
+            let color = ctx.style().window().background().inverted();
+            let canvas = ctx.window_get_canvas_mut().unwrap();
+            canvas.stroke_line(x, y, x + bounds.w, y, 1.0, color);
+        }
+        ctx.layout_space_end();
+    }
+
+    /// Present a property with float slider.
+    pub fn present_slider_f32(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        self.layout4(ctx, p, |ctx, p| {
+            let ap = p.as_property_f32().unwrap();
+            let (min, max) = ap.range();
+            ctx.slider_float(min, ap.value_mut(), max, ap.step());
+        });
+    }
+
+    /// Present a property with integer slider.
+    pub fn present_slider_i32(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        self.layout4(ctx, p, |ctx, p| {
+            let ap = p.as_property_i32().unwrap();
+            let (min, max) = ap.range();
+            ctx.slider_int(min, ap.value_mut(), max, ap.step());
+        });
+    }
+
+    /// Present a property with slider.
+    pub fn present_slider(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        match p.value_type() {
+            ValueType::F32 => {
+                self.present_slider_f32(ctx, p);
+            }
+            ValueType::I32 => {
+                self.present_slider_i32(ctx, p);
+            }
+            _ => {}
+        }
+    }
+
+    /// Present a property with switch.
+    pub fn present_switch(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        self.layout4(ctx, p, |ctx, p| {
+            let ap = p.as_property_bool().unwrap();
+            if ap.value() {
+                let label = if ap.options().len() > 1 {
+                    ap.options()[1].into()
+                } else {
+                    "ON".into()
+                };
+                ctx.button_symbol_label(
+                    SymbolType::CircleSolid,
+                    label,
+                    FlagsBuilder::align().left().middle().into(),
+                );
+            } else {
+                let label = if !ap.options().is_empty() {
+                    ap.options()[0].into()
+                } else {
+                    "OFF".into()
+                };
+                ctx.button_symbol_label(
+                    SymbolType::CircleOutline,
+                    label,
+                    FlagsBuilder::align().right().middle().into(),
+                );
+            }
+        });
+    }
+
+    /// Present a property.
+    pub fn present(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        match p.widget_type() {
+            WidgetType::Button => {
+                self.present_button(ctx, p);
+            }
+            WidgetType::Separator => {
+                self.present_separator(ctx, p);
+            }
+            WidgetType::Slider => {
+                self.present_slider(ctx, p);
+            }
+            WidgetType::Switch => {
+                self.present_switch(ctx, p);
+            }
+            _ => {}
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct PropertySheetPresenter {
+    row_height: f32,
+}
+
+impl Default for PropertySheetPresenter {
+    fn default() -> Self {
+        Self::new(32.0)
+    }
+}
+
+impl PropertySheetPresenter {
+    pub fn new(row_height: f32) -> Self {
+        Self { row_height }
+    }
+
+    pub fn present(self, ctx: &'_ mut Context, ps: &'_ PropertySheet) {
+        ctx.style_mut().window_mut().set_spacing(vec2(0.0, 0.0));
+        ctx.style_mut().window_mut().set_padding(vec2(0.0, 0.0));
+        for p in ps.iter().filter(|x| x.is_visible()) {
+            PropertyPresenter::new(&ctx, self.row_height).present(ctx, p);
+        }
     }
 }
 
