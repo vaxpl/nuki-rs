@@ -1867,12 +1867,43 @@ impl PropertySheetPresenter {
         Self { row_height }
     }
 
+    fn scroll_to_selected(&self, ctx: &'_ mut Context, ps: &'_ PropertySheet) {
+        let mut y: i32 = 0;
+        for p in ps.iter().filter(|x| x.is_visible()) {
+            if p.widget_type() == WidgetType::Separator {
+                y += (self.row_height / 2.0) as i32;
+            } else {
+                y += self.row_height as i32;
+            }
+            if p.is_selected() {
+                break;
+            }
+        }
+        let win_size = ctx.window_get_size();
+        let offset = y - win_size.y as i32 + (self.row_height * 2.0) as i32;
+        if offset > 0 {
+            ctx.window_set_scroll(0, offset as u32);
+        } else {
+            ctx.window_set_scroll(0, 0);
+        }
+    }
+
     pub fn present(self, ctx: &'_ mut Context, ps: &'_ PropertySheet) {
+        // Save current window states
+        let spacing = ctx.style().window().spacing().clone();
+        let padding = ctx.style().window().padding().clone();
+        // Remove spacing and padding
         ctx.style_mut().window_mut().set_spacing(vec2(0.0, 0.0));
         ctx.style_mut().window_mut().set_padding(vec2(0.0, 0.0));
+        // Scroll to selected item if necessary
+        self.scroll_to_selected(ctx, ps);
+        // Render each property item
         for p in ps.iter().filter(|x| x.is_visible()) {
-            PropertyPresenter::new(&ctx, self.row_height).present(ctx, p);
+            PropertyPresenter::new(ctx, self.row_height).present(ctx, p);
         }
+        // Restore old window states
+        ctx.style_mut().window_mut().set_spacing(spacing);
+        ctx.style_mut().window_mut().set_padding(padding);
     }
 }
 
