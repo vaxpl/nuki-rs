@@ -1754,6 +1754,29 @@ impl PropertyPresenter {
         });
     }
 
+    /// Present a property with integer select.
+    pub fn present_select_i32(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        self.layout4(ctx, p, |ctx, p| {
+            let ap = p.as_property_i32().unwrap();
+            let opt: crate::String = ap.options()[ap.value() as usize].into();
+            if ap.is_selected() {
+                ctx.label_colored(opt, FlagsBuilder::align().centered().middle().into(), ctx.style().text().color.inverted());
+            } else {
+                ctx.label(opt, FlagsBuilder::align().centered().middle().into());
+            }
+        });
+    }
+
+    /// Present a property with select.
+    pub fn present_select(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        match p.value_type() {
+            ValueType::I32 => {
+                self.present_select_i32(ctx, p);
+            }
+            _ => {}
+        }
+    }
+
     /// Present a property with separator.
     pub fn present_separator(self, ctx: &'_ mut Context, _p: &'_ Arc<dyn Property + Send + Sync>) {
         ctx.layout_space_begin(LayoutFormat::Dynamic, self.height / 2.0, 1);
@@ -1836,6 +1859,9 @@ impl PropertyPresenter {
         match p.widget_type() {
             WidgetType::Button => {
                 self.present_button(ctx, p);
+            }
+            WidgetType::Select => {
+                self.present_select(ctx, p);
             }
             WidgetType::Separator => {
                 self.present_separator(ctx, p);
