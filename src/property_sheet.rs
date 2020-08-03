@@ -1760,7 +1760,11 @@ impl PropertyPresenter {
             let ap = p.as_property_i32().unwrap();
             let opt: crate::String = ap.options()[ap.value() as usize].into();
             if ap.is_selected() {
-                ctx.label_colored(opt, FlagsBuilder::align().centered().middle().into(), ctx.style().text().color.inverted());
+                ctx.label_colored(
+                    opt,
+                    FlagsBuilder::align().centered().middle().into(),
+                    ctx.style().text().color.inverted(),
+                );
             } else {
                 ctx.label(opt, FlagsBuilder::align().centered().middle().into());
             }
@@ -1769,11 +1773,8 @@ impl PropertyPresenter {
 
     /// Present a property with select.
     pub fn present_select(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
-        match p.value_type() {
-            ValueType::I32 => {
-                self.present_select_i32(ctx, p);
-            }
-            _ => {}
+        if let ValueType::I32 = p.value_type() {
+            self.present_select_i32(ctx, p);
         }
     }
 
@@ -1916,8 +1917,8 @@ impl PropertySheetPresenter {
 
     pub fn present(self, ctx: &'_ mut Context, ps: &'_ PropertySheet) {
         // Save current window states
-        let spacing = ctx.style().window().spacing().clone();
-        let padding = ctx.style().window().padding().clone();
+        let spacing = *ctx.style().window().spacing();
+        let padding = *ctx.style().window().padding();
         // Remove spacing and padding
         ctx.style_mut().window_mut().set_spacing(vec2(0.0, 0.0));
         ctx.style_mut().window_mut().set_padding(vec2(0.0, 0.0));

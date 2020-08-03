@@ -3687,7 +3687,7 @@ impl TryFrom<StyleItem> for Color {
     fn try_from(value: StyleItem) -> Result<Self, Self::Error> {
         unsafe {
             if value.internal.type_ == StyleItemType::Color as u32 {
-                Ok(value.internal.data.color.into())
+                Ok(value.internal.data.color)
             } else {
                 Err("Typeof(StyleItem) != StyleItemType::Color")
             }
