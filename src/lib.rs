@@ -5097,7 +5097,7 @@ impl Context {
         }
     }
 
-    pub fn button_label_styled(&mut self, style: &StyleButton, title: &str) -> bool {
+    pub fn button_label_styled(&mut self, style: &StyleButton, title: String) -> bool {
         unsafe {
             nk_button_label_styled(
                 &mut self.internal as *mut nk_context,
