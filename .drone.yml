@@ -1,0 +1,24 @@
+﻿---
+kind: pipeline
+type: exec
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: check format and lints
+  commands:
+  - cargo fmt -- --check
+  - cargo clippy
+
+- name: build
+  commands:
+  - cargo build
+
+- name: test
+  commands:
+  - cargo test
+
+...
