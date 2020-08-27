@@ -9,6 +9,8 @@ use std::iter::Iterator;
 /// # Examples
 ///
 /// ```no_run
+/// use nuki::object_pool::*;
+///
 /// #[repr(C)]
 /// #[derive(Debug, Default)]
 /// struct ObjectFoo {
