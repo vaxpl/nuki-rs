@@ -4,6 +4,7 @@ nuki-rs
 Forked from https://github.com/snuk182/nuklear-rust.
 
 [![Latest Version](https://img.shields.io/crates/v/nuki.svg)](https://crates.io/crates/nuki)
+[![Build Status](https://ci.vaxpl.com/api/badges/rdst/nuki-rs/status.svg?ref=refs/heads/{{BRANCH_NAME}})](https://ci.vaxpl.com/rdst/nuki-rs)
 
 The bindings to the [Nuklear](https://github.com/Immediate-Mode-UI/Nuklear) 2D immediate GUI library. 
 
