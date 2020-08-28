@@ -21,4 +21,4 @@ default = []
 
 [dependencies.nuki-sys]
 path = "nuki-sys"
-version = "4.1"
+version = "4.3"
