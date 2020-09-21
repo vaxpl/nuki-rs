@@ -1435,12 +1435,12 @@ impl PropertySheet {
         }
     }
 
-    /// Mark `next` item as `selected`, wrap to `last` item when current at `first` item.
+    /// Mark `prev` item as `selected`, wrap to `last` item when current at `first` item.
     pub fn select_prev_wrapped(&mut self) {
         let sels = self.selected_items();
         if !sels.is_empty() {
             let i = sels[0];
-            if i > 0 && i < (self.len() - 1) {
+            if i > 0 {
                 if let Some(p) = self.get(i - 1) {
                     if !p.is_selectable() && i > 2 {
                         self.select_items(&[i - 2]);
