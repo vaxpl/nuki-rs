@@ -645,6 +645,12 @@ impl PropertyBool {
         }
         value
     }
+
+    /// Toggle the value between `true` and `false`.
+    #[inline]
+    pub fn toggle(&self) -> bool {
+        self.set_value(!self.value())
+    }
 }
 
 /// Numberic Property.
