@@ -1511,6 +1511,16 @@ impl PropertySheet {
         sels
     }
 
+    /// Returns current `selected` item.
+    pub fn current_selected(&self) -> Option<&PropertyItem> {
+        let items = self.selected_items();
+        if items.is_empty() {
+            None
+        } else {
+            self.get(items[0])
+        }
+    }
+
     /// Add a Action Button to the sheet.
     pub fn action_button<F>(&mut self, name: &'static str, text: &'static str, f: Arc<RefCell<F>>)
     where
