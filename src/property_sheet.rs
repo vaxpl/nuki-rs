@@ -1415,10 +1415,28 @@ impl PropertySheet {
         None
     }
 
+    /// Returns the `bool` value at index if the property is type of `ValueType::Bool`.
+    pub fn get_value_bool_at(&self, index: usize) -> Option<bool> {
+        if let Some(p) = self.get(index) {
+            p.get_value_bool()
+        } else {
+            None
+        }
+    }
+
     /// Find and returns the `bool` value if the property is type of `ValueType::Bool`.
     pub fn get_value_bool_of(&self, name: &'static str) -> Option<bool> {
         if let Some(p) = self.find(name) {
             p.get_value_bool()
+        } else {
+            None
+        }
+    }
+
+    /// Returns the `f32` value at index if the property is type of `ValueType::F32`.
+    pub fn get_value_f32_at(&self, index: usize) -> Option<f32> {
+        if let Some(p) = self.get(index) {
+            p.get_value_f32()
         } else {
             None
         }
@@ -1433,6 +1451,15 @@ impl PropertySheet {
         }
     }
 
+    /// Returns the `f64` value at index if the property is type of `ValueType::F64`.
+    pub fn get_value_f64_at(&self, index: usize) -> Option<f64> {
+        if let Some(p) = self.get(index) {
+            p.get_value_f64()
+        } else {
+            None
+        }
+    }
+
     /// Find and returns the `f64` value if the property is type of `ValueType::F64`.
     pub fn get_value_f64_of(&self, name: &'static str) -> Option<f64> {
         if let Some(p) = self.find(name) {
@@ -1442,10 +1469,28 @@ impl PropertySheet {
         }
     }
 
+    /// Returns the `i32` value at index if the property is type of `ValueType::I32`.
+    pub fn get_value_i32_at(&self, index: usize) -> Option<i32> {
+        if let Some(p) = self.get(index) {
+            p.get_value_i32()
+        } else {
+            None
+        }
+    }
+
     /// Find and returns the `i32` value if the property is type of `ValueType::I32`.
     pub fn get_value_i32_of(&self, name: &'static str) -> Option<i32> {
         if let Some(p) = self.find(name) {
             p.get_value_i32()
+        } else {
+            None
+        }
+    }
+
+    /// Returns the `&str` value at index if the property is type of `ValueType::String`.
+    pub fn get_value_string_at(&self, index: usize) -> Option<Ref<'_, str>> {
+        if let Some(p) = self.get(index) {
+            p.get_value_string()
         } else {
             None
         }
