@@ -1415,6 +1415,51 @@ impl PropertySheet {
         None
     }
 
+    /// Find and returns the `bool` value if the property is type of `ValueType::Bool`.
+    pub fn get_value_bool_of(&self, name: &'static str) -> Option<bool> {
+        if let Some(p) = self.find(name) {
+            p.get_value_bool()
+        } else {
+            None
+        }
+    }
+
+    /// Find and returns the `f32` value if the property is type of `ValueType::F32`.
+    pub fn get_value_f32_of(&self, name: &'static str) -> Option<f32> {
+        if let Some(p) = self.find(name) {
+            p.get_value_f32()
+        } else {
+            None
+        }
+    }
+
+    /// Find and returns the `f64` value if the property is type of `ValueType::F64`.
+    pub fn get_value_f64_of(&self, name: &'static str) -> Option<f64> {
+        if let Some(p) = self.find(name) {
+            p.get_value_f64()
+        } else {
+            None
+        }
+    }
+
+    /// Find and returns the `i32` value if the property is type of `ValueType::I32`.
+    pub fn get_value_i32_of(&self, name: &'static str) -> Option<i32> {
+        if let Some(p) = self.find(name) {
+            p.get_value_i32()
+        } else {
+            None
+        }
+    }
+
+    /// Find and returns the `&str` value if the property is type of `ValueType::String`.
+    pub fn get_value_string_of(&self, name: &'static str) -> Option<Ref<'_, str>> {
+        if let Some(p) = self.find(name) {
+            p.get_value_string()
+        } else {
+            None
+        }
+    }
+
     /// Mark all item listed in `ids` as `selected`.
     pub fn select_items(&mut self, ids: &[usize]) {
         for p in self.items.iter_mut() {
