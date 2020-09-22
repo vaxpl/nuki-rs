@@ -11,7 +11,10 @@
 extern crate log;
 
 #[cfg(feature = "input-device")]
-use input_device::{Event as InputEvent, KeyboardInput, ElementState,  MouseButton as InputMouseButton, VirtualKeyCode};
+use input_device::{
+    ElementState, Event as InputEvent, KeyboardInput, MouseButton as InputMouseButton,
+    VirtualKeyCode,
+};
 
 mod alloc_heap;
 mod alloc_vec;
@@ -8172,9 +8175,7 @@ fn translate_mouse_button(ctx: &mut Context, button: InputMouseButton, state: El
         InputMouseButton::Middle => {
             ctx.input_button(Button::Middle, 0, 0, down);
         }
-        _ => {
-
-        }
+        _ => {}
     }
 }
 
@@ -8182,7 +8183,7 @@ fn translate_mouse_button(ctx: &mut Context, button: InputMouseButton, state: El
 impl TranslateInputEvent for Context {
     fn translate_input_event(&mut self, event: &InputEvent) {
         match event {
-            InputEvent::MouseButton{ button, state } => {
+            InputEvent::MouseButton { button, state } => {
                 translate_mouse_button(self, *button, *state);
             }
             InputEvent::Key(key) => {

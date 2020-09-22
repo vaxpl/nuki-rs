@@ -6,8 +6,8 @@ use std::fmt::Debug;
 use std::sync::Arc;
 
 use crate::{
-    color_rgba, rect, vec2, Context, FlagsBuilder, LayoutFormat, Rect, StyleButton, StyleItem,
-    SymbolType, Vec2, Key,
+    color_rgba, rect, vec2, Context, FlagsBuilder, Key, LayoutFormat, Rect, StyleButton, StyleItem,
+    SymbolType, Vec2,
 };
 
 /// Property.
