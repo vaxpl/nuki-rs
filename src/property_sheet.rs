@@ -7,7 +7,7 @@ use std::sync::Arc;
 
 use crate::{
     color_rgba, rect, vec2, Context, FlagsBuilder, LayoutFormat, Rect, StyleButton, StyleItem,
-    SymbolType, Vec2,
+    SymbolType, Vec2, Key,
 };
 
 /// Property.
@@ -1594,6 +1594,105 @@ impl PropertySheet {
         let p = PropertyString::with_text_box(name, max_length, def_val);
         p.set_id(self.items.len());
         self.items.push(Arc::new(p))
+    }
+}
+
+/// PropertySheet Input Controller.
+#[derive(Debug)]
+pub struct PropertySheetInputCtrl;
+
+impl Default for PropertySheetInputCtrl {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl PropertySheetInputCtrl {
+    /// Create a new PropertySheet Controller.
+    pub fn new() -> Self {
+        Self {}
+    }
+
+    /// Processing Input Events.
+    pub fn process(self, ctx: &Context, ps: &mut PropertySheet) {
+        let input = ctx.input();
+        if input.is_key_down(Key::Enter) {
+            // FIXME:
+        }
+        if input.is_key_down(Key::Up) {
+            ps.select_prev_wrapped();
+        }
+        if input.is_key_down(Key::Down) {
+            ps.select_next_wrapped();
+        }
+        if input.is_key_down(Key::Left) {
+            if let Some(p) = ps.current_selected() {
+                match p.value_type() {
+                    ValueType::Action => {
+                        let p = p.as_property_action().unwrap();
+                        p.trigger(true);
+                    }
+                    ValueType::Bool => {
+                        let p = p.as_property_bool().unwrap();
+                        p.toggle();
+                    }
+                    ValueType::F32 => {
+                        let p = p.as_property_f32().unwrap();
+                        p.step_backward();
+                    }
+                    ValueType::F64 => {
+                        let p = p.as_property_f64().unwrap();
+                        p.step_backward();
+                    }
+                    ValueType::I32 => {
+                        let p = p.as_property_i32().unwrap();
+                        p.step_backward();
+                    }
+                    ValueType::I64 => {
+                        let p = p.as_property_i64().unwrap();
+                        p.step_backward();
+                    }
+                    ValueType::String => {
+                        let _p = p.as_property_string().unwrap();
+                    }
+                    _ => {}
+                }
+            }
+        }
+        if input.is_key_down(Key::Right) {
+            if let Some(p) = ps.current_selected() {
+                match p.value_type() {
+                    ValueType::Action => {
+                        let p = p.as_property_action().unwrap();
+                        p.trigger(true);
+                    }
+                    ValueType::Bool => {
+                        let p = p.as_property_bool().unwrap();
+                        p.toggle();
+                    }
+                    ValueType::F32 => {
+                        let p = p.as_property_f32().unwrap();
+                        p.step_forward();
+                    }
+                    ValueType::F64 => {
+                        let p = p.as_property_f64().unwrap();
+                        p.step_forward();
+                    }
+                    ValueType::I32 => {
+                        let p = p.as_property_i32().unwrap();
+                        p.step_forward();
+                    }
+                    ValueType::I64 => {
+                        let p = p.as_property_i64().unwrap();
+                        p.step_forward();
+                    }
+                    ValueType::String => {
+                        let _p = p.as_property_string().unwrap();
+                    }
+                    _ => {}
+                }
+            }
+        }
     }
 }
 
