@@ -10,6 +10,9 @@
 #[macro_use]
 extern crate log;
 
+#[cfg(feature = "input-device")]
+use input_device::{Event as InputEvent, KeyboardInput, ElementState,  MouseButton as InputMouseButton, VirtualKeyCode};
+
 mod alloc_heap;
 mod alloc_vec;
 
@@ -8123,6 +8126,70 @@ impl UserFont {
     /// # Safety
     pub unsafe fn userdata_id(&self) -> Handle {
         Handle::from_id(self.internal.userdata.id)
+    }
+}
+
+// =============================================================================================
+
+#[cfg(feature = "input-device")]
+/// Trait for Translate InputEvent.
+pub trait TranslateInputEvent {
+    /// Translate InputEvent to Input.
+    fn translate_input_event(&mut self, event: &InputEvent);
+}
+
+#[cfg(feature = "input-device")]
+fn translate_keyboard_input(ctx: &mut Context, key: &KeyboardInput) {
+    let down = key.state != ElementState::Released;
+    match key.virtual_keycode {
+        Some(VirtualKeyCode::Up) => {
+            ctx.input_key(Key::Up, down);
+        }
+        Some(VirtualKeyCode::Down) => {
+            ctx.input_key(Key::Down, down);
+        }
+        Some(VirtualKeyCode::Left) => {
+            ctx.input_key(Key::Left, down);
+        }
+        Some(VirtualKeyCode::Right) => {
+            ctx.input_key(Key::Right, down);
+        }
+        _ => {}
+    }
+}
+
+#[cfg(feature = "input-device")]
+fn translate_mouse_button(ctx: &mut Context, button: InputMouseButton, state: ElementState) {
+    // FIXME: Fix the x,y values
+    let down = state != ElementState::Released;
+    match button {
+        InputMouseButton::Left => {
+            ctx.input_button(Button::Left, 0, 0, down);
+        }
+        InputMouseButton::Right => {
+            ctx.input_button(Button::Right, 0, 0, down);
+        }
+        InputMouseButton::Middle => {
+            ctx.input_button(Button::Middle, 0, 0, down);
+        }
+        _ => {
+
+        }
+    }
+}
+
+#[cfg(feature = "input-device")]
+impl TranslateInputEvent for Context {
+    fn translate_input_event(&mut self, event: &InputEvent) {
+        match event {
+            InputEvent::MouseButton{ button, state } => {
+                translate_mouse_button(self, *button, *state);
+            }
+            InputEvent::Key(key) => {
+                translate_keyboard_input(self, key);
+            }
+            _ => {}
+        }
     }
 }
 
