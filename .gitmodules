@@ -1,4 +1,4 @@
 [submodule "nuki-sys/nuklear-c/nuklear"]
 	path = nuki-sys/nuklear-c/nuklear
 	url = https://git.vaxpl.com/rdst/nuklear.git
-	branch = release/v4.3.1-nuki
+	branch = release/v4.6.0-nuki
