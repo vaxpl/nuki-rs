@@ -16,10 +16,7 @@ edition = "2018"
 [dependencies]
 input-device = { version = "0.2", optional = true }
 log = "0.4"
+nuki-sys = "4.3"
 
 [features]
 default = []
-
-[dependencies.nuki-sys]
-path = "nuki-sys"
-version = "4.3"
