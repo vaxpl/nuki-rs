@@ -1,0 +1,15 @@
+[package]
+name = "nuki-prefab"
+version = "0.1.0"
+authors = ["Varphone Wong <varphone@qq.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+nuki = { version = "0.2", path = "../nuki" }
+nuki-derive = { version = "0.1", path = "../nuki-derive" }
+nuki-backend-gles = { version = "0.1", optional = true }
+
+[features]
+backend-gles = [ "nuki-backend-gles" ]

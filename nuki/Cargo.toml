@@ -1,0 +1,27 @@
+[package]
+name = "nuki"
+version = "0.2.4"
+authors = [
+    "Serhii Plyhun <snuk188@gmail.com>",
+    "Varphone Wong <varphone@qq.com>",
+]
+keywords = ["ui", "widgets", "gui", "interface", "graphics"]
+description = "Rust wrapper for Nuklear 2D GUI library (https://github.com/Immediate-Mode-UI/Nuklear)"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/varphone/nuki-rs.git"
+homepage = "https://github.com/varphone/nuki-rs"
+edition = "2018"
+
+[dependencies]
+input-device = { version = "0.2", optional = true }
+log = "0.4"
+nuki-derive = { version = "0.1", path = "../nuki-derive" }
+nuki-sys = "4.3"
+
+[dev-dependencies]
+nuki-backend-gles = "0.1"
+nuki-prefab = { version = "0.1", path = "../nuki-prefab", features = ["backend-gles"] }
+
+# [features]
+# default = []

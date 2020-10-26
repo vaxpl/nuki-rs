@@ -1,3 +1,19 @@
+// Copyright 2020 The Nuki Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//! The bindings of the nuklear framework.
+
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::transmute_ptr_to_ptr))] // TODO later
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::transmute_ptr_to_ref))] // TODO later
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_pass_by_value))] // API requirement
@@ -6,9 +22,6 @@
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))] // required by allocator
 #![cfg_attr(feature = "cargo-clippy", allow(non_upper_case_globals))]
 #![allow(non_upper_case_globals)]
-
-#[macro_use]
-extern crate log;
 
 #[cfg(feature = "input-device")]
 use input_device::{
@@ -19,7 +32,6 @@ use input_device::{
 mod alloc_heap;
 mod alloc_vec;
 
-pub mod object_pool;
 pub mod property_sheet;
 
 use std::borrow::Cow;
@@ -119,6 +131,18 @@ macro_rules! wrapper_type {
         wrapper_impls!($name, $typ);
     };
 }
+
+// macro_rules! wrapper_type_with_copy {
+//     ($name:ident, $typ:ty) => {
+//         #[derive(Copy, Clone)]
+//         #[repr(C)]
+//         pub struct $name {
+//             internal: $typ,
+//         }
+
+//         wrapper_impls!($name, $typ);
+//     };
+// }
 
 macro_rules! wrapper_type_no_clone {
     ($name:ident, $typ:ty) => {
@@ -840,6 +864,7 @@ impl<'a> From<::std::string::String> for String<'a> {
     }
 }
 
+/// Wrap string litreal to nuklear typed string.
 #[macro_export]
 macro_rules! nk_string {
     ($e:tt) => ({

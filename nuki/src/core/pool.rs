@@ -9,7 +9,7 @@ use std::iter::Iterator;
 /// # Examples
 ///
 /// ```no_run
-/// use nuki::object_pool::*;
+/// use nuki::{ForwardPool, PoolObject, PoolObjectBase, PoolObjectTypeId};
 ///
 /// #[repr(C)]
 /// #[derive(Debug, Default)]

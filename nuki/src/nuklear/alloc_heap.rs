@@ -1,8 +1,10 @@
 #![allow(dead_code)]
 
-extern crate alloc;
+// extern crate alloc;
 
 use super::ALIGNMENT;
+
+use log::trace;
 use nuki_sys::{nk_handle, nk_size};
 
 use std::alloc::Layout;

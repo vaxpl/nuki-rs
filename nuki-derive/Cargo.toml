@@ -1,0 +1,25 @@
+[package]
+name = "nuki-derive"
+version = "0.1.0"
+license = "Apache-2.0"
+authors = ["Nuki authors"]
+keywords = ["ui", "widgets", "gui", "interface", "graphics"]
+description = "derive impls for nuki, a Rust UI toolkit."
+repository = "https://github.com/varphone/nuki-rs.git"
+edition = "2018"
+
+[lib]
+proc-macro = true
+
+[package.metadata.docs.rs]
+default-target = "x86_64-pc-windows-msvc"
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = { version = "1.0.39", features = ["extra-traits"] }
+
+[dev-dependencies]
+float-cmp = { version = "0.8", features = ["std"], default-features = false }
+nuki = { version = "0.2", path = "../nuki" }

@@ -1,3 +1,4 @@
+use log::trace;
 use nuki_sys::{nk_handle, nk_size};
 
 use std::convert::TryInto;

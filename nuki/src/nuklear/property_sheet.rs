@@ -5,7 +5,7 @@ use std::cell::{Cell, Ref, RefCell, RefMut, UnsafeCell};
 use std::fmt::Debug;
 use std::sync::Arc;
 
-use crate::{
+use crate::nuklear::{
     color_rgba, rect, vec2, Context, FlagsBuilder, Key, LayoutFormat, Rect, StyleButton, StyleItem,
     SymbolType, Vec2,
 };
@@ -1963,7 +1963,7 @@ impl PropertyPresenter {
     pub fn present_select_i32(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
         self.layout4(ctx, p, |ctx, p| {
             let ap = p.as_property_i32().unwrap();
-            let opt: crate::String = ap.options()[ap.value() as usize].into();
+            let opt: super::String = ap.options()[ap.value() as usize].into();
             if ap.is_selected() {
                 ctx.label_colored(
                     opt,
