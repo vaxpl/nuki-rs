@@ -410,6 +410,22 @@ impl PropertyBase {
         Self::new("", &[], ValueType::Dummy, WidgetType::Separator)
     }
 
+    pub fn with_spin_box_f32(name: &'static str) -> Self {
+        Self::new(name, &[], ValueType::F32, WidgetType::SpinBox)
+    }
+
+    pub fn with_spin_box_f64(name: &'static str) -> Self {
+        Self::new(name, &[], ValueType::F64, WidgetType::SpinBox)
+    }
+
+    pub fn with_spin_box_i32(name: &'static str) -> Self {
+        Self::new(name, &[], ValueType::I32, WidgetType::SpinBox)
+    }
+
+    pub fn with_spin_box_i64(name: &'static str) -> Self {
+        Self::new(name, &[], ValueType::I64, WidgetType::SpinBox)
+    }
+
     pub fn with_switch(name: &'static str) -> Self {
         Self::new(name, &[], ValueType::Bool, WidgetType::Switch)
     }
@@ -807,6 +823,16 @@ impl PropertyF32 {
             value: UnsafeCell::new(def_val),
         }
     }
+
+    pub fn with_spin_box(name: &'static str, range: (f32, f32), step: f32, def_val: f32) -> Self {
+        Self {
+            base: PropertyBase::with_spin_box_f32(name),
+            range,
+            step,
+            def_val,
+            value: UnsafeCell::new(def_val),
+        }
+    }
 }
 
 /// Float64 Property.
@@ -899,6 +925,16 @@ impl PropertyF64 {
     pub fn with_slider(name: &'static str, range: (f64, f64), step: f64, def_val: f64) -> Self {
         Self {
             base: PropertyBase::with_slider_f64(name),
+            range,
+            step,
+            def_val,
+            value: UnsafeCell::new(def_val),
+        }
+    }
+
+    pub fn with_spin_box(name: &'static str, range: (f64, f64), step: f64, def_val: f64) -> Self {
+        Self {
+            base: PropertyBase::with_spin_box_f64(name),
             range,
             step,
             def_val,
@@ -1034,6 +1070,17 @@ impl PropertyI32 {
             value: UnsafeCell::new(def_val),
         }
     }
+
+    /// Create an new Integer32 Property with SpinBox rendering.
+    pub fn with_spin_box(name: &'static str, range: (i32, i32), step: i32, def_val: i32) -> Self {
+        Self {
+            base: PropertyBase::with_spin_box_i32(name),
+            range,
+            step,
+            def_val,
+            value: UnsafeCell::new(def_val),
+        }
+    }
 }
 
 /// Integer64 Property.
@@ -1157,6 +1204,17 @@ impl PropertyI64 {
     pub fn with_slider(name: &'static str, range: (i64, i64), step: i64, def_val: i64) -> Self {
         Self {
             base: PropertyBase::with_slider_i64(name),
+            range,
+            step,
+            def_val,
+            value: UnsafeCell::new(def_val),
+        }
+    }
+
+    /// Create an new Integer32 Property with SpinBox rendering.
+    pub fn with_spin_box(name: &'static str, range: (i64, i64), step: i64, def_val: i64) -> Self {
+        Self {
+            base: PropertyBase::with_spin_box_i64(name),
             range,
             step,
             def_val,
@@ -1672,6 +1730,41 @@ impl PropertySheet {
         self.items.push(Arc::new(p));
     }
 
+    /// Add an Integer64 Slider to the sheet.
+    pub fn slider_i64(&mut self, name: &'static str, range: (i64, i64), step: i64, def_val: i64) {
+        let p = PropertyI64::with_slider(name, range, step, def_val);
+        p.set_id(self.items.len());
+        self.items.push(Arc::new(p));
+    }
+
+    /// Add a Float32 SpinBox to the sheet.
+    pub fn spin_box_f32(&mut self, name: &'static str, range: (f32, f32), step: f32, def_val: f32) {
+        let p = PropertyF32::with_spin_box(name, range, step, def_val);
+        p.set_id(self.items.len());
+        self.items.push(Arc::new(p));
+    }
+
+    /// Add a Float64 SpinBox to the sheet.
+    pub fn spin_box_f64(&mut self, name: &'static str, range: (f64, f64), step: f64, def_val: f64) {
+        let p = PropertyF64::with_spin_box(name, range, step, def_val);
+        p.set_id(self.items.len());
+        self.items.push(Arc::new(p));
+    }
+
+    /// Add a Integer32 SpinBox to the sheet.
+    pub fn spin_box_i32(&mut self, name: &'static str, range: (i32, i32), step: i32, def_val: i32) {
+        let p = PropertyI32::with_spin_box(name, range, step, def_val);
+        p.set_id(self.items.len());
+        self.items.push(Arc::new(p));
+    }
+
+    /// Add a Integer64 SpinBox to the sheet.
+    pub fn spin_box_i64(&mut self, name: &'static str, range: (i64, i64), step: i64, def_val: i64) {
+        let p = PropertyI64::with_spin_box(name, range, step, def_val);
+        p.set_id(self.items.len());
+        self.items.push(Arc::new(p));
+    }
+
     /// Add a Boolean Switch to the sheet.
     pub fn switch(&mut self, name: &'static str, def_val: bool) {
         let p = PropertyBool::with_switch(name, def_val);
@@ -2030,6 +2123,54 @@ impl PropertyPresenter {
         }
     }
 
+    /// Present a property with float spin box.
+    pub fn present_spin_box_f32(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        self.layout4(ctx, p, |ctx, p| {
+            let ap = p.as_property_f32().unwrap();
+            // let (min, max) = ap.range();
+            let text = format!("{:.3}", ap.value());
+            if ap.is_selected() {
+                ctx.label_colored(
+                    text.into(),
+                    FlagsBuilder::align().centered().middle().into(),
+                    ctx.style().text().color.inverted(),
+                );
+            } else {
+                ctx.label(text.into(), FlagsBuilder::align().centered().middle().into());
+            }
+        });
+    }
+
+    /// Present a property with integer spin box.
+    pub fn present_spin_box_i32(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        self.layout4(ctx, p, |ctx, p| {
+            let ap = p.as_property_i32().unwrap();
+            let text = format!("{}", ap.value());
+            if ap.is_selected() {
+                ctx.label_colored(
+                    text.into(),
+                    FlagsBuilder::align().centered().middle().into(),
+                    ctx.style().text().color.inverted(),
+                );
+            } else {
+                ctx.label(text.into(), FlagsBuilder::align().centered().middle().into());
+            }
+        });
+    }
+
+    /// Present a property with spin box.
+    pub fn present_spin_box(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+        match p.value_type() {
+            ValueType::F32 => {
+                self.present_spin_box_f32(ctx, p);
+            }
+            ValueType::I32 => {
+                self.present_spin_box_i32(ctx, p);
+            }
+            _ => {}
+        }
+    }
+
     /// Present a property with switch.
     pub fn present_switch(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
         self.layout4(ctx, p, |ctx, p| {
@@ -2074,6 +2215,9 @@ impl PropertyPresenter {
             }
             WidgetType::Slider => {
                 self.present_slider(ctx, p);
+            }
+            WidgetType::SpinBox => {
+                self.present_spin_box(ctx, p);
             }
             WidgetType::Switch => {
                 self.present_switch(ctx, p);
@@ -2169,6 +2313,7 @@ pub enum WidgetType {
     Select,
     Separator,
     Slider,
+    SpinBox,
     Switch,
     TextBox,
 }
