@@ -1706,16 +1706,16 @@ impl PropertySheetInputCtrl {
     /// Processing Input Events.
     pub fn process(self, ctx: &Context, ps: &mut PropertySheet) {
         let input = ctx.input();
-        if input.is_key_down(Key::Enter) {
+        if input.is_key_pressed(Key::Enter) {
             // FIXME:
         }
-        if input.is_key_down(Key::Up) {
+        if input.is_key_pressed(Key::Up) {
             ps.select_prev_wrapped();
         }
-        if input.is_key_down(Key::Down) {
+        if input.is_key_pressed(Key::Down) {
             ps.select_next_wrapped();
         }
-        if input.is_key_down(Key::Left) {
+        if input.is_key_pressed(Key::Left) {
             if let Some(p) = ps.current_selected() {
                 match p.value_type() {
                     ValueType::Action => {
@@ -1749,7 +1749,7 @@ impl PropertySheetInputCtrl {
                 }
             }
         }
-        if input.is_key_down(Key::Right) {
+        if input.is_key_pressed(Key::Right) {
             if let Some(p) = ps.current_selected() {
                 match p.value_type() {
                     ValueType::Action => {
