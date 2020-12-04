@@ -2124,7 +2124,11 @@ impl PropertyPresenter {
     }
 
     /// Present a property with float spin box.
-    pub fn present_spin_box_f32(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+    pub fn present_spin_box_f32(
+        self,
+        ctx: &'_ mut Context,
+        p: &'_ Arc<dyn Property + Send + Sync>,
+    ) {
         self.layout4(ctx, p, |ctx, p| {
             let ap = p.as_property_f32().unwrap();
             // let (min, max) = ap.range();
@@ -2136,13 +2140,20 @@ impl PropertyPresenter {
                     ctx.style().text().color.inverted(),
                 );
             } else {
-                ctx.label(text.into(), FlagsBuilder::align().centered().middle().into());
+                ctx.label(
+                    text.into(),
+                    FlagsBuilder::align().centered().middle().into(),
+                );
             }
         });
     }
 
     /// Present a property with integer spin box.
-    pub fn present_spin_box_i32(self, ctx: &'_ mut Context, p: &'_ Arc<dyn Property + Send + Sync>) {
+    pub fn present_spin_box_i32(
+        self,
+        ctx: &'_ mut Context,
+        p: &'_ Arc<dyn Property + Send + Sync>,
+    ) {
         self.layout4(ctx, p, |ctx, p| {
             let ap = p.as_property_i32().unwrap();
             let text = format!("{}", ap.value());
@@ -2153,7 +2164,10 @@ impl PropertyPresenter {
                     ctx.style().text().color.inverted(),
                 );
             } else {
-                ctx.label(text.into(), FlagsBuilder::align().centered().middle().into());
+                ctx.label(
+                    text.into(),
+                    FlagsBuilder::align().centered().middle().into(),
+                );
             }
         });
     }
