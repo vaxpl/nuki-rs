@@ -2342,7 +2342,7 @@ impl Default for WidgetType {
 mod tests {
     use super::*;
     use std::ops::Deref;
-    use std::sync::{Mutex, RwLock};
+    use std::sync::RwLock;
 
     #[test]
     fn test_property_sheet() {
@@ -2351,7 +2351,7 @@ mod tests {
         let triggerd = Arc::new(RefCell::new(
             move |prop: &dyn Property, checked: bool| -> bool {
                 assert!(cloned.read().unwrap().len() > 0);
-                assert!(prop.name().len() > 0);
+                assert!(!prop.name().is_empty());
                 checked
             },
         ));
@@ -2367,10 +2367,10 @@ mod tests {
             ps.text_box("TextBox", 128, "Okay");
         }
         for p in ps.read().unwrap().iter() {
-            assert!(p.name().len() > 0);
+            assert!(!p.name().is_empty());
             assert!(p.value_type() != ValueType::Unknown);
             assert!(p.widget_type() != WidgetType::Unknown);
-            assert!(p.is_visible() == true);
+            assert!(p.is_visible());
         }
         for p in ps
             .read()
@@ -2378,7 +2378,7 @@ mod tests {
             .iter()
             .filter(|x| x.value_type() == ValueType::Bool)
         {
-            assert!(p.name().len() > 0);
+            assert!(!p.name().is_empty());
             assert!(p.value_type() == ValueType::Bool);
         }
         for p in ps
@@ -2387,7 +2387,7 @@ mod tests {
             .iter()
             .filter(|x| x.value_type() == ValueType::F32)
         {
-            assert!(p.name().len() > 0);
+            assert!(!p.name().is_empty());
             assert!(p.value_type() == ValueType::F32);
         }
         let cloned = Arc::clone(&ps);
@@ -2404,7 +2404,7 @@ mod tests {
                 if let Some(p) = ps.get(3) {
                     let fp = p.as_property_f32();
                     fp.unwrap().set_value(0.123456);
-                    assert_eq!(fp.unwrap().value(), 0.123456);
+                    assert!((fp.unwrap().value() - 0.123456).abs() < std::f32::EPSILON);
                 }
                 if let Some(p) = ps.get(7) {
                     let fp = p.as_property_bool();

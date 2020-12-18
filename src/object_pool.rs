@@ -280,6 +280,7 @@ mod tests {
             &self.base
         }
 
+        #[allow(dead_code)]
         fn base_mut(&mut self) -> &mut PoolObjectBase {
             &mut self.base
         }
@@ -296,6 +297,7 @@ mod tests {
             &self.base
         }
 
+        #[allow(dead_code)]
         fn base_mut(&mut self) -> &mut PoolObjectBase {
             &mut self.base
         }
@@ -307,10 +309,10 @@ mod tests {
 
         loop {
             match pool.alloc::<ObjectFoo>(None) {
-                Some(foo) => {
-                    assert_eq!(foo.base().pool_object_type(), ObjectType::Foo as usize);
+                Some(obj) => {
+                    assert_eq!(obj.base().pool_object_type(), ObjectType::Foo as usize);
                     assert_eq!(
-                        foo.base().pool_object_size(),
+                        obj.base().pool_object_size(),
                         std::mem::size_of::<ObjectFoo>()
                     );
                 }
@@ -345,7 +347,9 @@ mod tests {
                     assert_eq!(o.pool_object_type(), t.base().pool_object_type());
                     assert_eq!(o.pool_object_size(), t.base().pool_object_size());
                 }
-                _ => {}
+                _ => {
+                    println!("Unsupported {} yet", o.pool_object_type());
+                }
             }
         }
     }

@@ -30,7 +30,6 @@ use std::fs::File;
 use std::io::Read;
 use std::os::raw::*;
 use std::path::Path;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
 use nuki_sys::*;
 
@@ -8230,9 +8229,4 @@ pub fn font_cyrillic_glyph_ranges<'a>() -> &'a [(u32, u32)] {
 
 pub fn font_korean_glyph_ranges<'a>() -> &'a [(u32, u32)] {
     unsafe { raw_glyph_ranges_to_safe(nk_font_korean_glyph_ranges()) }
-}
-
-fn make_uid() -> usize {
-    static COUNTER: AtomicUsize = AtomicUsize::new(0);
-    COUNTER.fetch_add(1, Ordering::Relaxed)
 }
