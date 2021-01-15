@@ -19,8 +19,8 @@ use input_device::{
 mod alloc_heap;
 mod alloc_vec;
 
+pub mod compr;
 pub mod object_pool;
-pub mod property_sheet;
 
 use std::borrow::Cow;
 use std::convert::TryFrom;

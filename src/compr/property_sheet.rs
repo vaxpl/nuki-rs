@@ -10,7 +10,7 @@ use crate::{
     SymbolType, Vec2,
 };
 
-/// Property.
+/// A trait to represent a generic property.
 pub trait Property {
     /// Returns the `id` of the property.
     fn id(&self) -> usize {
@@ -282,7 +282,7 @@ impl Debug for dyn Property + Send + Sync {
     }
 }
 
-/// Property Base Attributes.
+/// The base attributes of a property.
 #[derive(Clone, Debug, Default)]
 pub struct PropertyBase {
     id: Cell<usize>,
@@ -501,7 +501,7 @@ macro_rules! wrap_property_base {
 
 type ActionCallback = dyn FnMut(&dyn Property, bool) -> bool + 'static;
 
-/// Action Property.
+/// An action typed property.
 pub struct PropertyAction {
     base: PropertyBase,
     checked: Cell<bool>,
@@ -582,7 +582,7 @@ impl PropertyAction {
     }
 }
 
-/// Bool Property.
+/// A boolean typed property.
 pub struct PropertyBool {
     base: PropertyBase,
     def_val: bool,
@@ -669,7 +669,7 @@ impl PropertyBool {
     }
 }
 
-/// Numberic Property.
+/// A trait to represent a numberic property.
 pub trait PropertyNumber<T>: Property {
     /// Returns the min/max range of the property value.
     fn range(&self) -> (T, T);
@@ -727,7 +727,7 @@ impl Debug for dyn PropertyNumber<f64> {
     }
 }
 
-/// Float32 Property.
+/// A 32-bit float point typed property.
 #[derive(Debug)]
 pub struct PropertyF32 {
     base: PropertyBase,
@@ -835,7 +835,7 @@ impl PropertyF32 {
     }
 }
 
-/// Float64 Property.
+/// A 64-bit float point typed property.
 #[derive(Debug)]
 pub struct PropertyF64 {
     base: PropertyBase,
@@ -943,7 +943,7 @@ impl PropertyF64 {
     }
 }
 
-/// Integer32 Property.
+/// A 32-bit signed integer typed property.
 #[derive(Debug)]
 pub struct PropertyI32 {
     base: PropertyBase,
@@ -1083,7 +1083,7 @@ impl PropertyI32 {
     }
 }
 
-/// Integer64 Property.
+/// A 64-bit signed integer typed property.
 #[derive(Debug)]
 pub struct PropertyI64 {
     base: PropertyBase,
@@ -1223,7 +1223,7 @@ impl PropertyI64 {
     }
 }
 
-/// Dummy Property.
+/// A dummy typed property.
 pub struct PropertyDummy {
     base: PropertyBase,
 }
@@ -1263,7 +1263,7 @@ impl PropertyDummy {
     }
 }
 
-/// String Property.
+/// A string typed property.
 pub struct PropertyString {
     base: PropertyBase,
     max_length: usize,
@@ -1368,7 +1368,7 @@ impl PropertyString {
 
 type PropertyItem = Arc<dyn Property + Send + Sync>;
 
-/// Property Sheet.
+/// A collection with variant of properties.
 #[derive(Default)]
 pub struct PropertySheet {
     items: Vec<PropertyItem>,
@@ -1780,7 +1780,18 @@ impl PropertySheet {
     }
 }
 
-/// PropertySheet Input Controller.
+/// A property sheet input controller.
+///
+/// # Examples
+///
+/// ```no_run
+/// if nk_ctx.begin(...) {
+///     PropertySheetInputCtrl::new().process(&nk_ctx, &mut ps);
+///     // Do the present after state changed by input controll, eg:
+///     // PropertySheetPresenter::new(32.0).present(&mut nk_ctx, &ps);
+/// }
+/// nk_ctx.end();
+/// ```
 #[derive(Debug)]
 pub struct PropertySheetInputCtrl;
 
@@ -1967,12 +1978,12 @@ impl PropertyLayout {
     }
 
     /// Layout complete.
-    pub fn finish<'a>(&mut self, ctx: &'a mut Context) {
+    pub fn finish(&mut self, ctx: &mut Context) {
         ctx.layout_space_end();
     }
 }
 
-/// Property presenter.
+/// A property presenter.
 pub struct PropertyPresenter {
     height: f32,
     arrow_styles: [StyleButton; 2],
@@ -2241,6 +2252,18 @@ impl PropertyPresenter {
     }
 }
 
+/// A property sheet presenter.
+///
+/// # Examples
+///
+/// ```no_run
+/// if nk_ctx.begin(...) {
+///     // Do the input controll before present, eg:
+///     // PropertySheetInputCtrl::new().process(&nk_ctx, &mut ps);
+///     PropertySheetPresenter::new(32.0).present(&mut nk_ctx, &ps);
+/// }
+/// nk_ctx.end();
+/// ```
 #[derive(Debug)]
 pub struct PropertySheetPresenter {
     row_height: f32,
@@ -2253,6 +2276,7 @@ impl Default for PropertySheetPresenter {
 }
 
 impl PropertySheetPresenter {
+    /// Construct a property presenter with specified `row_height`.
     pub fn new(row_height: f32) -> Self {
         Self { row_height }
     }
@@ -2278,6 +2302,7 @@ impl PropertySheetPresenter {
         }
     }
 
+    /// Present all items of the property sheet in `ctx`.
     pub fn present(self, ctx: &'_ mut Context, ps: &'_ PropertySheet) {
         // Save current window states
         let spacing = *ctx.style().window().spacing();
@@ -2297,7 +2322,7 @@ impl PropertySheetPresenter {
     }
 }
 
-/// The Type of the Property Value.
+/// The type of the value within a property.
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum ValueType {
     Unknown,
@@ -2317,7 +2342,7 @@ impl Default for ValueType {
     }
 }
 
-/// The Type of the Widget to rendering the Property Value.
+/// The type of the widget to rendering a property.
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum WidgetType {
     Unknown,
