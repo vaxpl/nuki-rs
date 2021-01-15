@@ -1784,7 +1784,7 @@ impl PropertySheet {
 ///
 /// # Examples
 ///
-/// ```no_run
+/// ```ignore
 /// if nk_ctx.begin(...) {
 ///     PropertySheetInputCtrl::new().process(&nk_ctx, &mut ps);
 ///     // Do the present after state changed by input controll, eg:
@@ -2256,7 +2256,7 @@ impl PropertyPresenter {
 ///
 /// # Examples
 ///
-/// ```no_run
+/// ```ignore
 /// if nk_ctx.begin(...) {
 ///     // Do the input controll before present, eg:
 ///     // PropertySheetInputCtrl::new().process(&nk_ctx, &mut ps);

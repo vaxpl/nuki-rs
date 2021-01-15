@@ -8,7 +8,7 @@
 //!
 //! A collection with variant of properties.
 //!
-//! ```rust,no_run
+//! ```ignore
 //! use nuki::compr::{Property, PropertySheet, PropertySheetInputCtrl, PropertySheetPresenter};
 //!
 //! // Setup
