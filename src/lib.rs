@@ -839,6 +839,15 @@ impl<'a> From<::std::string::String> for String<'a> {
     }
 }
 
+impl<'a> From<&'a ::std::ffi::OsString> for String<'a> {
+    fn from(value: &'a ::std::ffi::OsString) -> String<'a> {
+        match value.to_str() {
+            Some(s) => String::from(s),
+            _ => String::from(""),
+        }
+    }
+}
+
 #[macro_export]
 macro_rules! nk_string {
     ($e:tt) => ({
