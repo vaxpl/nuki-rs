@@ -1,8 +1,43 @@
 //! Composited Presenters
 //!
 //! The composited presenters, currently supports:
+//! * [`FileList`] - A list of disk files, Usually used to build file browsers.
 //! * [`PropertySheet`] - A collection with variant of properties,
 //!   Usually used to build some settings or preferences panels.
+//!
+//! # FileList
+//!
+//! A list of disk files.
+//!
+//! ```ignore
+//! use nuki::compr::{FileInfo, FileList, FileListInputCtrl, FileListPresenter};
+//!
+//! // Setup
+//!
+//! // List "*.so" files in "/usr/lib".
+//! let mut fl = FileList::new("/usr/lib", "so");
+//!
+//! // Rendering
+//! if nk_ctx.begin(
+//!     nuki::nk_string!("Hello, FileList!"),
+//!     nuki::Rect {
+//!         x: 200f32,
+//!         y: 200f32,
+//!         w: 480f32,
+//!         h: 480f32,
+//!     },
+//!     nuki::FlagsBuilder::panel().border().title().into(),
+//! ) {
+//!     FileListInputCtrl::new().process(&nk_ctx, &mut fl);
+//!     FileListPresenter::new(32.0).present(&mut nk_ctx, &fl);
+//! }
+//! nk_ctx.end();
+//!
+//! // Processing selected file.
+//! if let Some(f) = fl.selected_file() {
+//!     // Do something if you want
+//! }
+//! ```
 //!
 //! # PropertySheet
 //!
@@ -44,6 +79,9 @@
 //! }
 //! nk_ctx.end();
 //! ```
+
+mod file_list;
+pub use file_list::*;
 
 mod property_sheet;
 pub use property_sheet::*;
