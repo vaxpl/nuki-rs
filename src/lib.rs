@@ -728,6 +728,14 @@ impl<'a> String<'a> {
         self.bytes.as_ptr() as *const c_char
     }
 
+    pub fn len(&self) -> c_int {
+        if self.bytes.len() > 0 {
+            (self.bytes.len() - 1) as c_int
+        } else {
+            0
+        }
+    }
+
     // pub fn nk_str_init(arg1: *mut nk_str, arg2: *const nk_allocator,
     // size: nk_size);
     // pub fn nk_str_init_fixed(arg1: *mut nk_str,
