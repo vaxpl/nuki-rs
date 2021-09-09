@@ -112,30 +112,30 @@ impl FileList {
     /// Mark `prev` file as `selected`.
     pub fn select_prev(&mut self) {
         if self.selected > 0 {
-            self.selected -= 1;
+            self.selected = self.selected.saturating_sub(1);
         }
     }
 
     /// Mark `prev` file as `selected`, wrap to `last` file when current at `first` file.
     pub fn select_prev_wrapped(&mut self) {
         if self.selected == 0 {
-            self.selected = self.len() - 1;
+            self.selected = self.len().saturating_sub(1);
         } else {
-            self.selected -= 1;
+            self.selected = self.selected.saturating_sub(1);
         }
     }
 
     /// Mark next file as `selected`.
     pub fn select_next(&mut self) {
-        self.selected += 1;
+        self.selected = self.selected.saturating_add(1);
         if self.selected >= self.len() {
-            self.selected = self.len() - 1;
+            self.selected = self.len().saturating_sub(1);
         }
     }
 
     /// Mark next file as `selected`, wrap to `first` file when current at `last` file.
     pub fn select_next_wrapped(&mut self) {
-        self.selected += 1;
+        self.selected = self.selected.saturating_add(1);
         if self.selected >= self.len() {
             self.selected = 0;
         }
